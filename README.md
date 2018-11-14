@@ -1,12 +1,12 @@
 # H517Project2
-Final project for Dr. Khairi Reda, H517: Visualization Design, Analysis, & Evaluation, Fall 2018, IUPUI
-By Carl Klutzke, Sarah Nikkhah, and Hawra Rabaan
+Final project for Dr. Khairi Reda, H517: Visualization Design, Analysis, & Evaluation, Fall 2018, IUPUI  
+By Carl Klutzke, Sarah Nikkhah, and Hawra Rabaan  
 http://vis.ninja/teaching/2018/H517/project2/
 
 
 
 
-TODO:
+#### TODO:
 Find more appropriate fonts.
 
 Finish filling out the About page.
