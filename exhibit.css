@@ -1,0 +1,28 @@
+
+.pagetitle {
+	color: steelblue;
+	font-family: 'Alice', serif;
+	font-size: 30px;
+}
+
+.pagesubtitle {
+	color: black;
+	font-family: 'Alice', serif;
+	font-size: 15x;
+	font-weight: bold;
+}
+
+.pagetext {
+	
+}
+
+.pagebutton {
+	background-color: steelblue;
+	color: white;
+	font-family: 'Arial';
+	font-size: 15px;
+	padding: 8px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}

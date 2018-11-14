@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>ckixd - Outdoor Exhibit Survey - About</title>
+	<link type="text/css" rel="stylesheet" href="exhibit.css"/>
+	<style>
+	</style>
+</head>
+<body>
+	<div style='max-width: 1000px'>
+		<div class="pagetitle" style="float: left;">Outdoor Exhibit Survey</div>
+		<div style="float: right;">
+			<form>
+				<input class="pagebutton" type="button" value="Back"
+				onclick="window.location.href='index.html'" />
+			</form>
+		</div>
+		<br/>
+		<br/>
+		<div class="pagesubtitle">About this project</div>
+		<div class="pagetext">
+			<p>
+				This data visualization was created by Carl Klutzke, Sarah Nikkhah, and Hawra Rabaan as our final project for H517: "Visualization Design, Analysis, & Evaluation" at IUPUI in Fall 2018, taught by Dr. Khairi Reda. The purpose of the assignment was [TODO:]
+			</p>
+			<p>
+				To complete this assignment, we had to overcome the following challenges:
+				<ul>
+					<li>We had [TODO: how long?] to complete the project.</li>
+					<li>This was our second project with the D3 library.</li>
+					<li>TODO: What else?</li>
+				</ul>
+			</p>
+			<p>
+				The source for this project is available on GitHub as TODO.
+			</p>
+		</div>
+		<div class="pagesubtitle">Design Process</div>
+		<div class="pagetext">
+			<p>
+				TODO: update this section
+			</p>
+			<p>
+				I developed the visualization iteratively. I started by rendering the map, the pumps, and the death locations as the minimum viable product. The instructor provided a detailed rubric for how the project would be graded, and I added the graph and other features one by one according to those requirements and as my time and expertise allowed.
+			</p>
+			<p>
+				I estimated the placement of the street and building labels by temporarily 	adding an onclick event to the map. This logged the location of each click for a starting estimate of the label placement. Afterward I commented out the event.
+			</p>
+			<p>
+				The X scale of the graph was initially separate from an X rangeband scale that I used to draw the gray hoverbars. However, I couldn't get the bars to center over the drawn datapoints, probably due to rounding. I finally figured out how to use the same X scale to place the hoverbars, which makes much more sense than trying to keep parallel scales in synch.
+			</p>
+			<p>
+				I asked two subjects to provide user testing for the visualization. I simply presented them with the web page and ask them to interact with it. The resulting observations helped me improve the display and clarify the accompanying text.
+			</p>
+			<p>
+				One of the user test observations was that it is difficult to tell the different shades of green on the By Age graph apart. I experimented with different color schemes, but none of the alternatives seemed to be more clear. Categorical color sets of six colors were not colorblind-safe, and didn't convey a sense of increasing age. Diverging colorsets used pale colors in the mid-range, which weren't visible against the white background. In the end I decided that my initial green shading was as adequate a solution as I was likely to find.
+			</p>
+		</div>
+		<div class="pagesubtitle">Findings</div>
+		<div class="pagetext">
+			<p>
+				TODO: update this section
+			</p>
+		</div>
+	</div>
+</body>
+
+
+</html>
