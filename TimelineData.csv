@@ -1,0 +1,27 @@
+Date,Day,HighTemp,LowTemp,PrecipInches,Condition10amTo8pm
+2018-05-03,Thu,76,65,0.61,Thunderstorms
+2018-05-06,Sun,82,51,0.31,Thunderstorms
+2018-05-26,Sat,88,70,0,Thunderstorms
+2018-05-31,Thu,89,71,0.02,Thunderstorms
+2018-06-01,Fri,88,70,0.01,Rain
+2018-06-02,Sat,88,62,0,Mostly Sunny
+2018-06-08,Fri,92,71,0.07,Thunderstorms
+2018-06-09,Sat,90,68,0.02,Thunderstorms
+2018-06-13,Wed,87,66,0.07,Thunderstorms
+2018-06-14,Thu,85,55,0,Clear
+2018-06-15,Fri,90,66,0,Mostly Sunny
+2018-06-16,Sat,93,70,0,Clear
+2018-06-22,Fri,79,66,0.03,Thunderstorms
+2018-06-23,Sat,75,66,0,Mostly Cloudy
+2018-06-27,Wed,83,69,0,Partly Sunny
+2018-07-08,Sun,88,59,0,Clear
+2018-07-11,Wed,87,69,0,Mostly Sunny
+2018-07-12,Thu,87,64,0,Clear
+2018-07-13,Fri,90,64,0,Clear
+2018-07-14,Sat,91,69,0,Clear
+2018-07-19,Thu,87,64,0,Mostly Sunny
+2018-07-20,Fri,90,71,0.13,Thunderstorms
+2018-07-24,Tue,85,66,0,Partly Cloudy
+2018-07-25,Wed,86,68,0,Mostly Sunny
+2018-07-26,Thu,86,65,0.02,Rain
+2018-07-28,Sat,81,61,0,Clear
