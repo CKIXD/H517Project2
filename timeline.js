@@ -3,13 +3,14 @@
 const TL_HEIGHT = 500;
 const TL_WIDTH = 1000; // TODO: How do I resize this dynamically? Do I need to create a viewport?
 const TL_LEFTMARGIN = 50;
-const TL_ROWHEIGHT = 25;
+const TL_ROWHEIGHT = 25; // TODO: Make sure this is appropriate to selected font and weather icons.
 
 // Declare global variables for this module.
 let tlXScale = d3.scale.linear();
 let tlYScale = d3.scale.linear();
 
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
+// TODO: Style the text
 function drawTimeline() {
 	// Create the SVG
 	timeline = d3.select("body")
@@ -22,11 +23,17 @@ function drawTimeline() {
 	d3.csv("TimelineData.csv", function(data) {
 		timelineDays = data;
 		
+		// TODO: Draw the left margin labels.
+		
+		// Setting up scales.
+		// See https://www.safaribooksonline.com/library/view/interactive-data-visualization/9781449340223/ch07.html
 		tlXScale.domain([0, timelineDays.length-1])
 			.range([TL_LEFTMARGIN, TL_WIDTH - TL_LEFTMARGIN]);
 		tlYScale.domain([0, 100])
 			.range([14 * TL_ROWHEIGHT, 3 * TL_ROWHEIGHT])
 			
+		// Setting up Y axis.
+		// See https://www.oreilly.com/library/view/interactive-data-visualization/9781449340223/ch08.html
 		let yAxis = d3.svg.axis()
 			.scale(tlYScale)
 			.orient('left');
@@ -35,13 +42,99 @@ function drawTimeline() {
 			.attr('transform', 'translate(' + TL_LEFTMARGIN + ',0)')
 			.call(yAxis);
 		// TODO: Can I make the tick labels show "%"?
-
+		
 		// For each date of the survey:
-			// TODO: Draw the weather
-			// TODO: Display the temp
-			// TODO: Display the day of the week
-			// TODO: Display the date
-			// TODO: Display a selection checkbox
+		for (let i=0; i < timelineDays.length; i++) {
+			// TODO: Center the text and icons in each column.
+			
+			// Show the weather
+			// TODO: Use icons rather than text.
+			timeline.append("text")
+				.text(function(d) {
+					return timelineDays[i].Condition10amTo8pm.substring(0,3);
+				})
+				.attr("x", tlXScale(i))
+				.attr("y", 1 * TL_ROWHEIGHT)
+				;
+				
+			// Show the High Temp
+			timeline.append("text")
+				.text(function(d) {
+					return timelineDays[i].HighTemp;
+				})
+				.attr("x", tlXScale(i))
+				.attr("y", 3 * TL_ROWHEIGHT)
+				;
+				
+			// Show the Day of the Week
+			timeline.append("text")
+				.text(function(d) {
+					return timelineDays[i].Day;
+				})
+				.attr("x", tlXScale(i))
+				.attr("y", 16 * TL_ROWHEIGHT)
+				;
+				
+			// Show the Date
+			timeline.append("text")
+				.text(function(d) {
+					return timelineDays[i].Date.substring(8,10);
+				})
+				.attr("x", tlXScale(i))
+				.attr("y", 17 * TL_ROWHEIGHT)
+				;
+				
+			// Show the Month
+			// TODO: Group the columns together by month, like in the mockup.
+			timeline.append("text")
+				.text(function(d) {
+					return timelineDays[i].Date.substring(5,7);
+				})
+				.attr("x", tlXScale(i))
+				.attr("y", 18 * TL_ROWHEIGHT)
+				;
+				
+			// TODO: Create a selection checkbox.
+			
+			// TODO: Create a highlight hoverbar?
+		}
+
+		/*
+					// Create hover bars
+			let hoverbarWidth = graphWidth / (deathDays.length - 1);
+
+			graph.selectAll("rect.deathhoverbar")
+				.data(deathDays)
+				.enter()
+				.append("rect")
+				.attr("x", function(d, i) {
+					return graphXScale(i) - hoverbarWidth / 2;
+				})
+				.attr("y", padding)
+				.attr('width', hoverbarWidth)
+				.attr("height", graphHeight - padding * 2)
+				.attr("fill", "black")
+				.attr("fill-opacity", "0")
+				.attr("stroke", "none")
+				.attr("stroke-width", "0")
+				.attr("id", function(d) { return d.deathdate; })
+				.attr("class", "deathhoverbar")
+				.on("mouseover", function(d) {
+					d3.selectAll('.death')
+						.filter(function(d2) {
+							return d2.deathday > d.day;
+						})
+						.attr('visibility','hidden');
+				})
+				.on("mouseout", function(d) {
+					map.selectAll(".death").attr("visibility","visible");
+				})
+				.append("title")
+				.text(function(d) {
+					return d.deathdate + ": " + d.total + 
+						(d.total==1 ? " death" : " deaths");
+				});
+		*/
 			
 		// TODO: Draw the month bars
 
@@ -137,40 +230,6 @@ function drawDeathsGraphLines() {
 // Draw the overall structure of the graph.
 function drawDeathsGraph() {
 
-	// Create hover bars
-	let hoverbarWidth = graphWidth / (deathDays.length - 1);
-
-	graph.selectAll("rect.deathhoverbar")
-		.data(deathDays)
-		.enter()
-		.append("rect")
-		.attr("x", function(d, i) {
-			return graphXScale(i) - hoverbarWidth / 2;
-		})
-		.attr("y", padding)
-		.attr('width', hoverbarWidth)
-		.attr("height", graphHeight - padding * 2)
-		.attr("fill", "black")
-		.attr("fill-opacity", "0")
-		.attr("stroke", "none")
-		.attr("stroke-width", "0")
-		.attr("id", function(d) { return d.deathdate; })
-		.attr("class", "deathhoverbar")
-		.on("mouseover", function(d) {
-			d3.selectAll('.death')
-				.filter(function(d2) {
-					return d2.deathday > d.day;
-				})
-				.attr('visibility','hidden');
-		})
-		.on("mouseout", function(d) {
-			map.selectAll(".death").attr("visibility","visible");
-		})
-		.append("title")
-		.text(function(d) {
-			return d.deathdate + ": " + d.total + 
-				(d.total==1 ? " death" : " deaths");
-		});
 		
 	// Draw the buttons.
 	let buttonLabelYAdjust = 5;
