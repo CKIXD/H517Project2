@@ -96,10 +96,13 @@ function drawTimeline() {
 			// TODO: Use icons rather than text.
 			timeline.append("text")
 				.text(function(d) {
-					return timelineDays[i].Condition10amTo8pm.substring(0,3);
+					//return timelineDays[i].Condition10amTo8pm.substring(0,3);
+					// <i class="wi wi-night-sleet"></i>
+					return "\uf01e";
 				})
 				.attr("x", tlXScale(i))
 				.attr("y", 1 * TL_ROWHEIGHT)
+				.attr("class", "weathericon")
 				.attr('text-anchor','middle')
 				;
 				
