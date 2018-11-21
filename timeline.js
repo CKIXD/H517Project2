@@ -1,12 +1,17 @@
 
 // Declare global constants for this module.
 const TL_HEIGHT = 500;
-const TL_WIDTH = 500; // TODO: How do I resize this dynamically? Do I need to create a viewport?
+const TL_WIDTH = 1000; // TODO: How do I resize this dynamically? Do I need to create a viewport?
+const TL_LEFTMARGIN = 50;
+const TL_ROWHEIGHT = 25;
 
 // Declare global variables for this module.
+let tlXScale = d3.scale.linear();
+let tlYScale = d3.scale.linear();
 
+// Draws the static parts of the timeline graph based on the loaded timeline weather data.
 function drawTimeline() {
-	// TODO: Create the SVG
+	// Create the SVG
 	timeline = d3.select("body")
 		.append("svg")
 		.attr("id", "timeline")
@@ -14,63 +19,36 @@ function drawTimeline() {
 		.attr("width", TL_WIDTH)
 		;
 		
-	// just a test
-	let test = timeline.append("circle")
-		.attr("cy", 100)
-		.attr("cx", 100)
-		.attr("r", 50)
-		;
-	
-	// TODO: Draw a rectangle
-
-	// TODO: Set the scale
-		/*
-		let timelineXScale = d3.scale.linear();
-		let timelineYScale = d3.scale.linear();
-		graphXScale.domain([0, deathDays.length-1])
-			.range([padding, graphWidth - padding]);
-		graphYScale.domain([0, maxDeaths])
-			.range([graphHeight - padding, padding]);
-		*/
-
-
-	// TODO: Draw the axes
-		/*
-		let xAxis = d3.svg.axis()
-			.scale(graphXScale)
-			.orient('bottom')
-			.tickFormat(function(d) {
-				return deathDays[d].deathdate;
-			});
-
+	d3.csv("TimelineData.csv", function(data) {
+		timelineDays = data;
+		
+		tlXScale.domain([0, timelineDays.length-1])
+			.range([TL_LEFTMARGIN, TL_WIDTH - TL_LEFTMARGIN]);
+		tlYScale.domain([0, 100])
+			.range([14 * TL_ROWHEIGHT, 3 * TL_ROWHEIGHT])
+			
 		let yAxis = d3.svg.axis()
-			.scale(graphYScale)
+			.scale(tlYScale)
 			.orient('left');
-
-		graph.append('g')
+		timeline.append('g')
 			.attr('class', 'axis')
-			.attr('transform', 'translate(0,' + (graphHeight - padding) + ')')
-			.call(xAxis);
-
-		graph.append('g')
-			.attr('class', 'axis')
-			.attr('transform', 'translate(' + padding + ',0)')
+			.attr('transform', 'translate(' + TL_LEFTMARGIN + ',0)')
 			.call(yAxis);
-		*/
-}
+		// TODO: Can I make the tick labels show "%"?
 
+		// For each date of the survey:
+			// TODO: Draw the weather
+			// TODO: Display the temp
+			// TODO: Display the day of the week
+			// TODO: Display the date
+			// TODO: Display a selection checkbox
+			
+		// TODO: Draw the month bars
 
-
-// For each date of the survey:
-	// TODO: Draw the weather
-	// TODO: Display the temp
-	// TODO: Display the day of the week
-	// TODO: Display the date
-	// TODO: Display a selection checkbox
+		// TODO: Draw the chart line key
+	});
 	
-// TODO: Draw the month bars
-
-// TODO: Draw the chart line key
+}
 
 // Based on the current filters:
 	// TODO: Display n for each date
