@@ -1,7 +1,7 @@
 
 // Declare global constants for this module.
 const TL_HEIGHT = 500;
-const TL_WIDTH = 1000; // TODO: How do I resize this dynamically? Do I need to create a viewport?
+const TL_WIDTH = 1000; // MAYBE: How do I resize this dynamically? Do I need to create a viewport?
 const TL_LEFTMARGIN = 100;
 const TL_ROWHEIGHT = 25; // TODO: Make sure this is appropriate to selected font and weather icons.
 
@@ -21,6 +21,17 @@ function drawTimeline() {
 		;
 		
 	// TODO: Draw the key for the chart lines.
+	
+	// Create a dictionary to map weather condition descriptors to characters
+	let weatherDict = {
+		"Clear": "\uf00d",
+		"Mostly Cloudy": "\uf013",
+		"Mostly Sunny": "\uf00c",
+		"Partly Cloudy": "\uf041",
+		"Partly Sunny": "\uf002",
+		"Rain": "\uf019",
+		"Thunderstorms": "\uf016"
+	};
 			
 	// Load the timeline data and draw the items that depend upon it.
 	d3.csv("TimelineData.csv", function(data) {
@@ -38,37 +49,37 @@ function drawTimeline() {
 		timeline.append("text")
 			.text("High Temp")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 3 * TL_ROWHEIGHT)
+			.attr("y", 2 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
 			.text("n")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 15 * TL_ROWHEIGHT)
+			.attr("y", 14 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
 			.text("Day")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 16 * TL_ROWHEIGHT)
+			.attr("y", 15 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
 			.text("Date")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 17 * TL_ROWHEIGHT)
+			.attr("y", 16 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
 			.text("Month")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 18 * TL_ROWHEIGHT)
+			.attr("y", 17 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
 			.text("Select")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 19 * TL_ROWHEIGHT)
+			.attr("y", 18 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		
@@ -77,7 +88,7 @@ function drawTimeline() {
 		tlXScale.domain([0, timelineDays.length-1])
 			.range([TL_LEFTMARGIN + 0.5 * colWidth, TL_WIDTH - 0.5 * colWidth]);
 		tlYScale.domain([0, 100])
-			.range([14 * TL_ROWHEIGHT, 3.5 * TL_ROWHEIGHT])
+			.range([13 * TL_ROWHEIGHT, 2.5 * TL_ROWHEIGHT])
 			
 		// Setting up Y axis.
 		// See https://www.oreilly.com/library/view/interactive-data-visualization/9781449340223/ch08.html
@@ -93,26 +104,24 @@ function drawTimeline() {
 		// For each date of the survey:
 		for (let i=0; i < timelineDays.length; i++) {
 			// Show the weather
-			// TODO: Use icons rather than text.
 			timeline.append("text")
-				.text(function(d) {
-					//return timelineDays[i].Condition10amTo8pm.substring(0,3);
-					// <i class="wi wi-night-sleet"></i>
-					return "\uf01e";
-				})
+				.text(weatherDict[timelineDays[i].Condition10amTo8pm])
 				.attr("x", tlXScale(i))
 				.attr("y", 1 * TL_ROWHEIGHT)
 				.attr("class", "weathericon")
 				.attr('text-anchor','middle')
+				.append("title")
+				.text(timelineDays[i].Condition10amTo8pm)
 				;
 				
 			// Show the High Temp
+			// MAYBE: Color some or part the column according to this value.
 			timeline.append("text")
 				.text(function(d) {
 					return timelineDays[i].HighTemp;
 				})
 				.attr("x", tlXScale(i))
-				.attr("y", 3 * TL_ROWHEIGHT)
+				.attr("y", 2 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
 				;
 				
@@ -122,7 +131,7 @@ function drawTimeline() {
 					return timelineDays[i].Day;
 				})
 				.attr("x", tlXScale(i))
-				.attr("y", 16 * TL_ROWHEIGHT)
+				.attr("y", 15 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
 				;
 				
@@ -132,7 +141,7 @@ function drawTimeline() {
 					return timelineDays[i].Date.substring(8,10);
 				})
 				.attr("x", tlXScale(i))
-				.attr("y", 17 * TL_ROWHEIGHT)
+				.attr("y", 16 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
 				;
 				
@@ -143,13 +152,13 @@ function drawTimeline() {
 					return timelineDays[i].Date.substring(5,7);
 				})
 				.attr("x", tlXScale(i))
-				.attr("y", 18 * TL_ROWHEIGHT)
+				.attr("y", 17 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
 				;
 				
 			// TODO: Create a selection checkbox.
 			
-			// TODO: Create column highlight hoverbars?
+			// MAYBE: Create column highlight hoverbars?
 		}
 
 	});
