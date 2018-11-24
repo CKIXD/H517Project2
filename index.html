@@ -78,6 +78,7 @@
 		// Declare global variables.
 		let timeline;
 		let timelineDays;
+		let SLE_data;
 		
 		// Create the static parts of the page:
 		drawTimeline();
@@ -96,7 +97,15 @@
 			// TODO: Draw the bars on the outreach bar chart
 		}
 		
-		// TODO: Load the survey data
+		// Load the survey data
+		d3.csv("SurveyData.csv",function(error,d) {
+			if (error) { //If error is not null, something went wrong.
+				console.log(error); //Log the error.
+			} else { //If no error, the file loaded correctly. Yay!
+				SLE_data = d;
+				refreshSurveyData();
+			}
+		});
 				
 	</script>
 </body>
