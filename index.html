@@ -91,7 +91,7 @@
 		
 		// Display the survey data.
 		function refreshSurveyData() {
-			// TODO: Draw the line graphs on the timeline
+			drawTimelineGraphs();
 			// TODO: Fill in the choropleths on the map
 			// TODO: Draw the bars on the age group bar chart
 			// TODO: Draw the bars on the outreach bar chart
@@ -103,6 +103,7 @@
 				console.log(error); //Log the error.
 			} else { //If no error, the file loaded correctly. Yay!
 				SLE_data = d;
+				loadTimelineSurveyData();
 				refreshSurveyData();
 			}
 		});

@@ -165,6 +165,22 @@ function drawTimeline() {
 	
 }
 
-// Based on the current filters:
+function loadTimelineSurveyData() {
+	// TODO: Pre-process the survey data for each date.
+}
+
+function drawTimelineGraphs() {
+	// TODO: Filter the data by selected demographics.
+	
 	// TODO: Display n for each date
-	// TODO: Draw the chart lines
+	
+	// TODO: Draw the line for % came for SLE
+	
+	// TODO: Draw the line for % spent >X minutes outside (default to 30)
+	
+	// TODO: Draw the line for % recommend the SLE to others
+	
+	// TODO: Draw the line for % plan to return to visit the SLE
+	
+	// TODO: Draw the line for % considering / becoming members
+}
