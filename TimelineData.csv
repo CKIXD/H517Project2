@@ -1,4 +1,4 @@
-Date,Day,HighTemp,LowTemp,PrecipInches,Condition10amTo8pm
+TimelineDate,Day,HighTemp,LowTemp,PrecipInches,Condition10amTo8pm
 2018-05-03,Thu,76,65,0.61,Thunderstorms
 2018-05-06,Sun,82,51,0.31,Thunderstorms
 2018-05-26,Sat,88,70,0,Thunderstorms

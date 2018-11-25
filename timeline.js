@@ -8,6 +8,7 @@ const TL_ROWHEIGHT = 25; // TODO: Make sure this is appropriate to selected font
 // Declare global variables for this module.
 let tlXScale = d3.scale.linear();
 let tlYScale = d3.scale.linear();
+let tlSurveyDates = {};
 
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
 // TODO: Style the text
@@ -117,9 +118,7 @@ function drawTimelineStaticParts() {
 			// Show the High Temp
 			// MAYBE: Color some or part the column according to this value.
 			timeline.append("text")
-				.text(function(d) {
-					return timelineDays[i].HighTemp;
-				})
+				.text(timelineDays[i].HighTemp)
 				.attr("x", tlXScale(i))
 				.attr("y", 2 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
@@ -127,9 +126,7 @@ function drawTimelineStaticParts() {
 				
 			// Show the Day of the Week
 			timeline.append("text")
-				.text(function(d) {
-					return timelineDays[i].Day;
-				})
+				.text(timelineDays[i].Day)
 				.attr("x", tlXScale(i))
 				.attr("y", 15 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
@@ -137,9 +134,7 @@ function drawTimelineStaticParts() {
 				
 			// Show the Date
 			timeline.append("text")
-				.text(function(d) {
-					return timelineDays[i].Date.substring(8,10);
-				})
+				.text(timelineDays[i].TimelineDate.substring(8,10))
 				.attr("x", tlXScale(i))
 				.attr("y", 16 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
@@ -148,9 +143,7 @@ function drawTimelineStaticParts() {
 			// Show the Month
 			// TODO: Group the columns together by month, like in the mockup.
 			timeline.append("text")
-				.text(function(d) {
-					return timelineDays[i].Date.substring(5,7);
-				})
+				.text(timelineDays[i].TimelineDate.substring(5,7))
 				.attr("x", tlXScale(i))
 				.attr("y", 17 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
@@ -165,14 +158,35 @@ function drawTimelineStaticParts() {
 	
 }
 
+// Pre-processes the survey data for each date.
 function loadTimelineSurveyData() {
-	// TODO: Pre-process the survey data for each date.
+	let intDate;
+	
+	// Initialize a dictionary to group the survey records by date.
+	for (let i=0; i < timelineDays.length; i++) {
+		intDate = new Date(timelineDays[i].TimelineDate).getTime();
+		timelineDays[i].IntDate = intDate;
+		tlSurveyDates[intDate] = [];
+	}
+	
+	for (let i=0; i < SLE_data.length; i++) {
+		intDate = new Date(SLE_data[i].end_date.substring(0,10)).getTime();
+		tlSurveyDates[intDate].push(SLE_data[i]);
+	}
 }
 
 function drawTimelineGraphs() {
 	// TODO: Filter the data by selected demographics.
 	
-	// TODO: Display n for each date
+	// Display n for each date
+	for (let i=0; i < timelineDays.length; i++) {
+		timeline.append("text")
+			.text(tlSurveyDates[timelineDays[i].IntDate].length)
+			.attr("x", tlXScale(i))
+			.attr("y", 14 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			;
+	}
 	
 	// TODO: Draw the line for % came for SLE
 	
