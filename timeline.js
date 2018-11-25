@@ -176,19 +176,42 @@ function loadTimelineSurveyData() {
 }
 
 function drawTimelineGraphs() {
-	// TODO: Filter the data by selected demographics.
+// TODO: Filter the data by selected demographics.
+let dayRecs;
 	
-	// Display n for each date
 	for (let i=0; i < timelineDays.length; i++) {
+	//for (let i=0; i < 1; i++) {
+		dayRecs = tlSurveyDates[timelineDays[i].IntDate];
+		
+		// Display n for each date
 		timeline.append("text")
-			.text(tlSurveyDates[timelineDays[i].IntDate].length)
+			.text(dayRecs.length)
 			.attr("x", tlXScale(i))
 			.attr("y", 14 * TL_ROWHEIGHT)
 			.attr('text-anchor','middle')
 			;
+			
+		// Calculate the % came for SLE (based on SLE_primary_reason)
+		let SLE_primary_reason_yes = 0;
+		let SLE_primary_reason_responded = 0;
+		for (let j=0; j < dayRecs.length; j++) {
+			//console.log(dayRecs[j].SLE_primary_reason);
+			if (dayRecs[j].SLE_primary_reason != "N/A") {
+				SLE_primary_reason_responded++;
+				if (dayRecs[j].SLE_primary_reason.substring(0,1) == "Y") {
+					SLE_primary_reason_yes++;
+				}
+			}
+		}
+		// TODO: Draw this as a line once we're confident the values are correct.
+		let SLE_primary_reason_percent = Math.round(SLE_primary_reason_yes / SLE_primary_reason_responded * 100);
+		timeline.append("text")
+			.text(SLE_primary_reason_percent)
+			.attr("x", tlXScale(i))
+			.attr("y", 4 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			;
 	}
-	
-	// TODO: Draw the line for % came for SLE
 	
 	// TODO: Draw the line for % spent >X minutes outside (default to 30)
 	
