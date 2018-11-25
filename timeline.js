@@ -118,9 +118,7 @@ function drawTimelineStaticParts() {
 			// Show the High Temp
 			// MAYBE: Color some or part the column according to this value.
 			timeline.append("text")
-				.text(function(d) {
-					return timelineDays[i].HighTemp;
-				})
+				.text(timelineDays[i].HighTemp)
 				.attr("x", tlXScale(i))
 				.attr("y", 2 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
@@ -128,9 +126,7 @@ function drawTimelineStaticParts() {
 				
 			// Show the Day of the Week
 			timeline.append("text")
-				.text(function(d) {
-					return timelineDays[i].Day;
-				})
+				.text(timelineDays[i].Day)
 				.attr("x", tlXScale(i))
 				.attr("y", 15 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
@@ -138,9 +134,7 @@ function drawTimelineStaticParts() {
 				
 			// Show the Date
 			timeline.append("text")
-				.text(function(d) {
-					return timelineDays[i].TimelineDate.substring(8,10);
-				})
+				.text(timelineDays[i].TimelineDate.substring(8,10))
 				.attr("x", tlXScale(i))
 				.attr("y", 16 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
@@ -149,9 +143,7 @@ function drawTimelineStaticParts() {
 			// Show the Month
 			// TODO: Group the columns together by month, like in the mockup.
 			timeline.append("text")
-				.text(function(d) {
-					return timelineDays[i].TimelineDate.substring(5,7);
-				})
+				.text(timelineDays[i].TimelineDate.substring(5,7))
 				.attr("x", tlXScale(i))
 				.attr("y", 17 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
@@ -177,25 +169,24 @@ function loadTimelineSurveyData() {
 		tlSurveyDates[intDate] = [];
 	}
 	
-	for (let i=0; i < 1; i++) {
+	for (let i=0; i < SLE_data.length; i++) {
 		intDate = new Date(SLE_data[i].end_date.substring(0,10)).getTime();
 		tlSurveyDates[intDate].push(SLE_data[i]);
 	}
-	
-	/*
-	let cutoff = 10;
-	let firstDate = timelineDays[20].TimelineDate.substring(0,cutoff);
-	let secondDate = SLE_data[0].end_date.substring(0,cutoff);
-	console.dir(firstDate);
-	console.dir(secondDate);
-	console.log(firstDate == secondDate);
-	*/
 }
 
 function drawTimelineGraphs() {
 	// TODO: Filter the data by selected demographics.
 	
-	// TODO: Display n for each date
+	// Display n for each date
+	for (let i=0; i < timelineDays.length; i++) {
+		timeline.append("text")
+			.text(tlSurveyDates[timelineDays[i].IntDate].length)
+			.attr("x", tlXScale(i))
+			.attr("y", 14 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			;
+	}
 	
 	// TODO: Draw the line for % came for SLE
 	
