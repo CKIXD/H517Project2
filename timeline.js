@@ -11,7 +11,7 @@ let tlYScale = d3.scale.linear();
 
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
 // TODO: Style the text
-function drawTimeline() {
+function drawTimelineStaticParts() {
 	// Create the SVG
 	timeline = d3.select("body")
 		.append("svg")
