@@ -8,6 +8,7 @@ const TL_ROWHEIGHT = 25; // TODO: Make sure this is appropriate to selected font
 // Declare global variables for this module.
 let tlXScale = d3.scale.linear();
 let tlYScale = d3.scale.linear();
+let tlSurveyDates = {};
 
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
 // TODO: Style the text
@@ -138,7 +139,7 @@ function drawTimelineStaticParts() {
 			// Show the Date
 			timeline.append("text")
 				.text(function(d) {
-					return timelineDays[i].Date.substring(8,10);
+					return timelineDays[i].TimelineDate.substring(8,10);
 				})
 				.attr("x", tlXScale(i))
 				.attr("y", 16 * TL_ROWHEIGHT)
@@ -149,7 +150,7 @@ function drawTimelineStaticParts() {
 			// TODO: Group the columns together by month, like in the mockup.
 			timeline.append("text")
 				.text(function(d) {
-					return timelineDays[i].Date.substring(5,7);
+					return timelineDays[i].TimelineDate.substring(5,7);
 				})
 				.attr("x", tlXScale(i))
 				.attr("y", 17 * TL_ROWHEIGHT)
@@ -165,8 +166,30 @@ function drawTimelineStaticParts() {
 	
 }
 
+// Pre-processes the survey data for each date.
 function loadTimelineSurveyData() {
-	// TODO: Pre-process the survey data for each date.
+	let intDate;
+	
+	// Initialize a dictionary to group the survey records by date.
+	for (let i=0; i < timelineDays.length; i++) {
+		intDate = new Date(timelineDays[i].TimelineDate).getTime();
+		timelineDays[i].IntDate = intDate;
+		tlSurveyDates[intDate] = [];
+	}
+	
+	for (let i=0; i < 1; i++) {
+		intDate = new Date(SLE_data[i].end_date.substring(0,10)).getTime();
+		tlSurveyDates[intDate].push(SLE_data[i]);
+	}
+	
+	/*
+	let cutoff = 10;
+	let firstDate = timelineDays[20].TimelineDate.substring(0,cutoff);
+	let secondDate = SLE_data[0].end_date.substring(0,cutoff);
+	console.dir(firstDate);
+	console.dir(secondDate);
+	console.log(firstDate == secondDate);
+	*/
 }
 
 function drawTimelineGraphs() {
