@@ -25,13 +25,14 @@ function drawTimelineStaticParts() {
 	
 	// Create a dictionary to map weather condition descriptors to characters
 	let weatherDict = {
-		"Clear": "\uf00d",
-		"Mostly Cloudy": "\uf013",
-		"Mostly Sunny": "\uf00c",
-		"Partly Cloudy": "\uf041",
-		"Partly Sunny": "\uf002",
-		"Rain": "\uf019",
-		"Thunderstorms": "\uf016"
+		"Fair": "\uf00d",
+		"Partly Cloudy": "\uf002",
+		"Mostly Cloudy": "\uf041",
+		"Cloudy": "\uf013",
+		"Stormy": "\uf016"
+		//"Mostly Sunny": "\uf00c",
+		//"Partly Sunny": "\uf002",
+		//"Rain": "\uf019",
 	};
 			
 	// Load the timeline data and draw the items that depend upon it.
@@ -48,9 +49,15 @@ function drawTimelineStaticParts() {
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
-			.text("High Temp")
+			.text("Temp")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
 			.attr("y", 2 * TL_ROWHEIGHT)
+			.attr('text-anchor','end')
+			;
+		timeline.append("text")
+			.text("Dew Point")
+			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
+			.attr("y", 3 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
@@ -115,12 +122,21 @@ function drawTimelineStaticParts() {
 				.text(timelineDays[i].Condition10amTo8pm)
 				;
 				
-			// Show the High Temp
+			// Show the Avg Temp
 			// MAYBE: Color some or part the column according to this value.
 			timeline.append("text")
-				.text(timelineDays[i].HighTemp)
+				.text(timelineDays[i].AvgTemp)
 				.attr("x", tlXScale(i))
 				.attr("y", 2 * TL_ROWHEIGHT)
+				.attr('text-anchor','middle')
+				;
+				
+			// Show the Avg Dew Point
+			// TODO: Make room for this line, if it seems to show valuable information.
+			timeline.append("text")
+				.text(timelineDays[i].AvgDewPoint)
+				.attr("x", tlXScale(i))
+				.attr("y", 3 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
 				;
 				
@@ -191,19 +207,45 @@ let dayRecs;
 			.attr('text-anchor','middle')
 			;
 			
-		// Calculate the % came for SLE (based on SLE_primary_reason)
-		let SLE_primary_reason_yes = 0;
 		let SLE_primary_reason_responded = 0;
+		let SLE_primary_reason_yes = 0;
+		
+		let outside_time_responded = 0;
+		let outside_time_30 = 0;
+		let outside_time_60 = 0;
+		let outside_time_90 = 0;
+		
 		for (let j=0; j < dayRecs.length; j++) {
-			//console.log(dayRecs[j].SLE_primary_reason);
+			// Gather data for "% came for SLE" (based on SLE_primary_reason)
 			if (dayRecs[j].SLE_primary_reason != "N/A") {
 				SLE_primary_reason_responded++;
 				if (dayRecs[j].SLE_primary_reason.substring(0,1) == "Y") {
 					SLE_primary_reason_yes++;
 				}
 			}
+			
+			// Gather data for "% spent >X minutes outside" (based on outside_time)
+			switch(dayRecs[j].outside_time.substring(0,1)) {
+				case "L":
+					outside_time_responded++;
+					break;
+				case "3":
+					outside_time_responded++;
+					outside_time_30++;
+					break;
+				case "6":
+					outside_time_responded++;
+					outside_time_60++;
+					break;
+				case "M":
+					outside_time_responded++;
+					outside_time_90++;
+					break;
+			}
 		}
-		// TODO: Draw this as a line once we're confident the values are correct.
+		
+		/*
+		TODO: Draw this as a line.
 		let SLE_primary_reason_percent = Math.round(SLE_primary_reason_yes / SLE_primary_reason_responded * 100);
 		timeline.append("text")
 			.text(SLE_primary_reason_percent)
@@ -211,9 +253,31 @@ let dayRecs;
 			.attr("y", 4 * TL_ROWHEIGHT)
 			.attr('text-anchor','middle')
 			;
+		*/
+		
+		// TODO: Draw these as lines once we're confident the values are correct.
+		let outside30 = Math.round((outside_time_30 + outside_time_60 + outside_time_90) / outside_time_responded * 100);
+		timeline.append("text")
+			.text(outside30)
+			.attr("x", tlXScale(i))
+			.attr("y", 6 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			;
+		let outside60 = Math.round((outside_time_60 + outside_time_90) / outside_time_responded * 100);
+		timeline.append("text")
+			.text(outside60)
+			.attr("x", tlXScale(i))
+			.attr("y", 7 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			;
+		let outside90 = Math.round((outside_time_90) / outside_time_responded * 100);
+		timeline.append("text")
+			.text(outside90)
+			.attr("x", tlXScale(i))
+			.attr("y", 8 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			;
 	}
-	
-	// TODO: Draw the line for % spent >X minutes outside (default to 30)
 	
 	// TODO: Draw the line for % recommend the SLE to others
 	
