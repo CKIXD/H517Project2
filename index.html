@@ -78,9 +78,10 @@
 		// Declare global variables.
 		let timeline;
 		let timelineDays;
+		let SLE_data;
 		
 		// Create the static parts of the page:
-		drawTimeline();
+		drawTimelineStaticParts();
 		// TODO: Draw the filter buttons
 		// TODO: Draw the map 
 		// TODO: Draw the age group bar chart frame
@@ -90,13 +91,23 @@
 		
 		// Display the survey data.
 		function refreshSurveyData() {
-			// TODO: Draw the line graphs on the timeline
+			drawTimelineGraphs();
 			// TODO: Fill in the choropleths on the map
 			// TODO: Draw the bars on the age group bar chart
 			// TODO: Draw the bars on the outreach bar chart
 		}
 		
-		// TODO: Load the survey data
+		// Load the survey data
+		d3.csv("SurveyData.csv",function(error,d) {
+			if (error) { //If error is not null, something went wrong.
+				console.log(error); //Log the error.
+			} else { //If no error, the file loaded correctly. Yay!
+				SLE_data = d;
+				console.dir(SLE_data[0]); // TODO: Remove this later - right now it's just here to confirm that the data loaded.
+				loadTimelineSurveyData();
+				refreshSurveyData();
+			}
+		});
 				
 	</script>
 </body>
