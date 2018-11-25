@@ -215,6 +215,9 @@ let dayRecs;
 		let outside_time_60 = 0;
 		let outside_time_90 = 0;
 		
+		let recommendCount = 0;
+		let recommendSum = 0;
+		
 		for (let j=0; j < dayRecs.length; j++) {
 			// Gather data for "% came for SLE" (based on SLE_primary_reason)
 			if (dayRecs[j].SLE_primary_reason != "N/A") {
@@ -242,10 +245,17 @@ let dayRecs;
 					outside_time_90++;
 					break;
 			}
+			
+			// Gather data for "% recommend SLE to others" (based on SLE_primary_reason)
+			if (!isNaN(dayRecs[j].recommend) && dayRecs[j].recommend != "") {
+				recommendCount++;
+				recommendSum += Number(dayRecs[j].recommend);
+			}
+			
 		}
 		
 		/*
-		TODO: Draw this as a line.
+		TODO: Draw SLE_primary_reason_percent as a line.
 		let SLE_primary_reason_percent = Math.round(SLE_primary_reason_yes / SLE_primary_reason_responded * 100);
 		timeline.append("text")
 			.text(SLE_primary_reason_percent)
@@ -255,7 +265,8 @@ let dayRecs;
 			;
 		*/
 		
-		// TODO: Draw these as lines once we're confident the values are correct.
+		/*
+		TODO: Draw outsideX as a set of lines.
 		let outside30 = Math.round((outside_time_30 + outside_time_60 + outside_time_90) / outside_time_responded * 100);
 		timeline.append("text")
 			.text(outside30)
@@ -277,9 +288,20 @@ let dayRecs;
 			.attr("y", 8 * TL_ROWHEIGHT)
 			.attr('text-anchor','middle')
 			;
+		*/
+		
+		/*
+		TODO: Draw recommendPercent as a line.
+		let recommendPercent = Math.round((recommendSum / recommendCount) / 5 * 100);
+		timeline.append("text")
+			.text(recommendPercent)
+			.attr("x", tlXScale(i))
+			.attr("y", 4 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			;
+		*/
+
 	}
-	
-	// TODO: Draw the line for % recommend the SLE to others
 	
 	// TODO: Draw the line for % plan to return to visit the SLE
 	
