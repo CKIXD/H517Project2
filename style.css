@@ -1,0 +1,197 @@
+background{
+    background-image: url("https://i.pinimg.com/originals/82/5e/cd/825ecdb71b9e60890115229b25bceef8.jpg");
+    background-repeat: repeat-x;
+}
+/* 
+ path:hover {
+        fill: orange;
+}
+ */
+body {
+  text-align: center;
+}
+
+div.tooltip { 
+          background-color: pink;
+    	opacity: 0.5;
+          position: absolute;     
+          text-align: center;     
+          width: 80px;          
+          height: 35px;         
+          padding: 0.5px;       
+          font: 10px sans-serif;    
+          border: 0.5px;   
+          border-style: dotted;  
+          border-radius: 5px;   
+          pointer-events: none;     
+      }
+      
+.counties {
+  fill: #4292c6;
+}
+.counties :hover {
+  stroke: #82E0AA;
+}
+
+.county-borders {
+  fill: none;
+  stroke: black;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.feature {
+  fill: #ccc;
+  cursor: pointer;
+}
+.feature.active {
+   stroke: yellow;
+   stroke-width: 2.5px;
+}
+.states{
+	fill: white
+}
+.states :hover {
+  stroke: #82E0AA;
+   stroke-width: 2.5px;
+
+}
+.states.in_IN:hover {
+  fill: #82E0AA;
+
+}
+.states.out_IN{
+
+
+}
+.state-borders {
+  fill: black;
+  stroke: black;
+  stroke-width: 1.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.selected{
+fill: white
+}
+.counties{
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.counties.adjacentCounties{
+fill:  #0d2d48; /** 35% **/
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.counties.adjacentCounties :hover {
+  fill: #82E0AA;
+}
+.mesh {
+  fill: none;
+  stroke: #fff;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.counties.non_metro_indy{
+	/** fill: #13436c;  50% **/
+	fill: #195589;
+
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.counties.marion{
+/**fill:  #061624;  15% **/
+fill: red;
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.IN :hover {
+  stroke: #82E0AA;
+   stroke-width: 2.5px;
+}
+
+
+.MI
+{
+/**fill:  #9ecae1;   70% **/
+fill:#8cb5d8;
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.MI :hover {
+  stroke: #82E0AA;
+   stroke-width: 2.5px;
+}
+.KS{
+fill:  #c6dbef; /** 90% **/
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+ 
+}
+.KS :hover {
+  stroke: #82E0AA;
+   stroke-width: 2.5px;
+}
+.IL{
+fill:  #79a9d2;  /** 65% **/
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.IL :hover {
+  stroke: #82E0AA;
+   stroke-width: 2.5px;
+}
+.OH{
+fill:  #4292c6;
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.OH:hover {
+  stroke: #82E0AA;
+   stroke-width: 2.5px;
+}
+.AZ{
+fill:  #e8f0f7;
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+
+.AZ :hover {
+  stroke: #82E0AA;
+   stroke-width: 2.5px;
+}
+.CA{
+fill: #d2e2f0;
+  stroke: #fff;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+
+}
+.CA :hover {
+  stroke: #82E0AA;
+   stroke-width: 2.5px;
+}
