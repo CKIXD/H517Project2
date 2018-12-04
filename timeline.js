@@ -256,8 +256,16 @@ function drawTimelineGraphs() {
 		
 		timelineDays[i].SLE_primary_reason_percent =
 			Math.round(SLE_primary_reason_yes / SLE_primary_reason_responded * 100);
+		timelineDays[i].outside30 =
+			Math.round((outside_time_30 + outside_time_60 + outside_time_90) / outside_time_responded * 100);
+		timelineDays[i].outside60 =
+			Math.round((outside_time_60 + outside_time_90) / outside_time_responded * 100);
+		timelineDays[i].outside90 =
+			Math.round((outside_time_90) / outside_time_responded * 100);
+		timelineDays[i].recommendPercent =
+			Math.round((recommendSum / recommendCount) / 5 * 100);
 
-		// TEMP: Drawing this during development for comparison to the drawn line.
+		/* Drew these during development for comparison to the drawn line.
 		timeline.append("text")
 			.text(timelineDays[i].SLE_primary_reason_percent)
 			.attr("x", tlXScale(i))
@@ -265,36 +273,27 @@ function drawTimelineGraphs() {
 			.attr('text-anchor','middle')
 			;
 		
-		/*
-		TODO: Draw outsideX as a set of lines.
-		let outside30 = Math.round((outside_time_30 + outside_time_60 + outside_time_90) / outside_time_responded * 100);
 		timeline.append("text")
-			.text(outside30)
+			.text(timelineDays[i].outside30)
+			.attr("x", tlXScale(i))
+			.attr("y", 4 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			;
+		timeline.append("text")
+			.text(timelineDays[i].outside60)
+			.attr("x", tlXScale(i))
+			.attr("y", 5 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			;
+		timeline.append("text")
+			.text(timelineDays[i].outside90)
 			.attr("x", tlXScale(i))
 			.attr("y", 6 * TL_ROWHEIGHT)
 			.attr('text-anchor','middle')
 			;
-		let outside60 = Math.round((outside_time_60 + outside_time_90) / outside_time_responded * 100);
-		timeline.append("text")
-			.text(outside60)
-			.attr("x", tlXScale(i))
-			.attr("y", 7 * TL_ROWHEIGHT)
-			.attr('text-anchor','middle')
-			;
-		let outside90 = Math.round((outside_time_90) / outside_time_responded * 100);
-		timeline.append("text")
-			.text(outside90)
-			.attr("x", tlXScale(i))
-			.attr("y", 8 * TL_ROWHEIGHT)
-			.attr('text-anchor','middle')
-			;
-		*/
 		
-		/*
-		TODO: Draw recommendPercent as a line.
-		let recommendPercent = Math.round((recommendSum / recommendCount) / 5 * 100);
 		timeline.append("text")
-			.text(recommendPercent)
+			.text(timelineDays[i].recommendPercent)
 			.attr("x", tlXScale(i))
 			.attr("y", 4 * TL_ROWHEIGHT)
 			.attr('text-anchor','middle')
@@ -303,8 +302,9 @@ function drawTimelineGraphs() {
 
 	}
 	
-	// Draw SLE_primary_reason_percent as a line.
 	// TODO: Draw a shape at each point so we don't miss a value between two NaN values.
+	
+	// Draw SLE_primary_reason_percent as a line.
 	let SLEPrimaryReasonPathGenerator = d3.svg.line()
 		.defined(function(d) { return !isNaN(d.SLE_primary_reason_percent); })
 		.x(function(d) { return tlXScale(d.Index); })
@@ -312,7 +312,31 @@ function drawTimelineGraphs() {
 	timeline.append('path')
 		.attr('id', 'timelineSLEprimaryreason')
 		.attr('class', 'graphline')
+		.attr('stroke', 'red')
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
+	
+	// Draw the line for outsideX
+	// TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
+	let outsideTimePathGenerator = d3.svg.line()
+		.defined(function(d) { return !isNaN(d.outside90); })
+		.x(function(d) { return tlXScale(d.Index); })
+		.y(function(d) { return tlYScale(d.outside90); });
+	timeline.append('path')
+		.attr('id', 'timelineOutsideTime')
+		.attr('class', 'graphline')
+		.attr('stroke', 'blue')
+		.attr('d', outsideTimePathGenerator(timelineDays));
+	
+	// Draw recommendPercent as a line.
+	let recommendPathGenerator = d3.svg.line()
+		.defined(function(d) { return !isNaN(d.recommendPercent); })
+		.x(function(d) { return tlXScale(d.Index); })
+		.y(function(d) { return tlYScale(d.recommendPercent); });
+	timeline.append('path')
+		.attr('id', 'timelineRecommend')
+		.attr('class', 'graphline')
+		.attr('stroke', 'green')
+		.attr('d', recommendPathGenerator(timelineDays));
 	
 	// TODO: Draw the line for % plan to return to visit the SLE
 	
