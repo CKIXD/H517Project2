@@ -4,9 +4,9 @@ const TL_WIDTH = 1000; // MAYBE: How do I resize this dynamically? Do I need to 
 const TL_ROWHEIGHT = 25; // TODO: Make sure this is appropriate to selected font and weather icons.
 const TL_LEFTMARGIN = 100;
 
-const TL_PRIMARYREASONCOLOR = "red";
-const TL_OUTSIDETIMECOLOR = "blue";
-const TL_RECOMMENDCOLOR = "green";
+const TL_PRIMARYREASONCOLOR = "#3f2199";
+const TL_OUTSIDETIMECOLOR = "#667f42";
+const TL_RECOMMENDCOLOR = "#395f97";
 
 // Declare global variables for this module.
 let tlXScale = d3.scale.linear();
