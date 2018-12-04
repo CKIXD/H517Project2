@@ -193,7 +193,7 @@ function loadTimelineSurveyData() {
 
 function drawTimelineGraphs() {
 // TODO: Filter the data by selected demographics.
-let dayRecs;
+	let dayRecs;
 	
 	for (let i=0; i < timelineDays.length; i++) {
 	//for (let i=0; i < 1; i++) {
@@ -256,14 +256,19 @@ let dayRecs;
 		
 		/*
 		TODO: Draw SLE_primary_reason_percent as a line.
-		let SLE_primary_reason_percent = Math.round(SLE_primary_reason_yes / SLE_primary_reason_responded * 100);
+		*/
+		timelineDays[i].SLE_primary_reason_percent =
+			Math.round(SLE_primary_reason_yes / SLE_primary_reason_responded * 100);
+		// TODO: REMOVE THIS KLUDGE
+		if (isNaN(timelineDays[i].SLE_primary_reason_percent)) {
+			timelineDays[i].SLE_primary_reason_percent = 50;
+		}
 		timeline.append("text")
-			.text(SLE_primary_reason_percent)
+			.text(timelineDays[i].SLE_primary_reason_percent)
 			.attr("x", tlXScale(i))
 			.attr("y", 4 * TL_ROWHEIGHT)
 			.attr('text-anchor','middle')
 			;
-		*/
 		
 		/*
 		TODO: Draw outsideX as a set of lines.
@@ -302,6 +307,26 @@ let dayRecs;
 		*/
 
 	}
+	
+	/*
+	TODO: Draw SLE_primary_reason_percent as a line.
+	timelineDays[i].SLE_primary_reason_percent =
+		Math.round(SLE_primary_reason_yes / SLE_primary_reason_responded * 100);
+	timeline.append("text")
+		.text(timelineDays[i].SLE_primary_reason_percent)
+		.attr("x", tlXScale(i))
+		.attr("y", 4 * TL_ROWHEIGHT)
+		.attr('text-anchor','middle')
+		;
+	*/
+	let SLEPrimaryReasonPathGenerator = d3.svg.line()
+		.x(function(d) { return tlXScale(d.Index); })
+		.y(function(d) { return tlYScale(d.SLE_primary_reason_percent); });
+	timeline.append('path')
+		.attr('id', 'timelineSLEprimaryreason')
+		.attr('class', 'graphline')
+		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
+
 	
 	// TODO: Draw the line for % plan to return to visit the SLE
 	
