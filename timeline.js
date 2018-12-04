@@ -254,15 +254,10 @@ function drawTimelineGraphs() {
 			
 		}
 		
-		/*
-		TODO: Draw SLE_primary_reason_percent as a line.
-		*/
 		timelineDays[i].SLE_primary_reason_percent =
 			Math.round(SLE_primary_reason_yes / SLE_primary_reason_responded * 100);
-		// TODO: REMOVE THIS KLUDGE
-		if (isNaN(timelineDays[i].SLE_primary_reason_percent)) {
-			timelineDays[i].SLE_primary_reason_percent = 50;
-		}
+
+		// TEMP: Drawing this during development for comparison to the drawn line.
 		timeline.append("text")
 			.text(timelineDays[i].SLE_primary_reason_percent)
 			.attr("x", tlXScale(i))
@@ -308,25 +303,16 @@ function drawTimelineGraphs() {
 
 	}
 	
-	/*
-	TODO: Draw SLE_primary_reason_percent as a line.
-	timelineDays[i].SLE_primary_reason_percent =
-		Math.round(SLE_primary_reason_yes / SLE_primary_reason_responded * 100);
-	timeline.append("text")
-		.text(timelineDays[i].SLE_primary_reason_percent)
-		.attr("x", tlXScale(i))
-		.attr("y", 4 * TL_ROWHEIGHT)
-		.attr('text-anchor','middle')
-		;
-	*/
+	// Draw SLE_primary_reason_percent as a line.
+	// TODO: Draw a shape at each point so we don't miss a value between two NaN values.
 	let SLEPrimaryReasonPathGenerator = d3.svg.line()
+		.defined(function(d) { return !isNaN(d.SLE_primary_reason_percent); })
 		.x(function(d) { return tlXScale(d.Index); })
 		.y(function(d) { return tlYScale(d.SLE_primary_reason_percent); });
 	timeline.append('path')
 		.attr('id', 'timelineSLEprimaryreason')
 		.attr('class', 'graphline')
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
-
 	
 	// TODO: Draw the line for % plan to return to visit the SLE
 	
