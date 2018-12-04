@@ -37,14 +37,14 @@
 		.axis path,
 		.axis line {
 			fill: none;
-			stroke: gray;
+			stroke: black;
 			shape-rendering: crispEdges;
 		}
 
 		.axis text {
 			font-family: sans-serif;
-			font-size: 10px;
-			fill: gray;
+			font-size: 15px;
+			fill: black;
 		}
 		
 	</style>
@@ -79,6 +79,7 @@
 		let timeline; // The SVG area for the timeline graph.
 		let timelineDays; // An array containing all data displayed on the timeline.
 		let SLE_data; // An array containing all the survey data.
+		let timelineKey; // The SVG area for the timeline's key.
 		
 		// Create the static parts of the page:
 		drawTimelineStaticParts();

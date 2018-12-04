@@ -1,9 +1,12 @@
 
 // Declare global constants for this module.
-const TL_HEIGHT = 500;
 const TL_WIDTH = 1000; // MAYBE: How do I resize this dynamically? Do I need to create a viewport?
-const TL_LEFTMARGIN = 100;
 const TL_ROWHEIGHT = 25; // TODO: Make sure this is appropriate to selected font and weather icons.
+const TL_LEFTMARGIN = 100;
+
+const TL_PRIMARYREASONCOLOR = "red";
+const TL_OUTSIDETIMECOLOR = "blue";
+const TL_RECOMMENDCOLOR = "green";
 
 // Declare global variables for this module.
 let tlXScale = d3.scale.linear();
@@ -17,12 +20,10 @@ function drawTimelineStaticParts() {
 	timeline = d3.select("body")
 		.append("svg")
 		.attr("id", "timeline")
-		.attr("height", TL_HEIGHT)
+		.attr("height", TL_ROWHEIGHT * 19)
 		.attr("width", TL_WIDTH)
 		;
 		
-	// TODO: Draw the key for the chart lines.
-	
 	// Create a dictionary to map weather condition descriptors to characters
 	let weatherDict = {
 		"Fair": "\uf00d",
@@ -63,40 +64,40 @@ function drawTimelineStaticParts() {
 		timeline.append("text")
 			.text("n")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 14 * TL_ROWHEIGHT)
+			.attr("y", 15 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
 			.text("Day")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 15 * TL_ROWHEIGHT)
+			.attr("y", 16 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
 			.text("Date")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 16 * TL_ROWHEIGHT)
+			.attr("y", 17 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
 			.text("Month")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 17 * TL_ROWHEIGHT)
+			.attr("y", 18 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
 			.text("Select")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
-			.attr("y", 18 * TL_ROWHEIGHT)
+			.attr("y", 19 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
 			;
-		
+			
 		// Setting up scales.
 		// See https://www.safaribooksonline.com/library/view/interactive-data-visualization/9781449340223/ch07.html
 		tlXScale.domain([0, timelineDays.length-1])
 			.range([TL_LEFTMARGIN + 0.5 * colWidth, TL_WIDTH - 0.5 * colWidth]);
 		tlYScale.domain([0, 100])
-			.range([13 * TL_ROWHEIGHT, 2.5 * TL_ROWHEIGHT])
+			.range([13.5 * TL_ROWHEIGHT, 4 * TL_ROWHEIGHT])
 			
 		// Setting up Y axis.
 		// See https://www.oreilly.com/library/view/interactive-data-visualization/9781449340223/ch08.html
@@ -132,7 +133,6 @@ function drawTimelineStaticParts() {
 				;
 				
 			// Show the Avg Dew Point
-			// TODO: Make room for this line, if it seems to show valuable information.
 			timeline.append("text")
 				.text(timelineDays[i].AvgDewPoint)
 				.attr("x", tlXScale(i))
@@ -144,7 +144,7 @@ function drawTimelineStaticParts() {
 			timeline.append("text")
 				.text(timelineDays[i].Day)
 				.attr("x", tlXScale(i))
-				.attr("y", 15 * TL_ROWHEIGHT)
+				.attr("y", 16 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
 				;
 				
@@ -152,7 +152,7 @@ function drawTimelineStaticParts() {
 			timeline.append("text")
 				.text(timelineDays[i].TimelineDate.substring(8,10))
 				.attr("x", tlXScale(i))
-				.attr("y", 16 * TL_ROWHEIGHT)
+				.attr("y", 17 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
 				;
 				
@@ -161,7 +161,7 @@ function drawTimelineStaticParts() {
 			timeline.append("text")
 				.text(timelineDays[i].TimelineDate.substring(5,7))
 				.attr("x", tlXScale(i))
-				.attr("y", 17 * TL_ROWHEIGHT)
+				.attr("y", 18 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
 				;
 				
@@ -172,6 +172,58 @@ function drawTimelineStaticParts() {
 
 	});
 	
+	// Draw the timeline keys in a separate SVG below the timeline.
+	timelineKeys = d3.select("body")
+		.append("svg")
+		.attr("id", "timelineKeys")
+		.attr("height", TL_ROWHEIGHT * 5)
+		.attr("width", TL_WIDTH) // TODO: How wide should this be?
+		;
+	
+	timelineKeys.append("line")
+		.attr("x1", 10)
+		.attr("y1", .75 * TL_ROWHEIGHT)
+		.attr("x2", TL_LEFTMARGIN - 10)
+		.attr("y2", .75 * TL_ROWHEIGHT)
+		.attr("stroke", TL_PRIMARYREASONCOLOR)
+		.attr('class', 'graphline')
+		;
+	timelineKeys.append("text")
+		.text("% of respondents who said the outdoor exhibit was their primary reason for coming.")
+		.attr("x", TL_LEFTMARGIN)
+		.attr("y", 1 * TL_ROWHEIGHT)
+		.attr("fill", TL_PRIMARYREASONCOLOR)
+		;
+	timelineKeys.append("line")
+		.attr("x1", 10)
+		.attr("y1", 1.75 * TL_ROWHEIGHT)
+		.attr("x2", TL_LEFTMARGIN - 10)
+		.attr("y2", 1.75 * TL_ROWHEIGHT)
+		.attr("stroke", TL_OUTSIDETIMECOLOR)
+		.attr('class', 'graphline')
+		;
+	timelineKeys.append("text")
+		.text("% of respondents who stayed in the outside exhibit longer than XXX minutes.")
+		.attr("x", TL_LEFTMARGIN)
+		.attr("y", 2 * TL_ROWHEIGHT)
+		.attr("fill", TL_OUTSIDETIMECOLOR)
+		;
+	timelineKeys.append("line")
+		.attr("x1", 10)
+		.attr("y1", 2.75 * TL_ROWHEIGHT)
+		.attr("x2", TL_LEFTMARGIN - 10)
+		.attr("y2", 2.75 * TL_ROWHEIGHT)
+		.attr("stroke", TL_RECOMMENDCOLOR)
+		.attr('class', 'graphline')
+		;
+	timelineKeys.append("text")
+		.text("% of respondents who would recommend the exhibit to other families.")
+		.attr("x", TL_LEFTMARGIN)
+		.attr("y", 3 * TL_ROWHEIGHT)
+		.attr("fill", TL_RECOMMENDCOLOR)
+		;
+	
+
 }
 
 // Pre-processes the survey data for each date.
@@ -203,7 +255,7 @@ function drawTimelineGraphs() {
 		timeline.append("text")
 			.text(dayRecs.length)
 			.attr("x", tlXScale(i))
-			.attr("y", 14 * TL_ROWHEIGHT)
+			.attr("y", 15 * TL_ROWHEIGHT)
 			.attr('text-anchor','middle')
 			;
 			
@@ -302,7 +354,8 @@ function drawTimelineGraphs() {
 
 	}
 	
-	// TODO: Draw a shape at each point so we don't miss a value between two NaN values.
+	// TODO: Draw a shape at each point so we don't miss a value between two NaN values,
+	// and to distinguish lines for colorblind people.
 	
 	// Draw SLE_primary_reason_percent as a line.
 	let SLEPrimaryReasonPathGenerator = d3.svg.line()
@@ -312,7 +365,7 @@ function drawTimelineGraphs() {
 	timeline.append('path')
 		.attr('id', 'timelineSLEprimaryreason')
 		.attr('class', 'graphline')
-		.attr('stroke', 'red')
+		.attr('stroke', TL_PRIMARYREASONCOLOR)
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
 	
 	// Draw the line for outsideX
@@ -324,7 +377,7 @@ function drawTimelineGraphs() {
 	timeline.append('path')
 		.attr('id', 'timelineOutsideTime')
 		.attr('class', 'graphline')
-		.attr('stroke', 'blue')
+		.attr('stroke', TL_OUTSIDETIMECOLOR)
 		.attr('d', outsideTimePathGenerator(timelineDays));
 	
 	// Draw recommendPercent as a line.
@@ -335,7 +388,7 @@ function drawTimelineGraphs() {
 	timeline.append('path')
 		.attr('id', 'timelineRecommend')
 		.attr('class', 'graphline')
-		.attr('stroke', 'green')
+		.attr('stroke', TL_RECOMMENDCOLOR)
 		.attr('d', recommendPathGenerator(timelineDays));
 	
 	// TODO: Draw the line for % plan to return to visit the SLE
