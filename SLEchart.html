@@ -3,13 +3,13 @@
 
 <head>
 <!-- Plotly.js -->
-<script src="https://d3js.org/d3.v3.min.js"></script>
-<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<script src="d3.v3.min.js" type="text/javascript"></script>
+<script src="plotly-latest.min.js"></script>
 </head>
 
 <body>
 
-<div id="myDiv" style="width: 440px; height: 330px;">
+<div id="myDiv" style="width: 700px; height: 500px;">
 	
 <script>
     var A = [];
@@ -231,9 +231,8 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
 
             }
 
-            thisSum[0] = Math.round(((thisSum[0] / 687) * 100)*100)/100;
-            thisSum[1] = Math.round(((thisSum[1] / 687) * 100)*100)/100;
-
+            thisSum[0] = (thisSum[0] / 687) * 100;
+            thisSum[1] = (thisSum[1] / 687) * 100;
 
             return thisSum;
         }
