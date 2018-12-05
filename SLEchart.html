@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <meta charset="utf-8">
 
 <head>
@@ -14,8 +14,8 @@
 <script>
     var A = [];
     var B = [];
-    var B1 = false;
-    var B2 = false;
+    var B1 = true;
+    var B2 = true;
     var B3 = true;
     var B4 = true;
     
@@ -231,8 +231,8 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
 
             }
 
-            thisSum[0] = (thisSum[0] / 687) * 100;
-            thisSum[1] = (thisSum[1] / 687) * 100;
+            thisSum[0] = Math.round(((thisSum[0] / 687) * 100)*100)/100;
+            thisSum[1] = Math.round(((thisSum[1] / 687) * 100)*100)/100;
 
 
             return thisSum;
@@ -249,7 +249,7 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
   x: ['Family/Friends', 'Social Media', 'Ads at Museum', 'Our Website', 'A story in the Media', 'TV commercials', 'Billboards', 'Online Ads', 'Others'],
  
   y:A ,
-  name: 'Members',
+  name: '% of Members',
   marker: {color: '#2c7fb8'},
   type: 'bar'
 };
@@ -257,7 +257,7 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
 var trace2 = {
   x: ['Family/Friends', 'Social Media', 'Ads at Museum', 'Our Website', 'A story in the Media', 'TV commercials', 'Billboards', 'Online Ads', 'Others'],
   y: B,
-  name: 'Non-members',
+  name: '% of Non-members',
   marker: {color: '#e34a33'},
   type: 'bar'
 };
@@ -266,10 +266,11 @@ var data = [trace1, trace2];
 
 var layout = {
   title: 'How did you hear about sports legends experience?',
-  xaxis: {tickfont: {
-      size: 14,
-      color: '#636363'
-    }},
+   
+  yaxis:{ title: 'Percentage of visitors',
+  range: [0,30]
+  },
+
   xaxis: {
     title: '',
     titlefont: {
