@@ -47,10 +47,62 @@
 			font-size: 15px;
 			fill: black;
 		}
-		
-	</style>
+	.box-set {
+  background: #eaeaed;
+}
+.box {
+  float: right;
+
+}
+.box1{
+  background: #2db34a;
+  float: left;
+  margin: 0.5%;
+  width: 58.0%;
+  height: 50%;
+
+}
+.box2{
+  background: gray;
+  float: left;
+  margin: 0.5%;
+  width: 100%;
+  height: 50%;
+
+}  
+#frame {
+        -ms-zoom: 0.75;
+        -moz-transform: scale(0.75);
+        -moz-transform-origin: 0 0;
+        -o-transform: scale(0.75);
+        -o-transform-origin: 0 0;
+        -webkit-transform: scale(0.75);
+        -webkit-transform-origin: 0 0;
+    }         
+</style>
+
+
 </head>
 <body>
+<iframe  src="index.html" width="55%" height ="350" name="timeline">Timeline</iframe>
+<iframe  class="box" src="Ages.html" width="39%" height ="350" name="agebarchart">AGE Barchart</iframe>
+<iframe  class="box" src="SLEchart.html" width="39%" height ="360" name="SLEbarchart">SLE Barchart</iframe>
+
+<iframe id="map" src="statesmap.html" width="59%" height ="400">map</iframe>
+
+<!-- 
+<div class="box-set">
+
+  <figure class="box">Box 1</figure>
+  <figure class="box1">Box 2</figure>
+   <svg class="box2"></svg>
+	<div id="map" ><script src="map.js"></script></div> 
+ 
+	
+</div>
+ -->
+
+
 <!-- 
 	<div id="timeline">
 		<div class="pagetitle" style="float: left;">Outdoor Exhibit Survey</div>
@@ -73,8 +125,7 @@
 	
 	</div>
  -->
-	<svg width="1000" height="600"></svg>
-	<div id="map" ><script src="map.js"></script></div>
+ 
 	
 </body>
 
