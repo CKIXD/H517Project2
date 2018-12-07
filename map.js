@@ -89,7 +89,7 @@ svg.call(zoom);
 //queue files
 // d3.queue()
 // .defer(d3.json, "https://d3js.org/us-10m.v1.json")
-// .defer(d3.csv,"Data.csv")
+// .defer(d3.csv,"data/Data.csv")
 // .await(ready)
 // 
 // 
@@ -118,7 +118,7 @@ var CA = CO = GA =2;
 var adj_counties=[]
 //////////////////////////// Load IN county data ////////////////////////
 
-// d3.csv("in_counties.csv", function(error,d){
+// d3.csv("data/in_counties.csv", function(error,d){
 // 
 //
 // console.log(color.domain);
@@ -145,7 +145,7 @@ var adj_counties=[]
     
 //////////////////////////// Load SLE data ////////////////////////
 
- d3.csv("visitors.csv", function(error, data) {
+ d3.csv("data/visitors.csv", function(error, data) {
   if (error) throw error;
 
   // Coerce the data to numbers.
@@ -158,7 +158,7 @@ var adj_counties=[]
   console.log("US state info:",states_info);
   });
   
-d3.csv("Data.csv", function(error,d){
+d3.csv("data/Data.csv", function(error,d){
 
 if (error) { //If error is not null, something went wrong.
 console.log(error); //Log the error.
