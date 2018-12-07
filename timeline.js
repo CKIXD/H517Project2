@@ -9,8 +9,8 @@ const TL_OUTSIDETIMECOLOR = "#667f42";
 const TL_RECOMMENDCOLOR = "#395f97";
 
 // Declare global variables for this module.
-let tlXScale = d3.scale.linear();
-let tlYScale = d3.scale.linear();
+let tlXScale = d3.scaleLinear();
+let tlYScale = d3.scaleLinear();
 let tlSurveyDates = {};
 
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
@@ -100,10 +100,7 @@ function drawTimelineStaticParts() {
 			.range([13.5 * TL_ROWHEIGHT, 4 * TL_ROWHEIGHT])
 			
 		// Setting up Y axis.
-		// See https://www.oreilly.com/library/view/interactive-data-visualization/9781449340223/ch08.html
-		let yAxis = d3.svg.axis()
-			.scale(tlYScale)
-			.orient('left');
+		let yAxis = d3.axisLeft(tlYScale);
 		timeline.append('g')
 			.attr('class', 'axis')
 			.attr('transform', 'translate(' + (TL_LEFTMARGIN - 0.5 * colWidth) + ',0)')
@@ -358,7 +355,7 @@ function drawTimelineGraphs() {
 	// and to distinguish lines for colorblind people.
 	
 	// Draw SLE_primary_reason_percent as a line.
-	let SLEPrimaryReasonPathGenerator = d3.svg.line()
+	let SLEPrimaryReasonPathGenerator = d3.line()
 		.defined(function(d) { return !isNaN(d.SLE_primary_reason_percent); })
 		.x(function(d) { return tlXScale(d.Index); })
 		.y(function(d) { return tlYScale(d.SLE_primary_reason_percent); });
@@ -370,7 +367,7 @@ function drawTimelineGraphs() {
 	
 	// Draw the line for outsideX
 	// TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
-	let outsideTimePathGenerator = d3.svg.line()
+	let outsideTimePathGenerator = d3.line()
 		.defined(function(d) { return !isNaN(d.outside90); })
 		.x(function(d) { return tlXScale(d.Index); })
 		.y(function(d) { return tlYScale(d.outside90); });
@@ -381,7 +378,7 @@ function drawTimelineGraphs() {
 		.attr('d', outsideTimePathGenerator(timelineDays));
 	
 	// Draw recommendPercent as a line.
-	let recommendPathGenerator = d3.svg.line()
+	let recommendPathGenerator = d3.line()
 		.defined(function(d) { return !isNaN(d.recommendPercent); })
 		.x(function(d) { return tlXScale(d.Index); })
 		.y(function(d) { return tlYScale(d.recommendPercent); });
