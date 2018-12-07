@@ -3,9 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<title>ckixd - Outdoor Exhibit Survey</title>
-	<link type="text/css" rel="stylesheet" href="exhibit.css"/>
-	<link type="text/css" rel="stylesheet" href="style.css"/>
+	<link type="text/css" rel="stylesheet" href="css/timeline.css"/>
 	<link type="text/css" rel="stylesheet" href="css/weather-icons.css"/>
+	<!--<script src="https://d3js.org/d3.v4.min.js"></script>-->
 	<script type="text/javascript" src="https://d3js.org/d3.v3.min.js"></script>
 	<script type="text/javascript" src="timeline.js"></script>
 	<style>
@@ -51,31 +51,49 @@
 	</style>
 </head>
 <body>
-<!-- 
-	<div id="timeline">
-		<div class="pagetitle" style="float: left;">Outdoor Exhibit Survey</div>
-		<div style="float: right;">
-			<form>
-				<input class="pagebutton" type="button" value="About"
-				onclick="window.location.href='about.html'" />
-			</form>
-		</div>
-		<br/><br/>
-		<div class="pagetext">
-			<p>
-				TODO: Describe the visualization, and link to a demo on YouTube.
-				<br/>
-				TODO: See if we can get permission to add logos for the museum and the exhibit.
-			</p>
-		</div>
-	</div>
-	<div id="barchart">
-	
-	</div>
- -->
-	<svg width="1000" height="600"></svg>
-	<div id="map" ><script src="map.js"></script></div>
-	
+	<script type="text/javascript">
+		// Declare global constants.
+		const CHART_PADDING = 30;
+		const BUTTON_HEIGHT = 30;
+		const BUTTON_PADDING = 10;
+		
+		// Declare global variables.
+		let timeline; // The SVG area for the timeline graph.
+		let timelineDays; // An array containing all data displayed on the timeline.
+		let SLE_data; // An array containing all the survey data.
+		let timelineKey; // The SVG area for the timeline's key.
+		
+		// Create the static parts of the page:
+		drawTimelineStaticParts();
+		// TODO: Draw the filter buttons
+		// TODO: Draw the map 
+		// TODO: Draw the age group bar chart frame
+		// TODO: Draw the outreach bar chart frame
+		
+		// TODO: Set up event handling
+		
+		// Display the survey data.
+		function refreshSurveyData() {
+			drawTimelineGraphs();
+			// TODO: Fill in the choropleths on the map
+			// TODO: Draw the bars on the age group bar chart
+			// TODO: Draw the bars on the outreach bar chart
+		}
+		
+		// Load the survey data
+		d3.csv("data/SurveyData.csv",function(error,d) {
+			if (error) { //If error is not null, something went wrong.
+				console.log(error); //Log the error.
+			} else { //If no error, the file loaded correctly. Yay!
+				SLE_data = d;
+				console.dir(SLE_data[0]); // TODO: Remove this later - right now it's just here to confirm that the data loaded.
+				loadTimelineSurveyData();
+				refreshSurveyData();
+			}
+		});
+				
+	</script>
 </body>
+
 
 </html>

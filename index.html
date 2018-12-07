@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Outdoor Exhibit Survey</title>
+	<link type="text/css" rel="stylesheet" href="css/timeline.css"/>
+	<link type="text/css" rel="stylesheet" href="css/style.css"/>
+	<link type="text/css" rel="stylesheet" href="css/weather-icons.css"/>
+	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+	<script type="text/javascript" src="lib/plotly-latest.min.js"></script>
+	<script type="text/javascript" src="timeline.js"></script>
+	<style>
+		<!-- Used only for iFrames, which we need to replace to integrate the graphs. -->
+		.box {
+		  float: right;
+		}
+	</style>
+</head>
+<body>
+
+<div id="heading">
+	<div class="pagetitle" style="float: left;">Outdoor Exhibit Survey</div>
+	<div style="float: right;">
+		<form>
+			<input class="pagebutton" type="button" value="About"
+			onclick="window.location.href='about.html'" />
+		</form>
+	</div>
+	<br/><br/>
+	<div class="pagetext">
+		<p>
+			TODO: Describe the visualization, and link to a demo on YouTube.
+		</p>
+	</div>
+</div>
+<div id="vis">
+
+</div>
+
+<iframe  src="timeline.html" width="59%" height ="350" name="timeline">Timeline</iframe>
+
+<iframe  class="box" src="Ages.html" width="39%" height ="350" name="agebarchart" frameBorder="0">AGE Barchart</iframe>
+
+<iframe id="map" src="statesmap.html" width="59%" height ="400" frameBorder="0">map</iframe>
+ 
+<iframe  class="box" src="SLEchart.html" width="39%" height ="360" name="SLEbarchart" frameBorder="0">SLE Barchart</iframe>
+
+	
+</body>
+</html>

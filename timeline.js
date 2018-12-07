@@ -37,7 +37,7 @@ function drawTimelineStaticParts() {
 	};
 			
 	// Load the timeline data and draw the items that depend upon it.
-	d3.csv("TimelineData.csv", function(data) {
+	d3.csv("data/TimelineData.csv", function(data) {
 		timelineDays = data;
 		
 		let colWidth = (TL_WIDTH - TL_LEFTMARGIN) / timelineDays.length;
