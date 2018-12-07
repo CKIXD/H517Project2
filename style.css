@@ -7,10 +7,6 @@ background{
         fill: orange;
 }
  */
-body {
-  text-align: center;
-}
-
 div.tooltip { 
           background-color: pink;
     	opacity: 0.5;
