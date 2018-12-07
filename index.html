@@ -43,7 +43,28 @@
 		</svg>
 	-->
 	
-	
+	<div id="timeline">
+		<script type="text/javascript">
+			// Create the static parts of the page:
+			drawTimelineStaticParts();
+			
+			// Display the survey data.
+			function refreshSurveyData() {
+				drawTimelineGraphs();
+			}
+			
+			// Load the survey data
+			d3.csv("data/SurveyData.csv",function(error,d) {
+				if (error) { //If error is not null, something went wrong.
+					console.log(error); //Log the error.
+				} else { //If no error, the file loaded correctly. Yay!
+					SLE_data = d;
+					loadTimelineSurveyData();
+					refreshSurveyData();
+				}
+			});
+		</script>
+	</div>
 
 </div>
 
