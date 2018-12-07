@@ -23,8 +23,8 @@
 
     d3.csv('data/SurveyData.csv', function(data) {
 
-          var sumArray = [];
-          var id_Array = [];
+          let sumArray = [];
+          let id_Array = [];
           current_member_Array = [],
           children_age_group1_Array = [],
           children_age_group2_Array = [],
@@ -66,15 +66,15 @@
         });
         console.log(heard_of_SLE_BB_Array);
 
-		var heard_of_SLE_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_Array,live_IN_county_Array, B1, B2, B3, B4); //get sum of jan array
-		var heard_of_SLE_SM_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_SM_Array,live_IN_county_Array, B1, B2, B3, B4); 
-		var heard_of_SLE_museum_ad_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_museum_ad_Array,live_IN_county_Array, B1, B2, B3, B4); 
-		var heard_of_SLE_website_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_website_Array,live_IN_county_Array, B1, B2, B3, B4); 
-		var heard_of_SLE_story_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_story_Array,live_IN_county_Array, B1, B2, B3, B4); 
-		var heard_of_SLE_tv_Array_Sum=getSumOfArray(current_member_Array,heard_of_SLE_tv_Array,live_IN_county_Array, B1, B2, B3, B4); 
-		var heard_of_SLE_BB_Array_Sum = getSumOfArray(current_member_Array, heard_of_SLE_BB_Array,live_IN_county_Array, B1, B2, B3, B4); 
-		var heard_of_SLE_online_ad_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_online_ad_Array,live_IN_county_Array, B1, B2, B3, B4); 
-		var heard_of_SLE_other_Array_Sum=getSumOfArray(current_member_Array,heard_of_SLE_other_Array,live_IN_county_Array, B1, B2, B3, B4); 
+		let heard_of_SLE_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_Array,live_IN_county_Array, B1, B2, B3, B4); //get sum of jan array
+		let heard_of_SLE_SM_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_SM_Array,live_IN_county_Array, B1, B2, B3, B4); 
+		let heard_of_SLE_museum_ad_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_museum_ad_Array,live_IN_county_Array, B1, B2, B3, B4); 
+		let heard_of_SLE_website_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_website_Array,live_IN_county_Array, B1, B2, B3, B4); 
+		let heard_of_SLE_story_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_story_Array,live_IN_county_Array, B1, B2, B3, B4); 
+		let heard_of_SLE_tv_Array_Sum=getSumOfArray(current_member_Array,heard_of_SLE_tv_Array,live_IN_county_Array, B1, B2, B3, B4); 
+		let heard_of_SLE_BB_Array_Sum = getSumOfArray(current_member_Array, heard_of_SLE_BB_Array,live_IN_county_Array, B1, B2, B3, B4); 
+		let heard_of_SLE_online_ad_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_online_ad_Array,live_IN_county_Array, B1, B2, B3, B4); 
+		let heard_of_SLE_other_Array_Sum=getSumOfArray(current_member_Array,heard_of_SLE_other_Array,live_IN_county_Array, B1, B2, B3, B4); 
 
 
 
@@ -82,10 +82,10 @@
 //sumArray.push(children_age_group1_Array_Sum ,children_age_group2_Array_Sum ,children_age_group3_Array_Sum, children_age_group4_Array_Sum, no_childeren_Array_Sum   );
 
 A= [heard_of_SLE_Array_Sum[0], heard_of_SLE_SM_Array_Sum[0],heard_of_SLE_museum_ad_Array_Sum[0],heard_of_SLE_website_Array_Sum[0],heard_of_SLE_story_Array_Sum[0], heard_of_SLE_tv_Array_Sum[0],heard_of_SLE_BB_Array_Sum[0],heard_of_SLE_online_ad_Array_Sum[0], heard_of_SLE_other_Array_Sum[0]];
-//var newListA = [ a/766 for a in A];
+//let newListA = [ a/766 for a in A];
 //console.log(A);
 B= [heard_of_SLE_Array_Sum[1], heard_of_SLE_SM_Array_Sum[1],heard_of_SLE_museum_ad_Array_Sum[1],heard_of_SLE_website_Array_Sum[1],heard_of_SLE_story_Array_Sum[1], heard_of_SLE_tv_Array_Sum[1],heard_of_SLE_BB_Array_Sum[1],heard_of_SLE_online_ad_Array_Sum[1], heard_of_SLE_other_Array_Sum[1]];
-//var newListB = [ a/b for a, b in (B,t)];
+//let newListB = [ a/b for a, b in (B,t)];
 //console.log(B);
 
 //console.log(children_age_group1_Array_Sum[0]); //here is your array you want
@@ -94,10 +94,10 @@ B= [heard_of_SLE_Array_Sum[1], heard_of_SLE_SM_Array_Sum[1],heard_of_SLE_museum_
 function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out) {
 
 
-            var thisSum = [0, 0];
+            let thisSum = [0, 0];
 
 
-            for (var i = 0; i < array2.length; i++) {
+            for (let i = 0; i < array2.length; i++) {
                 if (Marion && Adjacent && Elsewhere && Out) {
                     if (!(array2[i] == 'null' || array2[i] == "N/A" || array2[i] == "" ||array2[i]=="No")) {
                         if (array1[i] == "Yes")
@@ -244,7 +244,7 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
   //B=[73, 25, 29, 30, 49, 81,32,25,12];
 
   console.log(A);
-  var trace1 = {
+  let trace1 = {
   x: ['Family/Friends', 'Social Media', 'Ads at Museum', 'Our Website', 'A story in the Media', 'TV commercials', 'Billboards', 'Online Ads', 'Others'],
  
   y:A ,
@@ -253,7 +253,7 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
   type: 'bar'
 };
 
-var trace2 = {
+let trace2 = {
   x: ['Family/Friends', 'Social Media', 'Ads at Museum', 'Our Website', 'A story in the Media', 'TV commercials', 'Billboards', 'Online Ads', 'Others'],
   y: B,
   name: '% of Non-members',
@@ -261,9 +261,9 @@ var trace2 = {
   type: 'bar'
 };
 
-var data = [trace1, trace2];
+let plotData = [trace1, trace2];
 
-var layout = {
+let layout = {
   title: 'How did you hear about sports legends experience?',
    
   yaxis:{ title: 'Percentage of visitors',
@@ -292,13 +292,13 @@ var layout = {
   bargroupgap: 0.1
 };
 
-Plotly.newPlot('myDiv', data, layout);
+Plotly.newPlot('myDiv', plotData, layout);
 
 })
 
 
 /*  d3.csv("SurveyData.csv", function(error, csv_data) {
- var data = d3.nest()
+ let data = d3.nest()
   .key(function(d) { return d.current_member;})
   .rollup(function(d) { 
    return d3.sum(d, function(g) {return g.value == null ? 0 : 1 });

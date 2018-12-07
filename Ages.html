@@ -11,18 +11,18 @@
 
 <div id="myDiv" style="width: 700px; height: 500px;">
 <script>
-    var A = [];
-    var B = [];
-    var B1 = true;
-    var B2 = true;
-    var B3 = true;
-    var B4 = true;
+    let A = [];
+    let B = [];
+    let B1 = true;
+    let B2 = true;
+    let B3 = true;
+    let B4 = true;
 
 
     d3.csv('data/SurveyData.csv', function(data) {
 
-          var sumArray = [];
-          var id_Array = [];
+          let sumArray = [];
+          let id_Array = [];
           current_member_Array = [],
           children_age_group1_Array = [],
           children_age_group2_Array = [],
@@ -66,22 +66,22 @@
 
 
 
-        var children_age_group1_Array_Sum = getSumOfArray(current_member_Array, children_age_group1_Array, live_IN_county_Array, B1, B2, B3, B4); //get sum of jan array
-        var children_age_group2_Array_Sum = getSumOfArray(current_member_Array, children_age_group2_Array, live_IN_county_Array, B1, B2, B3, B4);
-        var children_age_group3_Array_Sum = getSumOfArray(current_member_Array, children_age_group3_Array, live_IN_county_Array, B1, B2, B3, B4);
-        var children_age_group4_Array_Sum = getSumOfArray(current_member_Array, children_age_group4_Array, live_IN_county_Array, B1, B2, B3, B4);
-        var children_age_group5_Array_Sum = getSumOfArray(current_member_Array, children_age_group5_Array, live_IN_county_Array, B1, B2, B3, B4);
-        var no_children_Array_Sum = getSumOfArray(current_member_Array, no_children_Array, live_IN_county_Array, B1, B2, B3, B4);
+        let children_age_group1_Array_Sum = getSumOfArray(current_member_Array, children_age_group1_Array, live_IN_county_Array, B1, B2, B3, B4); //get sum of jan array
+        let children_age_group2_Array_Sum = getSumOfArray(current_member_Array, children_age_group2_Array, live_IN_county_Array, B1, B2, B3, B4);
+        let children_age_group3_Array_Sum = getSumOfArray(current_member_Array, children_age_group3_Array, live_IN_county_Array, B1, B2, B3, B4);
+        let children_age_group4_Array_Sum = getSumOfArray(current_member_Array, children_age_group4_Array, live_IN_county_Array, B1, B2, B3, B4);
+        let children_age_group5_Array_Sum = getSumOfArray(current_member_Array, children_age_group5_Array, live_IN_county_Array, B1, B2, B3, B4);
+        let no_children_Array_Sum = getSumOfArray(current_member_Array, no_children_Array, live_IN_county_Array, B1, B2, B3, B4);
 
 
 
         //sumArray.push(children_age_group1_Array_Sum ,children_age_group2_Array_Sum ,children_age_group3_Array_Sum, children_age_group4_Array_Sum, no_childeren_Array_Sum   );
 
         A = [children_age_group1_Array_Sum[0], children_age_group2_Array_Sum[0], children_age_group3_Array_Sum[0], children_age_group4_Array_Sum[0], children_age_group5_Array_Sum[0], no_children_Array_Sum[0]];
-        //var newListA = [ a/766 for a in A];
+        //let newListA = [ a/766 for a in A];
         console.log(A);
         B = [children_age_group1_Array_Sum[1], children_age_group2_Array_Sum[1], children_age_group3_Array_Sum[1], children_age_group4_Array_Sum[1], children_age_group5_Array_Sum[1], no_children_Array_Sum[1]];
-        //var newListB = [ a/b for a, b in (B,t)];
+        //let newListB = [ a/b for a, b in (B,t)];
         console.log(B);
 
         console.log(children_age_group1_Array_Sum[0]); //here is your array you want
@@ -89,10 +89,10 @@
         function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out) {
 
 
-            var thisSum = [0, 0];
+            let thisSum = [0, 0];
 
 
-            for (var i = 0; i < array2.length; i++) {
+            for (let i = 0; i < array2.length; i++) {
                 if (Marion && Adjacent && Elsewhere && Out) {
                     if (!(array2[i] == 'null' || array2[i] == "N/A" || array2[i] == "")) {
                         if (array1[i] == "Yes")
@@ -237,7 +237,7 @@
 
 
         console.log(A);
-        var trace1 = {
+        let trace1 = {
             x: ['0-10', '11-20', '21-40', '41-60', '61-80', '>80'],
 
             y: A,
@@ -248,7 +248,7 @@
             type: 'bar'
         };
 
-        var trace2 = {
+        let trace2 = {
             x: ['0-10', '11-20', '21-40', '41-60', '61-80', '>80'],
             y: B,
             name: '% of Non-members',
@@ -258,9 +258,9 @@
             type: 'bar'
         };
 
-        var data = [trace1, trace2];
+        let plotData = [trace1, trace2];
 
-        var layout = {
+        let layout = {
             title: 'What ages were represented in your group?',
             xaxis: {
                 tickfont: {
@@ -294,13 +294,13 @@
             bargroupgap: 0.1
         };
 
-        Plotly.newPlot('myDiv', data, layout);
+        Plotly.newPlot('myDiv', plotData, layout);
 
     })
 
 
     /*  d3.csv("SurveyData.csv", function(error, csv_data) {
-     var data = d3.nest()
+     let data = d3.nest()
       .key(function(d) { return d.current_member;})
       .rollup(function(d) { 
        return d3.sum(d, function(g) {return g.value == null ? 0 : 1 });
