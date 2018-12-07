@@ -9,7 +9,6 @@
 	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 	<script type="text/javascript" src="https://d3js.org/topojson.v2.min.js"></script>
 	<script type="text/javascript" src="lib/plotly-latest.min.js"></script>
-	<script type="text/javascript" src="timeline.js"></script>
 	<style>
 		<!-- Used only for iFrames, which we need to replace to integrate the graphs. -->
 		.box {
@@ -48,12 +47,13 @@
 	<div id="map">
 		<!-- TODO: Why does the map draw itself over the timeline if the map SVG isn't declared first? -->
 		<svg width="1000" height="600"></svg>
-		<script src="map.js"></script>
+		<script type="text/javascript" src="map.js"></script>
 	</div>
 	
 	<div id="timelinediv">
 		<svg id="timeline" width="1000" height="500"></svg>
 		<svg id="timelineKeys" width="1000" height="125"></svg>
+		<script type="text/javascript" src="timeline.js"></script>
 		<script type="text/javascript">
 			// Create the static parts of the page:
 			drawTimelineStaticParts();
@@ -77,17 +77,14 @@
 	</div>
 	
 	<div id="bargraphs">
-		<div id="agebarchart">
+		<!-- TODO: Why won't these draw side by side? -->
+		<div id="agebarchart" style="width: 50%; height: 500px;">
+			<script type="text/javascript" src="Ages.js"></script>
 		</div>
-		<div id="slebarchart">
+		<div id="slebarchart" style="width: 50%; height: 500px;">
+			<script type="text/javascript" src="SLEchart.js"></script>
 		</div>
 	</div>
-</div>
-
-<iframe  class="box" src="Ages.html" width="49%" height ="500" name="agebarchart" frameBorder="0">AGE Barchart</iframe>
-
-<iframe  class="box" src="SLEchart.html" width="49%" height ="500" name="SLEbarchart" frameBorder="0">SLE Barchart</iframe>
-
-	
+</div>	
 </body>
 </html>
