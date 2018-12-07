@@ -11,12 +11,12 @@
 
 <div id="myDiv" style="width: 700px; height: 500px;">
 <script>
-    let A = [];
-    let B = [];
-    let B1 = true;
-    let B2 = true;
-    let B3 = true;
-    let B4 = true;
+    let ageA = [];
+    let ageB = [];
+    let ageB1 = true;
+    let ageB2 = true;
+    let ageB3 = true;
+    let ageB4 = true;
 
 
     d3.csv('data/SurveyData.csv', function(data) {
@@ -66,23 +66,23 @@
 
 
 
-        let children_age_group1_Array_Sum = getSumOfArray(current_member_Array, children_age_group1_Array, live_IN_county_Array, B1, B2, B3, B4); //get sum of jan array
-        let children_age_group2_Array_Sum = getSumOfArray(current_member_Array, children_age_group2_Array, live_IN_county_Array, B1, B2, B3, B4);
-        let children_age_group3_Array_Sum = getSumOfArray(current_member_Array, children_age_group3_Array, live_IN_county_Array, B1, B2, B3, B4);
-        let children_age_group4_Array_Sum = getSumOfArray(current_member_Array, children_age_group4_Array, live_IN_county_Array, B1, B2, B3, B4);
-        let children_age_group5_Array_Sum = getSumOfArray(current_member_Array, children_age_group5_Array, live_IN_county_Array, B1, B2, B3, B4);
-        let no_children_Array_Sum = getSumOfArray(current_member_Array, no_children_Array, live_IN_county_Array, B1, B2, B3, B4);
+        let children_age_group1_Array_Sum = getSumOfArray(current_member_Array, children_age_group1_Array, live_IN_county_Array, ageB1, ageB2, ageB3, ageB4); //get sum of jan array
+        let children_age_group2_Array_Sum = getSumOfArray(current_member_Array, children_age_group2_Array, live_IN_county_Array, ageB1, ageB2, ageB3, ageB4);
+        let children_age_group3_Array_Sum = getSumOfArray(current_member_Array, children_age_group3_Array, live_IN_county_Array, ageB1, ageB2, ageB3, ageB4);
+        let children_age_group4_Array_Sum = getSumOfArray(current_member_Array, children_age_group4_Array, live_IN_county_Array, ageB1, ageB2, ageB3, ageB4);
+        let children_age_group5_Array_Sum = getSumOfArray(current_member_Array, children_age_group5_Array, live_IN_county_Array, ageB1, ageB2, ageB3, ageB4);
+        let no_children_Array_Sum = getSumOfArray(current_member_Array, no_children_Array, live_IN_county_Array, ageB1, ageB2, ageB3, ageB4);
 
 
 
         //sumArray.push(children_age_group1_Array_Sum ,children_age_group2_Array_Sum ,children_age_group3_Array_Sum, children_age_group4_Array_Sum, no_childeren_Array_Sum   );
 
-        A = [children_age_group1_Array_Sum[0], children_age_group2_Array_Sum[0], children_age_group3_Array_Sum[0], children_age_group4_Array_Sum[0], children_age_group5_Array_Sum[0], no_children_Array_Sum[0]];
+        ageA = [children_age_group1_Array_Sum[0], children_age_group2_Array_Sum[0], children_age_group3_Array_Sum[0], children_age_group4_Array_Sum[0], children_age_group5_Array_Sum[0], no_children_Array_Sum[0]];
         //let newListA = [ a/766 for a in A];
-        console.log(A);
-        B = [children_age_group1_Array_Sum[1], children_age_group2_Array_Sum[1], children_age_group3_Array_Sum[1], children_age_group4_Array_Sum[1], children_age_group5_Array_Sum[1], no_children_Array_Sum[1]];
+        console.log(ageA);
+        ageB = [children_age_group1_Array_Sum[1], children_age_group2_Array_Sum[1], children_age_group3_Array_Sum[1], children_age_group4_Array_Sum[1], children_age_group5_Array_Sum[1], no_children_Array_Sum[1]];
         //let newListB = [ a/b for a, b in (B,t)];
-        console.log(B);
+        console.log(ageB);
 
         console.log(children_age_group1_Array_Sum[0]); //here is your array you want
 
@@ -236,11 +236,11 @@
 
 
 
-        console.log(A);
+        console.log(ageA);
         let trace1 = {
             x: ['0-10', '11-20', '21-40', '41-60', '61-80', '>80'],
 
-            y: A,
+            y: ageA,
             name: '% of Members',
             marker: {
                 color: '#2c7fb8'
@@ -250,7 +250,7 @@
 
         let trace2 = {
             x: ['0-10', '11-20', '21-40', '41-60', '61-80', '>80'],
-            y: B,
+            y: ageB,
             name: '% of Non-members',
             marker: {
                 color: '#e34a33'
