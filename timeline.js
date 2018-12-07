@@ -1,5 +1,9 @@
 
+
 // Declare global constants for this module.
+const CHART_PADDING = 30;
+const BUTTON_HEIGHT = 30;
+const BUTTON_PADDING = 10;
 const TL_WIDTH = 1000; // MAYBE: How do I resize this dynamically? Do I need to create a viewport?
 const TL_ROWHEIGHT = 25; // TODO: Make sure this is appropriate to selected font and weather icons.
 const TL_LEFTMARGIN = 100;
@@ -9,13 +13,18 @@ const TL_OUTSIDETIMECOLOR = "#667f42";
 const TL_RECOMMENDCOLOR = "#395f97";
 
 // Declare global variables for this module.
-let tlXScale = d3.scale.linear();
-let tlYScale = d3.scale.linear();
+let timeline; // The SVG area for the timeline graph.
+let timelineDays; // An array containing all data displayed on the timeline.
+let SLE_data; // An array containing all the survey data.
+let timelineKey; // The SVG area for the timeline's key.
+let tlXScale = d3.scaleLinear();
+let tlYScale = d3.scaleLinear();
 let tlSurveyDates = {};
 
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
 // TODO: Style the text
 function drawTimelineStaticParts() {
+	/*
 	// Create the SVG
 	timeline = d3.select("body")
 		.append("svg")
@@ -23,6 +32,9 @@ function drawTimelineStaticParts() {
 		.attr("height", TL_ROWHEIGHT * 19)
 		.attr("width", TL_WIDTH)
 		;
+	*/
+	// Select the timeline SVG
+	timeline = d3.select("svg#timeline");
 		
 	// Create a dictionary to map weather condition descriptors to characters
 	let weatherDict = {
@@ -100,10 +112,7 @@ function drawTimelineStaticParts() {
 			.range([13.5 * TL_ROWHEIGHT, 4 * TL_ROWHEIGHT])
 			
 		// Setting up Y axis.
-		// See https://www.oreilly.com/library/view/interactive-data-visualization/9781449340223/ch08.html
-		let yAxis = d3.svg.axis()
-			.scale(tlYScale)
-			.orient('left');
+		let yAxis = d3.axisLeft(tlYScale);
 		timeline.append('g')
 			.attr('class', 'axis')
 			.attr('transform', 'translate(' + (TL_LEFTMARGIN - 0.5 * colWidth) + ',0)')
@@ -172,6 +181,7 @@ function drawTimelineStaticParts() {
 
 	});
 	
+	/*
 	// Draw the timeline keys in a separate SVG below the timeline.
 	timelineKeys = d3.select("body")
 		.append("svg")
@@ -179,6 +189,9 @@ function drawTimelineStaticParts() {
 		.attr("height", TL_ROWHEIGHT * 5)
 		.attr("width", TL_WIDTH) // TODO: How wide should this be?
 		;
+	*/
+	// Select the timeline SVG
+	timelineKeys = d3.select("svg#timelineKeys");
 	
 	timelineKeys.append("line")
 		.attr("x1", 10)
@@ -358,7 +371,7 @@ function drawTimelineGraphs() {
 	// and to distinguish lines for colorblind people.
 	
 	// Draw SLE_primary_reason_percent as a line.
-	let SLEPrimaryReasonPathGenerator = d3.svg.line()
+	let SLEPrimaryReasonPathGenerator = d3.line()
 		.defined(function(d) { return !isNaN(d.SLE_primary_reason_percent); })
 		.x(function(d) { return tlXScale(d.Index); })
 		.y(function(d) { return tlYScale(d.SLE_primary_reason_percent); });
@@ -370,7 +383,7 @@ function drawTimelineGraphs() {
 	
 	// Draw the line for outsideX
 	// TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
-	let outsideTimePathGenerator = d3.svg.line()
+	let outsideTimePathGenerator = d3.line()
 		.defined(function(d) { return !isNaN(d.outside90); })
 		.x(function(d) { return tlXScale(d.Index); })
 		.y(function(d) { return tlYScale(d.outside90); });
@@ -381,7 +394,7 @@ function drawTimelineGraphs() {
 		.attr('d', outsideTimePathGenerator(timelineDays));
 	
 	// Draw recommendPercent as a line.
-	let recommendPathGenerator = d3.svg.line()
+	let recommendPathGenerator = d3.line()
 		.defined(function(d) { return !isNaN(d.recommendPercent); })
 		.x(function(d) { return tlXScale(d.Index); })
 		.y(function(d) { return tlYScale(d.recommendPercent); });

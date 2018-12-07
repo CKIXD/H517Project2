@@ -7,8 +7,8 @@
 	<link type="text/css" rel="stylesheet" href="css/style.css"/>
 	<link type="text/css" rel="stylesheet" href="css/weather-icons.css"/>
 	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
+	<script type="text/javascript" src="https://d3js.org/topojson.v2.min.js"></script>
 	<script type="text/javascript" src="lib/plotly-latest.min.js"></script>
-	<script type="text/javascript" src="timeline.js"></script>
 	<style>
 		<!-- Used only for iFrames, which we need to replace to integrate the graphs. -->
 		.box {
@@ -17,6 +17,7 @@
 	</style>
 </head>
 <body>
+
 
 <div id="heading">
 	<div class="pagetitle" style="float: left;">Outdoor Exhibit Survey</div>
@@ -33,18 +34,57 @@
 		</p>
 	</div>
 </div>
+
 <div id="vis">
-
-</div>
-
-<iframe  src="timeline.html" width="59%" height ="350" name="timeline">Timeline</iframe>
-
-<iframe  class="box" src="Ages.html" width="39%" height ="350" name="agebarchart" frameBorder="0">AGE Barchart</iframe>
-
-<iframe id="map" src="statesmap.html" width="59%" height ="400" frameBorder="0">map</iframe>
- 
-<iframe  class="box" src="SLEchart.html" width="39%" height ="360" name="SLEbarchart" frameBorder="0">SLE Barchart</iframe>
-
+	<!-- This is how I set up side-by-side displays for project 1.
+		<svg id="map" width="49%" viewBox="0 0 500 500">
+		</svg>
+		<svg id="graph" width="49%" viewBox="0 0 500 500">
+			<text id='label' x='5' y='20'>Deaths per day</text>
+		</svg>
+	-->
 	
+	<div id="map">
+		<!-- TODO: Why does the map draw itself over the timeline if the map SVG isn't declared first? -->
+		<svg width="1000" height="600"></svg>
+		<script type="text/javascript" src="map.js"></script>
+	</div>
+	
+	<div id="timelinediv">
+		<svg id="timeline" width="1000" height="500"></svg>
+		<svg id="timelineKeys" width="1000" height="125"></svg>
+		<script type="text/javascript" src="timeline.js"></script>
+		<script type="text/javascript">
+			// Create the static parts of the page:
+			drawTimelineStaticParts();
+			
+			// Display the survey data.
+			function refreshSurveyData() {
+				drawTimelineGraphs();
+			}
+			
+			// Load the survey data
+			d3.csv("data/SurveyData.csv",function(error,d) {
+				if (error) { //If error is not null, something went wrong.
+					console.log(error); //Log the error.
+				} else { //If no error, the file loaded correctly. Yay!
+					SLE_data = d;
+					loadTimelineSurveyData();
+					refreshSurveyData();
+				}
+			});
+		</script>
+	</div>
+	
+	<div id="bargraphs">
+		<!-- TODO: Why won't these draw side by side? -->
+		<div id="agebarchart" style="width: 50%; height: 500px;">
+			<script type="text/javascript" src="Ages.js"></script>
+		</div>
+		<div id="slebarchart" style="width: 50%; height: 500px;">
+			<script type="text/javascript" src="SLEchart.js"></script>
+		</div>
+	</div>
+</div>	
 </body>
 </html>
