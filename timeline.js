@@ -24,6 +24,7 @@ let tlSurveyDates = {};
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
 // TODO: Style the text
 function drawTimelineStaticParts() {
+	/*
 	// Create the SVG
 	timeline = d3.select("body")
 		.append("svg")
@@ -31,6 +32,9 @@ function drawTimelineStaticParts() {
 		.attr("height", TL_ROWHEIGHT * 19)
 		.attr("width", TL_WIDTH)
 		;
+	*/
+	// Select the timeline SVG
+	timeline = d3.select("svg#timeline");
 		
 	// Create a dictionary to map weather condition descriptors to characters
 	let weatherDict = {
@@ -177,6 +181,7 @@ function drawTimelineStaticParts() {
 
 	});
 	
+	/*
 	// Draw the timeline keys in a separate SVG below the timeline.
 	timelineKeys = d3.select("body")
 		.append("svg")
@@ -184,6 +189,9 @@ function drawTimelineStaticParts() {
 		.attr("height", TL_ROWHEIGHT * 5)
 		.attr("width", TL_WIDTH) // TODO: How wide should this be?
 		;
+	*/
+	// Select the timeline SVG
+	timelineKeys = d3.select("svg#timelineKeys");
 	
 	timelineKeys.append("line")
 		.attr("x1", 10)
