@@ -6,6 +6,7 @@
 	<link type="text/css" rel="stylesheet" href="css/timeline.css"/>
 	<link type="text/css" rel="stylesheet" href="css/style.css"/>
 	<link type="text/css" rel="stylesheet" href="css/weather-icons.css"/>
+	<script type="text/javascript" src="constants.js"></script>
 	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 	<script type="text/javascript" src="https://d3js.org/topojson.v2.min.js"></script>
 	<script type="text/javascript" src="lib/plotly-latest.min.js"></script>
@@ -36,13 +37,14 @@
 </div>
 
 <div id="vis">
-	<div id="map">
-		<!-- TODO: Why does the map draw itself over the timeline if the map SVG isn't declared first? -->
-		<svg width="1000" height="600"></svg>
-		<script type="text/javascript" src="map.js"></script>
+	<!-- TODO: Resize the timeline and map dynamically: maybe using viewbox? -->
+	
+	<div id=filterdiv">
+		<svg id="filters" width="1000" height="100"></svg>
+		<script type="text/javascript" src="filters.js"></script>
 	</div>
 	
-	<div id="timelinediv" style="float: top;">
+	<div id="timelinediv">
 		<svg id="timeline" width="1000" height="500"></svg>
 		<svg id="timelineKeys" width="1000" height="125"></svg>
 		<script type="text/javascript" src="timeline.js"></script>
@@ -76,6 +78,11 @@
 			<script type="text/javascript" src="SLEchart.js"></script>
 		</div>
 	</div>
+	
+	<div id="map">
+		<script type="text/javascript" src="map.js"></script>
+	</div>
+	
 </div>	
 </body>
 </html>
