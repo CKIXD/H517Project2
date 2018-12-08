@@ -10,7 +10,7 @@ filterSvg.append("text")
 	.attr('text-anchor','end')
 	;
 
-// Museum Membership filters
+// Draw the Museum Membership filters line
 filterSvg.append("text")
 	.text("Museum Member:")
 	.attr("x", FILTER_LEFTMARGIN - BUTTON_PADDING)
@@ -26,6 +26,12 @@ filterSvg.append('rect')
 	.attr("width", buttonWidth)
 	.attr("height", BUTTON_HEIGHT)
 	.attr("fill", "black")
+	.on("click", function(d) {
+		filter_mm_yes = !filter_mm_yes;
+		d3.select("#filterbuttonmemberyes")
+			.attr("fill-opacity", (filter_mm_yes ? 1 : .2));
+		refreshSurveyData();
+	})
 	;
 filterSvg.append('text')
 	.attr('id', 'filterbuttonmemberyeslabel')
@@ -38,7 +44,7 @@ filterSvg.append('text')
 	.style('pointer-events','none')
 	;
 
-// Age filters
+// Draw the Age filters line
 filterSvg.append("text")
 	.text("Ages Represented:")
 	.attr("x", FILTER_LEFTMARGIN - BUTTON_PADDING)
@@ -67,7 +73,7 @@ filterSvg.append('text')
 	;
 
 
-// Came From filters
+// Draw the Came From filters line
 filterSvg.append("text")
 	.text("Came From:")
 	.attr("x", FILTER_LEFTMARGIN - BUTTON_PADDING)
@@ -95,3 +101,15 @@ filterSvg.append('text')
 	.style('pointer-events','none')
 	;
 
+
+function filterCheck(record) {
+	let retval = true;
+	
+	if (!filter_mm_yes) {
+		if (record.current_member == "Yes") {
+			retval = false;
+		}
+	}
+	
+	return retval;
+}

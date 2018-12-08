@@ -241,12 +241,18 @@ function loadTimelineSurveyData() {
 }
 
 function drawTimelineGraphs() {
-// TODO: Filter the data by selected demographics.
-	let dayRecs;
+	timeline.selectAll(".graphelement").remove();
 	
 	for (let i=0; i < timelineDays.length; i++) {
 	//for (let i=0; i < 1; i++) {
-		dayRecs = tlSurveyDates[timelineDays[i].IntDate];
+		// TODO: Filter the data by selected demographics.
+		let unfilteredDayRecs = tlSurveyDates[timelineDays[i].IntDate];
+		let dayRecs = [];
+		for (let j=0; j < unfilteredDayRecs.length; j++) {
+			if (filterCheck(unfilteredDayRecs[j])) {
+				dayRecs.push(unfilteredDayRecs[j]);
+			}
+		}
 		
 		// Display n for each date
 		timeline.append("text")
@@ -254,6 +260,7 @@ function drawTimelineGraphs() {
 			.attr("x", tlXScale(i))
 			.attr("y", 15 * TL_ROWHEIGHT)
 			.attr('text-anchor','middle')
+			.attr("class", "graphelement")
 			;
 			
 		let SLE_primary_reason_responded = 0;
@@ -358,7 +365,7 @@ function drawTimelineGraphs() {
 		.y(function(d) { return tlYScale(d.SLE_primary_reason_percent); });
 	timeline.append('path')
 		.attr('id', 'timelineSLEprimaryreason')
-		.attr('class', 'graphline')
+		.attr('class', 'graphline graphelement')
 		.attr('stroke', TL_PRIMARYREASONCOLOR)
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
 	
@@ -370,7 +377,7 @@ function drawTimelineGraphs() {
 		.y(function(d) { return tlYScale(d.outside90); });
 	timeline.append('path')
 		.attr('id', 'timelineOutsideTime')
-		.attr('class', 'graphline')
+		.attr('class', 'graphline graphelement')
 		.attr('stroke', TL_OUTSIDETIMECOLOR)
 		.attr('d', outsideTimePathGenerator(timelineDays));
 	
@@ -381,7 +388,7 @@ function drawTimelineGraphs() {
 		.y(function(d) { return tlYScale(d.recommendPercent); });
 	timeline.append('path')
 		.attr('id', 'timelineRecommend')
-		.attr('class', 'graphline')
+		.attr('class', 'graphline graphelement')
 		.attr('stroke', TL_RECOMMENDCOLOR)
 		.attr('d', recommendPathGenerator(timelineDays));
 	

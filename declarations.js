@@ -10,3 +10,7 @@ const CHART_PADDING = 30;
 const BUTTON_HEIGHT = 30;
 const BUTTON_PADDING = 10;
 const BUTTON_LABEL_Y_ADJUST = 19;
+
+// Declare global variables.
+let filter_mm_yes = true;
+
