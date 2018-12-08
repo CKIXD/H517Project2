@@ -36,13 +36,11 @@
 </div>
 
 <div id="vis">
-	<!-- TODO: Display the map below the bar graphs. -->
-	<!-- TODO: Resize the timeline and map dynamically. -->
+	<!-- TODO: Resize the timeline and map dynamically: maybe using viewbox? -->
 	
-	<div id="map">
-		<!-- TODO: Why does the map draw itself over the timeline if the map SVG isn't declared first? -->
-		<svg width="1000" height="600"></svg>
-		<script type="text/javascript" src="map.js"></script>
+	<div id=filterdiv">
+		<svg id="filters" width="1000" height="100"></svg>	
+		<script type="text/javascript" src="filters.js"></script>
 	</div>
 	
 	<div id="timelinediv">
@@ -78,6 +76,10 @@
 		<div id="slebarchart" style="width: 50%; height: 500px; float: right;">
 			<script type="text/javascript" src="SLEchart.js"></script>
 		</div>
+	</div>
+	
+	<div id="map">
+		<script type="text/javascript" src="map.js"></script>
 	</div>
 	
 </div>	

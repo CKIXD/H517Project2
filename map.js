@@ -34,7 +34,7 @@ var path = d3.geoPath().projection(null);              // path generator that wi
 //var color = d3.scaleQuantize().range(["rgb(237,248,233)","rgb(186,228,179)","rgb(116,196,118)","rgb(49,163,84)","rgb(0,109,44)"]);
 
 //Create SVG element and append map to the SVG
-var svg = d3.select("svg")
+var svg = d3.select("#map")
 .append("svg")
 .attr("width", width)
 .attr("height", height)

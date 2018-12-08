@@ -1,13 +1,13 @@
 
 
 // Declare global constants for this module.
-const CHART_PADDING = 30;
-const BUTTON_HEIGHT = 30;
-const BUTTON_PADDING = 10;
 const TL_WIDTH = 1000; // MAYBE: How do I resize this dynamically? Do I need to create a viewport?
 const TL_ROWHEIGHT = 25; // TODO: Make sure this is appropriate to selected font and weather icons.
 const TL_LEFTMARGIN = 100;
 
+// TODO: Select easily distinguishable colors, and use different shaped points
+// 		 for each for colorblindness assistance and to ensure we don't miss a
+//	     value between NaN values. Display the shape on the key.
 const TL_PRIMARYREASONCOLOR = "#3f2199";
 const TL_OUTSIDETIMECOLOR = "#667f42";
 const TL_RECOMMENDCOLOR = "#395f97";
@@ -22,7 +22,6 @@ let tlYScale = d3.scaleLinear();
 let tlSurveyDates = {};
 
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
-// TODO: Style the text
 function drawTimelineStaticParts() {
 	/*
 	// Create the SVG
@@ -181,15 +180,6 @@ function drawTimelineStaticParts() {
 
 	});
 	
-	/*
-	// Draw the timeline keys in a separate SVG below the timeline.
-	timelineKeys = d3.select("body")
-		.append("svg")
-		.attr("id", "timelineKeys")
-		.attr("height", TL_ROWHEIGHT * 5)
-		.attr("width", TL_WIDTH) // TODO: How wide should this be?
-		;
-	*/
 	// Select the timeline SVG
 	timelineKeys = d3.select("svg#timelineKeys");
 	
@@ -366,9 +356,6 @@ function drawTimelineGraphs() {
 		*/
 
 	}
-	
-	// TODO: Draw a shape at each point so we don't miss a value between two NaN values,
-	// and to distinguish lines for colorblind people.
 	
 	// Draw SLE_primary_reason_percent as a line.
 	let SLEPrimaryReasonPathGenerator = d3.line()

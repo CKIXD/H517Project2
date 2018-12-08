@@ -1,0 +1,4 @@
+
+const CHART_PADDING = 30;
+const BUTTON_HEIGHT = 30;
+const BUTTON_PADDING = 10;
