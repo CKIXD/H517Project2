@@ -158,7 +158,7 @@ var adj_counties=[]
 //  console.log("US state info:",states_info);
   });
   
-d3.csv("data/Data.csv", function(error,d){
+d3.csv("data/SurveyData.csv", function(error,d){
 
 if (error) { //If error is not null, something went wrong.
 console.log(error); //Log the error.

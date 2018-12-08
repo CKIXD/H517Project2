@@ -13,4 +13,5 @@ const BUTTON_LABEL_Y_ADJUST = 19;
 
 // Declare global variables.
 let filter_mm_yes = true;
+let filter_mm_no = true;
 

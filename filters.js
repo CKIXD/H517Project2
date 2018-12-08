@@ -21,7 +21,7 @@ filterSvg.append("text")
 filterSvg.append('rect')
 	.attr('id', 'filterbuttonmemberyes')
 	.attr('class', 'filterbutton')
-	.attr("x", FILTER_LEFTMARGIN + BUTTON_PADDING)
+	.attr("x", FILTER_LEFTMARGIN)
 	.attr("y", 0)
 	.attr("width", buttonWidth)
 	.attr("height", BUTTON_HEIGHT)
@@ -37,7 +37,33 @@ filterSvg.append('text')
 	.attr('id', 'filterbuttonmemberyeslabel')
 	.attr('class', 'filterbuttonlabel')
 	.text('Yes')
-	.attr('x', FILTER_LEFTMARGIN + BUTTON_PADDING + buttonWidth / 2)
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth / 2)
+	.attr("y", BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','middle')
+	.attr('fill', 'white')
+	.style('pointer-events','none')
+	;
+
+filterSvg.append('rect')
+	.attr('id', 'filterbuttonmemberno')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + buttonWidth + BUTTON_PADDING)
+	.attr("y", 0)
+	.attr("width", buttonWidth)
+	.attr("height", BUTTON_HEIGHT)
+	.attr("fill", "black")
+	.on("click", function(d) {
+		filter_mm_no = !filter_mm_no;
+		d3.select("#filterbuttonmemberno")
+			.attr("fill-opacity", (filter_mm_no ? 1 : .2));
+		refreshSurveyData();
+	})
+	;
+filterSvg.append('text')
+	.attr('id', 'filterbuttonmembernolabel')
+	.attr('class', 'filterbuttonlabel')
+	.text('No')
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth * 1.5 + BUTTON_PADDING)
 	.attr("y", BUTTON_LABEL_Y_ADJUST)
 	.attr('text-anchor','middle')
 	.attr('fill', 'white')
@@ -55,7 +81,7 @@ filterSvg.append("text")
 filterSvg.append('rect')
 	.attr('id', 'filterbuttonages0')
 	.attr('class', 'filterbutton')
-	.attr("x", FILTER_LEFTMARGIN + BUTTON_PADDING)
+	.attr("x", FILTER_LEFTMARGIN)
 	.attr("y", BUTTON_HEIGHT + BUTTON_PADDING)
 	.attr("width", buttonWidth)
 	.attr("height", BUTTON_HEIGHT)
@@ -65,7 +91,7 @@ filterSvg.append('text')
 	.attr('id', 'filterbuttonages0label')
 	.attr('class', 'filterbuttonlabel')
 	.text('0-2')
-	.attr('x', FILTER_LEFTMARGIN + BUTTON_PADDING + buttonWidth / 2)
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth / 2)
 	.attr("y", BUTTON_HEIGHT + BUTTON_PADDING + BUTTON_LABEL_Y_ADJUST)
 	.attr('text-anchor','middle')
 	.attr('fill', 'white')
@@ -84,7 +110,7 @@ filterSvg.append("text")
 filterSvg.append('rect')
 	.attr('id', 'filterbuttoncamefrommarion')
 	.attr('class', 'filterbutton')
-	.attr("x", FILTER_LEFTMARGIN + BUTTON_PADDING)
+	.attr("x", FILTER_LEFTMARGIN)
 	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING))
 	.attr("width", buttonWidth)
 	.attr("height", BUTTON_HEIGHT)
@@ -94,7 +120,7 @@ filterSvg.append('text')
 	.attr('id', 'filterbuttoncamefrommarionlabel')
 	.attr('class', 'filterbuttonlabel')
 	.text('Marion County')
-	.attr('x', FILTER_LEFTMARGIN + BUTTON_PADDING + buttonWidth / 2)
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth / 2)
 	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING) + BUTTON_LABEL_Y_ADJUST)
 	.attr('text-anchor','middle')
 	.attr('fill', 'white')
@@ -107,6 +133,11 @@ function filterCheck(record) {
 	
 	if (!filter_mm_yes) {
 		if (record.current_member == "Yes") {
+			retval = false;
+		}
+	}
+	if (!filter_mm_no) {
+		if (record.current_member == "No") {
 			retval = false;
 		}
 	}
