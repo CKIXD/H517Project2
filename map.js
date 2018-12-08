@@ -155,15 +155,15 @@ var adj_counties=[]
 //     d.name = +d.Name;
 //   });
   states_info = data;
-  console.log("US state info:",states_info);
+//  console.log("US state info:",states_info);
   });
   
-d3.csv("data/Data.csv", function(error,d){
+d3.csv("data/SurveyData.csv", function(error,d){
 
 if (error) { //If error is not null, something went wrong.
 console.log(error); //Log the error.
 } else { //If no error, the file loaded correctly. Yay!
-console.log("Survey answers",d); //Log the data.
+//console.log("Survey answers",d); //Log the data.
 }
 
 for (var i=0; i<d.length; i++){
@@ -221,7 +221,8 @@ if(record.live_IN_county != 'N/A'){
 	unansewred+=1; }
   }//end outer if statement
 }//end of for loop
-var in_state = marion_cnty + adjacent_cnty +adjacent_cnty; 
+var in_state = marion_cnty + adjacent_cnty +adjacent_cnty;
+/* 
 console.log("not answered", unansewred);
 console.log("answered", answers);
 console.log("from Marion: ", marion_cnty);
@@ -234,7 +235,7 @@ console.log("from MI: ", MI);
 console.log("from MO: ", MO);
 console.log("from Kansas: ", KS);
 console.log("Results: From Indiana:",in_state,"Outside Indiana",other_state_country++);
-
+*/
     
      
 ////// load JSON data ////////
@@ -245,12 +246,12 @@ d3.json("https://d3js.org/us-10m.v1.json", function(error, us) {
 // console.log("state name",dataState);
 // }
 
-console.log("US map" , us);
+//console.log("US map" , us);
   if (error) throw error;
   var counties = topojson.feature(us, us.objects.counties).features;
-  console.log("counties", counties);
+//  console.log("counties", counties);
   var states = topojson.feature(us, us.objects.states).features
-    console.log("states", states);
+//    console.log("states", states);
     
 // IN counties
 var indianaCounties = counties.filter(function(d) { return d.id.substr(0,2) =='18'; });
