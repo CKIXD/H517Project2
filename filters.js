@@ -70,6 +70,32 @@ filterSvg.append('text')
 	.style('pointer-events','none')
 	;
 
+filterSvg.append('rect')
+	.attr('id', 'filterbuttonmemberformer')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + (buttonWidth + BUTTON_PADDING) * 2)
+	.attr("y", 0)
+	.attr("width", buttonWidth)
+	.attr("height", BUTTON_HEIGHT)
+	.attr("fill", "black")
+	.on("click", function(d) {
+		filter_mm_former = !filter_mm_former;
+		d3.select("#filterbuttonmemberformer")
+			.attr("fill-opacity", (filter_mm_former ? 1 : .2));
+		refreshSurveyData();
+	})
+	;
+filterSvg.append('text')
+	.attr('id', 'filterbuttonmemberformerlabel')
+	.attr('class', 'filterbuttonlabel')
+	.text('Former')
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth * 2.5 + BUTTON_PADDING * 2)
+	.attr("y", BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','middle')
+	.attr('fill', 'white')
+	.style('pointer-events','none')
+	;
+
 // Draw the Age filters line
 filterSvg.append("text")
 	.text("Ages Represented:")
@@ -138,6 +164,11 @@ function filterCheck(record) {
 	}
 	if (!filter_mm_no) {
 		if (record.current_member == "No") {
+			retval = false;
+		}
+	}
+	if (!filter_mm_former) {
+		if (record.current_member == "I am a former member") {
 			retval = false;
 		}
 	}
