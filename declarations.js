@@ -15,4 +15,7 @@ const BUTTON_LABEL_Y_ADJUST = 19;
 let filter_mm_yes = true;
 let filter_mm_no = true;
 let filter_mm_former = true;
+let filter_age_0to5 = false;
+let filter_age_6to12 = false;
+let filter_age_13to18 = false;
 

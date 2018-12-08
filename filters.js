@@ -1,5 +1,5 @@
 
-let buttonWidth = (TL_WIDTH - FILTER_LEFTMARGIN - BUTTON_PADDING * 4) / 5;
+let buttonWidth = (TL_WIDTH - FILTER_LEFTMARGIN - BUTTON_PADDING * 3) / 4;
 
 let filterSvg = d3.select("svg#filters");
 
@@ -105,18 +105,25 @@ filterSvg.append("text")
 	;
 
 filterSvg.append('rect')
-	.attr('id', 'filterbuttonages0')
+	.attr('id', 'filterbuttonage0to5')
 	.attr('class', 'filterbutton')
 	.attr("x", FILTER_LEFTMARGIN)
 	.attr("y", BUTTON_HEIGHT + BUTTON_PADDING)
 	.attr("width", buttonWidth)
 	.attr("height", BUTTON_HEIGHT)
 	.attr("fill", "black")
+	.attr("fill-opacity", 0.2)
+	.on("click", function(d) {
+		filter_age_0to5 = !filter_age_0to5;
+		d3.select("#filterbuttonage0to5")
+			.attr("fill-opacity", (filter_age_0to5 ? 1 : .2));
+		refreshSurveyData();
+	})
 	;
 filterSvg.append('text')
-	.attr('id', 'filterbuttonages0label')
+	.attr('id', 'filterbuttonage0to5label')
 	.attr('class', 'filterbuttonlabel')
-	.text('0-2')
+	.text('0-5')
 	.attr('x', FILTER_LEFTMARGIN + buttonWidth / 2)
 	.attr("y", BUTTON_HEIGHT + BUTTON_PADDING + BUTTON_LABEL_Y_ADJUST)
 	.attr('text-anchor','middle')
@@ -172,6 +179,16 @@ function filterCheck(record) {
 			retval = false;
 		}
 	}
+	
+	if (filter_age_0to5) {
+		retval = false;
+		if (record.age_group1 == "Ages 5 and younger" ||
+			record.children_age_group1 == "0-2 years old" ||
+			record.children_age_group2 == "3-5 years old") {
+			retval = true;
+		}
+	}
+
 	
 	return retval;
 }
