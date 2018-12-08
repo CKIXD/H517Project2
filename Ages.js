@@ -49,7 +49,7 @@ d3.csv('data/SurveyData.csv', function(data) {
 		heard_of_SLE_online_ad_Array.push(d.heard_of_SLE_online_ad);
 		heard_of_SLE_other_Array.push(d.heard_of_SLE_other);
 	});
-	console.log(children_age_group1_Array);
+//	console.log(children_age_group1_Array);
 
 
 
@@ -66,12 +66,12 @@ d3.csv('data/SurveyData.csv', function(data) {
 
 	ageA = [children_age_group1_Array_Sum[0], children_age_group2_Array_Sum[0], children_age_group3_Array_Sum[0], children_age_group4_Array_Sum[0], children_age_group5_Array_Sum[0], no_children_Array_Sum[0]];
 	//let newListA = [ a/766 for a in A];
-	console.log(ageA);
+//	console.log(ageA);
 	ageB = [children_age_group1_Array_Sum[1], children_age_group2_Array_Sum[1], children_age_group3_Array_Sum[1], children_age_group4_Array_Sum[1], children_age_group5_Array_Sum[1], no_children_Array_Sum[1]];
 	//let newListB = [ a/b for a, b in (B,t)];
-	console.log(ageB);
+//	console.log(ageB);
 
-	console.log(children_age_group1_Array_Sum[0]); //here is your array you want
+//	console.log(children_age_group1_Array_Sum[0]); //here is your array you want
 
 	function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out) {
 
@@ -223,7 +223,7 @@ d3.csv('data/SurveyData.csv', function(data) {
 
 
 
-	console.log(ageA);
+//	console.log(ageA);
 	let trace1 = {
 		x: ['0-10', '11-20', '21-40', '41-60', '61-80', '>80'],
 

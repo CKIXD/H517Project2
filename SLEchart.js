@@ -50,7 +50,7 @@
             heard_of_SLE_online_ad_Array.push(d.heard_of_SLE_online_ad);
             heard_of_SLE_other_Array.push(d.heard_of_SLE_other);
         });
-        console.log(heard_of_SLE_BB_Array);
+//		console.log(heard_of_SLE_BB_Array);
 
 		let heard_of_SLE_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_Array,live_IN_county_Array, sleB1, sleB2, sleB3, sleB4); //get sum of jan array
 		let heard_of_SLE_SM_Array_Sum = getSumOfArray(current_member_Array,heard_of_SLE_SM_Array,live_IN_county_Array, sleB1, sleB2, sleB3, sleB4); 
@@ -229,7 +229,7 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
   //A=[70, 23, 29, 27, 42, 93,32,25,12];
   //B=[73, 25, 29, 30, 49, 81,32,25,12];
 
-  console.log(sleA);
+//  console.log(sleA);
   let trace1 = {
   x: ['Family/Friends', 'Social Media', 'Ads at Museum', 'Our Website', 'A story in the Media', 'TV commercials', 'Billboards', 'Online Ads', 'Others'],
  
