@@ -131,6 +131,33 @@ filterSvg.append('text')
 	.style('pointer-events','none')
 	;
 
+filterSvg.append('rect')
+	.attr('id', 'filterbuttonage6to12')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + buttonWidth + BUTTON_PADDING)
+	.attr("y", BUTTON_HEIGHT + BUTTON_PADDING)
+	.attr("width", buttonWidth)
+	.attr("height", BUTTON_HEIGHT)
+	.attr("fill", "black")
+	.attr("fill-opacity", 0.2)
+	.on("click", function(d) {
+		filter_age_6to12 = !filter_age_6to12;
+		d3.select("#filterbuttonage6to12")
+			.attr("fill-opacity", (filter_age_6to12 ? 1 : .2));
+		refreshSurveyData();
+	})
+	;
+filterSvg.append('text')
+	.attr('id', 'filterbuttonage6to12label')
+	.attr('class', 'filterbuttonlabel')
+	.text('6-12')
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth * 1.5 + BUTTON_PADDING)
+	.attr("y", BUTTON_HEIGHT + BUTTON_PADDING + BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','middle')
+	.attr('fill', 'white')
+	.style('pointer-events','none')
+	;
+
 
 // Draw the Came From filters line
 filterSvg.append("text")
@@ -180,13 +207,16 @@ function filterCheck(record) {
 		}
 	}
 	
-	if (filter_age_0to5) {
-		retval = false;
-		if (record.age_group1 == "Ages 5 and younger" ||
-			record.children_age_group1 == "0-2 years old" ||
-			record.children_age_group2 == "3-5 years old") {
-			retval = true;
-		}
+	if (retval && filter_age_0to5) {
+		retval = (record.age_group1.substring(0,1) == "A" ||
+			record.children_age_group1.substring(0,1) == "0" ||
+			record.children_age_group2.substring(0,1) == "3");
+	}
+	if (retval && filter_age_6to12) {
+		retval = (record.age_group2.substring(0,1) == "A" ||
+			record.age_group3.substring(0,1) == "A" ||
+			record.children_age_group3.substring(0,1) == "6" ||
+			record.children_age_group4.substring(0,1) == "9");
 	}
 
 	
