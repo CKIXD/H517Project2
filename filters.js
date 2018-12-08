@@ -1,11 +1,57 @@
 
+let buttonWidth = (TL_WIDTH - FILTER_LEFTMARGIN - BUTTON_PADDING * 4) / 5;
+
 let filterSvg = d3.select("svg#filters");
 
 filterSvg.append("text")
-	.text("TODO: Draw Filters Here")
-	.attr("x", 50)
-	.attr("y", 50)
+	.text("Filters:")
+	.attr("x", TL_LEFTMARGIN - BUTTON_PADDING)
+	.attr("y", BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','end')
+	;
+
+// Museum Membership filters
+filterSvg.append("text")
+	.text("Museum Member:")
+	.attr("x", FILTER_LEFTMARGIN - BUTTON_PADDING)
+	.attr("y", BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','end')
+	;
+	
+filterSvg.append('rect')
+	.attr('id', 'filterbuttonmemberyes')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + BUTTON_PADDING)
+	.attr("y", 0)
+	.attr("width", buttonWidth)
+	.attr("height", BUTTON_HEIGHT)
 	.attr("fill", "red")
+	;
+filterSvg.append('text')
+	.attr('id', 'filterbuttonmemberyeslabel')
+	.attr('class', 'filterbuttonlabel')
+	.text('Yes')
+	.attr('x', FILTER_LEFTMARGIN + BUTTON_PADDING + buttonWidth / 2)
+	.attr("y", BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','middle')
+	.attr('fill', 'white')
+	.style('pointer-events','none')
+	;
+
+// Age filters
+filterSvg.append("text")
+	.text("Ages Represented:")
+	.attr("x", FILTER_LEFTMARGIN - BUTTON_PADDING)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING))
+	.attr('text-anchor','end')
+	;
+
+// Came From filters
+filterSvg.append("text")
+	.text("Came From:")
+	.attr("x", FILTER_LEFTMARGIN - BUTTON_PADDING)
+	.attr("y", 3 * (BUTTON_HEIGHT + BUTTON_PADDING))
+	.attr('text-anchor','end')
 	;
 
 /*
