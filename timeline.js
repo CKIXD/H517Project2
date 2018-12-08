@@ -1,10 +1,4 @@
 
-
-// Declare global constants for this module.
-const TL_WIDTH = 1000; // MAYBE: How do I resize this dynamically? Do I need to create a viewport?
-const TL_ROWHEIGHT = 25; // TODO: Make sure this is appropriate to selected font and weather icons.
-const TL_LEFTMARGIN = 100;
-
 // TODO: Select easily distinguishable colors, and use different shaped points
 // 		 for each for colorblindness assistance and to ensure we don't miss a
 //	     value between NaN values. Display the shape on the key.
