@@ -25,7 +25,7 @@ filterSvg.append('rect')
 	.attr("y", 0)
 	.attr("width", buttonWidth)
 	.attr("height", BUTTON_HEIGHT)
-	.attr("fill", "red")
+	.attr("fill", "black")
 	;
 filterSvg.append('text')
 	.attr('id', 'filterbuttonmemberyeslabel')
@@ -42,38 +42,56 @@ filterSvg.append('text')
 filterSvg.append("text")
 	.text("Ages Represented:")
 	.attr("x", FILTER_LEFTMARGIN - BUTTON_PADDING)
-	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING))
+	.attr("y", BUTTON_HEIGHT + BUTTON_PADDING + BUTTON_LABEL_Y_ADJUST)
 	.attr('text-anchor','end')
 	;
+
+filterSvg.append('rect')
+	.attr('id', 'filterbuttonages0')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + BUTTON_PADDING)
+	.attr("y", BUTTON_HEIGHT + BUTTON_PADDING)
+	.attr("width", buttonWidth)
+	.attr("height", BUTTON_HEIGHT)
+	.attr("fill", "black")
+	;
+filterSvg.append('text')
+	.attr('id', 'filterbuttonages0label')
+	.attr('class', 'filterbuttonlabel')
+	.text('0-2')
+	.attr('x', FILTER_LEFTMARGIN + BUTTON_PADDING + buttonWidth / 2)
+	.attr("y", BUTTON_HEIGHT + BUTTON_PADDING + BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','middle')
+	.attr('fill', 'white')
+	.style('pointer-events','none')
+	;
+
 
 // Came From filters
 filterSvg.append("text")
 	.text("Came From:")
 	.attr("x", FILTER_LEFTMARGIN - BUTTON_PADDING)
-	.attr("y", 3 * (BUTTON_HEIGHT + BUTTON_PADDING))
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING) + BUTTON_LABEL_Y_ADJUST)
 	.attr('text-anchor','end')
 	;
 
-/*
 filterSvg.append('rect')
-	.attr('id', 'buttontotal')
-	.attr('class', 'graphbutton')
-	.attr("x", buttonPadding)
-	.attr("y", graphHeight + buttonPadding)
+	.attr('id', 'filterbuttoncamefrommarion')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + BUTTON_PADDING)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING))
 	.attr("width", buttonWidth)
-	.attr("height", buttonHeight)
-	.attr("fill", "red")
-	.on('click', function(d) {
-		displayTotal();
-	});
+	.attr("height", BUTTON_HEIGHT)
+	.attr("fill", "black")
+	;
 filterSvg.append('text')
-	.attr('id', 'buttontotallabel')
-	.attr('class', 'graphbuttonlabel')
-	.text('Total')
-	.attr('x', buttonPadding + buttonWidth / 2)
-	.attr('y', graphHeight + buttonPadding + buttonHeight / 2 + 
-		buttonLabelYAdjust)
+	.attr('id', 'filterbuttoncamefrommarionlabel')
+	.attr('class', 'filterbuttonlabel')
+	.text('Marion County')
+	.attr('x', FILTER_LEFTMARGIN + BUTTON_PADDING + buttonWidth / 2)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING) + BUTTON_LABEL_Y_ADJUST)
 	.attr('text-anchor','middle')
 	.attr('fill', 'white')
-	.style('pointer-events','none');
-*/
+	.style('pointer-events','none')
+	;
+

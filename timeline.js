@@ -200,7 +200,7 @@ function drawTimelineStaticParts() {
 		.attr('class', 'graphline')
 		;
 	timelineKeys.append("text")
-		.text("% of respondents who stayed in the outside exhibit longer than XXX minutes.")
+		.text("% of respondents who stayed in the outside exhibit longer than TODO minutes.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 2 * TL_ROWHEIGHT)
 		.attr("fill", TL_OUTSIDETIMECOLOR)
