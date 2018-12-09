@@ -220,6 +220,58 @@ filterSvg.append('text')
 	.style('pointer-events','none')
 	;
 
+filterSvg.append('rect')
+	.attr('id', 'filterbuttoncamefromadjacent')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + buttonWidth + BUTTON_PADDING)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING))
+	.attr("width", buttonWidth)
+	.attr("height", BUTTON_HEIGHT)
+	.attr("fill", "black")
+	.on("click", function(d) {
+		filter_cf_adjacent = !filter_cf_adjacent;
+		d3.select("#filterbuttoncamefromadjacent")
+			.attr("fill-opacity", (filter_cf_adjacent ? 1 : .2));
+		refreshSurveyData();
+	})
+	;
+filterSvg.append('text')
+	.attr('id', 'filterbuttoncamefromadjacentlabel')
+	.attr('class', 'filterbuttonlabel')
+	.text('Adjacent County')
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth * 1.5 + BUTTON_PADDING)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING) + BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','middle')
+	.attr('fill', 'white')
+	.style('pointer-events','none')
+	;
+
+filterSvg.append('rect')
+	.attr('id', 'filterbuttoncamefromotherin')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + (buttonWidth + BUTTON_PADDING) * 2)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING))
+	.attr("width", buttonWidth)
+	.attr("height", BUTTON_HEIGHT)
+	.attr("fill", "black")
+	.on("click", function(d) {
+		filter_cf_otherin = !filter_cf_otherin;
+		d3.select("#filterbuttoncamefromotherin")
+			.attr("fill-opacity", (filter_cf_otherin ? 1 : .2));
+		refreshSurveyData();
+	})
+	;
+filterSvg.append('text')
+	.attr('id', 'filterbuttoncamefromotherinlabel')
+	.attr('class', 'filterbuttonlabel')
+	.text('Adjacent County')
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth * 2.5 + BUTTON_PADDING * 2)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING) + BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','middle')
+	.attr('fill', 'white')
+	.style('pointer-events','none')
+	;
+
 
 function filterCheck(record) {
 	let retval = true;
@@ -258,6 +310,16 @@ function filterCheck(record) {
 
 	if (!filter_cf_marion) {
 		if (record.live_IN_county.substring(0,1) == "M") {
+			retval = false;
+		}
+	}
+	if (!filter_cf_adjacent) {
+		if (record.live_IN_county.substring(0,2) == "A ") {
+			retval = false;
+		}
+	}
+	if (!filter_cf_otherin) {
+		if (record.live_IN_county.substring(0,1) == "I") {
 			retval = false;
 		}
 	}
