@@ -1,10 +1,6 @@
 
-// TODO: Draw the point shapes on the key lines.
-
 // TODO: Draw a dotted line where there are missing data points.
 	// https://bocoup.com/blog/showing-missing-data-in-line-charts
-
-// TODO: Select easily distinguishable line colors, without regard to colorblindness. (That's what the shapes are for.)
 
 // TODO: Draw the line for % plan to return to visit the SLE
 
@@ -202,12 +198,19 @@ function drawTimelineStaticParts() {
 		.attr("stroke", TL_PRIMARYREASONCOLOR)
 		.attr('class', 'graphline')
 		;
+	timelineKeys.append("path")
+		.attr("transform", "translate(" + TL_LEFTMARGIN / 2 + "," +
+				.75 * TL_ROWHEIGHT + ")")
+		.attr('d', d3.symbol().type(d3.symbolCircle).size(TL_SYMBOLSIZE))
+		.style("fill", TL_PRIMARYREASONCOLOR)
+		;
 	timelineKeys.append("text")
 		.text("% of respondents who said the outdoor exhibit was their primary reason for coming.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 1 * TL_ROWHEIGHT)
 		.attr("fill", TL_PRIMARYREASONCOLOR)
 		;
+		
 	timelineKeys.append("line")
 		.attr("x1", 10)
 		.attr("y1", 1.75 * TL_ROWHEIGHT)
@@ -216,12 +219,19 @@ function drawTimelineStaticParts() {
 		.attr("stroke", TL_OUTSIDETIMECOLOR)
 		.attr('class', 'graphline')
 		;
+	timelineKeys.append("path")
+		.attr("transform", "translate(" + TL_LEFTMARGIN / 2 + "," +
+				1.75 * TL_ROWHEIGHT + ")")
+		.attr('d', d3.symbol().type(d3.symbolCross).size(TL_SYMBOLSIZE))
+		.style("fill", TL_OUTSIDETIMECOLOR)
+		;
 	timelineKeys.append("text")
 		.text("% of respondents who stayed in the outside exhibit longer than XXX minutes.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 2 * TL_ROWHEIGHT)
 		.attr("fill", TL_OUTSIDETIMECOLOR)
 		;
+		
 	timelineKeys.append("line")
 		.attr("x1", 10)
 		.attr("y1", 2.75 * TL_ROWHEIGHT)
@@ -229,6 +239,12 @@ function drawTimelineStaticParts() {
 		.attr("y2", 2.75 * TL_ROWHEIGHT)
 		.attr("stroke", TL_RECOMMENDCOLOR)
 		.attr('class', 'graphline')
+		;
+	timelineKeys.append("path")
+		.attr("transform", "translate(" + TL_LEFTMARGIN / 2 + "," +
+				2.75 * TL_ROWHEIGHT + ")")
+		.attr('d', d3.symbol().type(d3.symbolTriangle).size(TL_SYMBOLSIZE))
+		.style("fill", TL_RECOMMENDCOLOR)
 		;
 	timelineKeys.append("text")
 		.text("% of respondents who would recommend the exhibit to other families.")
