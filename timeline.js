@@ -382,6 +382,7 @@ function drawTimelineGraphs() {
 		.attr('stroke', TL_PRIMARYREASONCOLOR)
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
 		
+/*
 	// Draw dots for SLE_primary_reason_percent.
 	timeline.selectAll(".tldot")
 		.data(timelineDays)
@@ -391,6 +392,20 @@ function drawTimelineGraphs() {
 		.attr("r", 3)
 		.attr("cx", function(d) { return tlXScale(d.Index); })
 		.attr("cy", function(d) { return tlYScale(d.SLE_primary_reason_percent); })
+		.style("fill", TL_PRIMARYREASONCOLOR)
+		;
+ */
+	// Draw dots for SLE_primary_reason_percent using D3 symbols.
+	timeline.selectAll(".tldot")
+		.data(timelineDays)
+		.enter()
+		.append("path")
+		.attr("class", "tldot graphelement")
+		.attr("transform", function(d) {
+			return "translate(" + tlXScale(d.Index) + "," +
+				tlYScale(d.SLE_primary_reason_percent) + ")";
+		})
+		.attr('d', d3.symbol().type(d3.symbolCircle).size(80))
 		.style("fill", TL_PRIMARYREASONCOLOR)
 		;
 	
