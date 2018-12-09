@@ -8,13 +8,15 @@
 
 // TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
 	
-// TODO: See if I can make the y-axis labels show %
-
 // TODO: Group the columns together by month, like in the mockup.
 				
-// TODO: Create a selection checkbox.
+// TODO: Create a selection checkbox for each date.
 			
+// TODO: See if I can make the y-axis labels show %
+
 // MAYBE: Create column highlight hoverbars?
+
+// MAYBE: Color columns by weather condition? n?
 
 // MAYBE: Let people click on a line legend to dim that line.
 			
@@ -144,7 +146,6 @@ function drawTimelineStaticParts() {
 				;
 				
 			// Show the Avg Temp
-			// MAYBE: Color some or part the column according to this value.
 			timeline.append("text")
 				.text(timelineDays[i].AvgTemp)
 				.attr("x", tlXScale(i))
@@ -187,7 +188,7 @@ function drawTimelineStaticParts() {
 
 	});
 	
-	// Select the timeline SVG
+	// Draw the timeline keys
 	timelineKeys = d3.select("svg#timelineKeys");
 	
 	timelineKeys.append("line")
