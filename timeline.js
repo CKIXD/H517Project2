@@ -1,6 +1,4 @@
 
-// TODO: Create a selection checkbox for each date.
-			
 // TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
 	
 // MAYBE: Create column highlight hoverbars?
@@ -26,6 +24,7 @@ let timelineKey; // The SVG area for the timeline's key.
 let tlXScale = d3.scaleLinear();
 let tlYScale = d3.scaleLinear();
 let tlSurveyDates = {};
+let tlDayDictionary = {}; // A dictionary for quickly looking up timelineDays by date string.
 
 let primaryReasonOpacity = 1;
 let outsideOpacity = 1;
@@ -143,6 +142,10 @@ function drawTimelineStaticParts() {
 		
 		// For each date of the survey:
 		for (let i=0; i < timelineDays.length; i++) {
+			
+			// Add the date to the lookup dictionary.
+			tlDayDictionary[timelineDays[i].TimelineDate] = timelineDays[i];
+			
 			// Show the weather
 			timeline.append("text")
 				.text(weatherDict[timelineDays[i].Condition10amTo8pm])
@@ -216,6 +219,7 @@ function drawTimelineStaticParts() {
 					timelineDays[i].Checked = !timelineDays[i].Checked;
 					d3.select("#" + boxid).attr("fill", 
 						timelineDays[i].Checked? "gray" : "white");
+					refreshSurveyData();
 				})
 				;
 			

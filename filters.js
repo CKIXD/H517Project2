@@ -328,19 +328,24 @@ filterSvg.append('text')
 function filterCheck(record) {
 	let retval = true;
 	
+	let recDate = record.end_date.substring(0,10);
+	if (!tlDayDictionary[recDate].Checked) {
+		return false;
+	}
+	
 	if (!filter_mm_yes) {
 		if (record.current_member == "Yes") {
-			retval = false;
+			return false;
 		}
 	}
 	if (!filter_mm_no) {
 		if (record.current_member == "No") {
-			retval = false;
+			return false;
 		}
 	}
 	if (!filter_mm_former) {
 		if (record.current_member == "I am a former member") {
-			retval = false;
+			return false;
 		}
 	}
 	
@@ -362,28 +367,28 @@ function filterCheck(record) {
 
 	if (!filter_cf_marion) {
 		if (record.live_IN_county.substring(0,1) == "M") {
-			retval = false;
+			return false;
 		}
 	}
 	if (!filter_cf_adjacent) {
 		if (record.live_IN_county.substring(0,2) == "A ") {
-			retval = false;
+			return false;
 		}
 	}
 	if (!filter_cf_otherin) {
 		if (record.live_IN_county.substring(0,1) == "I") {
-			retval = false;
+			return false;
 		}
 	}
 	if (!filter_cf_outsidein) {
 		if (record.live_IN_county.substring(0,2) == "An") {
-			retval = false;
+			return false;
 		}
 	}
 	if (!filter_cf_unknown) {
 		if (record.live_IN_county == "0" ||
 			record.live_IN_county == "N/A") {
-			retval = false;
+			return false;
 		}
 	}
 		
