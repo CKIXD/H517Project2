@@ -1,7 +1,6 @@
 
-// TODO: Draw a dotted line where there are missing data points.
-	// https://bocoup.com/blog/showing-missing-data-in-line-charts
-
+// MAYBE: Let people click on a line legend to dim that line.
+			
 // TODO: Draw the line for % plan to return to visit the SLE
 
 // TODO: Draw the line for % considering / becoming members
@@ -18,8 +17,6 @@
 
 // MAYBE: Color columns by weather condition? n?
 
-// MAYBE: Let people click on a line legend to dim that line.
-			
 	
 
 const TL_PRIMARYREASONCOLOR = "red"; // "#3f2199";
@@ -35,6 +32,8 @@ let timelineKey; // The SVG area for the timeline's key.
 let tlXScale = d3.scaleLinear();
 let tlYScale = d3.scaleLinear();
 let tlSurveyDates = {};
+
+let primaryReasonOpacity = 1;
 
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
 function drawTimelineStaticParts() {
@@ -197,19 +196,27 @@ function drawTimelineStaticParts() {
 		.attr("x2", TL_LEFTMARGIN - 10)
 		.attr("y2", .75 * TL_ROWHEIGHT)
 		.attr("stroke", TL_PRIMARYREASONCOLOR)
-		.attr('class', 'graphline')
+		.attr('class', 'graphline primaryreason')
+		.on("click", function(d) {
+			primaryReasonOpacity = (primaryReasonOpacity == 1 ? .2 : 1);
+			d3.selectAll('.primaryreason').attr('fill-opacity', primaryReasonOpacity);
+			d3.selectAll('.primaryreason').attr('stroke-opacity', primaryReasonOpacity);
+		})
 		;
 	timelineKeys.append("path")
 		.attr("transform", "translate(" + TL_LEFTMARGIN / 2 + "," +
 				.75 * TL_ROWHEIGHT + ")")
 		.attr('d', d3.symbol().type(d3.symbolCircle).size(TL_SYMBOLSIZE))
 		.style("fill", TL_PRIMARYREASONCOLOR)
+		.attr('class', 'primaryreason')
+		.style('pointer-events','none');
 		;
 	timelineKeys.append("text")
 		.text("% of respondents who said the outdoor exhibit was their primary reason for coming.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 1 * TL_ROWHEIGHT)
 		.attr("fill", TL_PRIMARYREASONCOLOR)
+		.attr('class', 'primaryreason')
 		;
 		
 	timelineKeys.append("line")
@@ -399,12 +406,12 @@ function drawTimelineGraphs() {
 		.y(function(d) { return tlYScale(d.SLE_primary_reason_percent); });
 	timeline.append('path')
 		.attr('id', 'timelineSLEprimaryreason')
-		.attr('class', 'graphline graphelement')
+		.attr('class', 'graphline graphelement primaryreason')
 		.attr('stroke', TL_PRIMARYREASONCOLOR)
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
 	timeline.append('path')
 		.attr('id', 'timelineSLEprimaryreasongap')
-		.attr('class', 'graphline graphelement')
+		.attr('class', 'graphline graphelement primaryreason')
 		.attr('stroke', TL_PRIMARYREASONCOLOR)
 		.attr("stroke-dasharray", "2 4")
 		.attr('d', SLEPrimaryReasonPathGenerator(
@@ -417,7 +424,7 @@ function drawTimelineGraphs() {
 		.enter()
 		.append("path")
 		.filter(function(d) { return !isNaN(d.SLE_primary_reason_percent); })
-		.attr("class", "sleprimarydot graphelement")
+		.attr("class", "sleprimarydot graphelement primaryreason")
 		.attr("transform", function(d) {
 			return "translate(" + tlXScale(d.Index) + "," +
 				tlYScale(d.SLE_primary_reason_percent) + ")";
