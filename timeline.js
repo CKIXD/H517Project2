@@ -1,14 +1,14 @@
 
-// TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
-	
 // TODO: Create a selection checkbox for each date.
 			
-// TODO: See if I can make the y-axis labels show %
-
+// TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
+	
 // MAYBE: Create column highlight hoverbars?
 
 // MAYBE: Color columns by weather condition? n?
 
+// MAYBE: See if I can make the y-axis labels show %
+	// https://bl.ocks.org/mbostock/3371592
 	
 
 const TL_PRIMARYREASONCOLOR = "indigo"; // "#3f2199";
