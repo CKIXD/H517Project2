@@ -18,4 +18,9 @@ let filter_mm_former = true;
 let filter_age_0to5 = false;
 let filter_age_6to12 = false;
 let filter_age_13to18 = false;
+let filter_cf_marion = true;
+let filter_cf_adjacent = true;
+let filter_cf_otherin = true;
+let filter_cf_outsidein = true;
+let filter_cf_unknown = true;
 

@@ -1,5 +1,5 @@
 
-let buttonWidth = (TL_WIDTH - FILTER_LEFTMARGIN - BUTTON_PADDING * 3) / 4;
+let buttonWidth = (TL_WIDTH - FILTER_LEFTMARGIN - BUTTON_PADDING * 4) / 5;
 
 let filterSvg = d3.select("svg#filters");
 
@@ -202,6 +202,12 @@ filterSvg.append('rect')
 	.attr("width", buttonWidth)
 	.attr("height", BUTTON_HEIGHT)
 	.attr("fill", "black")
+	.on("click", function(d) {
+		filter_cf_marion = !filter_cf_marion;
+		d3.select("#filterbuttoncamefrommarion")
+			.attr("fill-opacity", (filter_cf_marion ? 1 : .2));
+		refreshSurveyData();
+	})
 	;
 filterSvg.append('text')
 	.attr('id', 'filterbuttoncamefrommarionlabel')
@@ -250,6 +256,11 @@ function filterCheck(record) {
 			record.children_age_group5.substring(0,1) == "1");
 	}
 
-	
+	if (!filter_cf_marion) {
+		if (record.live_IN_county.substring(0,1) == "M") {
+			retval = false;
+		}
+	}
+		
 	return retval;
 }
