@@ -381,6 +381,18 @@ function drawTimelineGraphs() {
 		.attr('class', 'graphline graphelement')
 		.attr('stroke', TL_PRIMARYREASONCOLOR)
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
+		
+	// Draw dots for SLE_primary_reason_percent.
+	timeline.selectAll(".tldot")
+		.data(timelineDays)
+		.enter()
+		.append("circle")
+		.attr("class", "tldot graphelement")
+		.attr("r", 3)
+		.attr("cx", function(d) { return tlXScale(d.Index); })
+		.attr("cy", function(d) { return tlYScale(d.SLE_primary_reason_percent); })
+		.style("fill", TL_PRIMARYREASONCOLOR)
+		;
 	
 	// Draw the line for outsideX
 	let outsideTimePathGenerator = d3.line()
