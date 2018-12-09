@@ -33,6 +33,8 @@ let recommendOpacity = 1;
 let planReturnOpacity = 1;
 let memberInterestOpacity = 1;
 
+let dateSelectBoxSize = TL_ROWHEIGHT - 5;
+
 function dimLine(classSelector, opacity) {
 	d3.selectAll(classSelector).attr('fill-opacity', opacity);
 	d3.selectAll(classSelector).attr('stroke-opacity', opacity);
@@ -184,6 +186,7 @@ function drawTimelineStaticParts() {
 				.attr('text-anchor','middle')
 				;
 				
+			// Count the days for each month, to draw the month bars afterward.
 			switch (timelineDays[i].TimelineDate.substring(5,7)) {
 				case "05":
 					mayDays++;
@@ -196,6 +199,19 @@ function drawTimelineStaticParts() {
 					break;
 				default:
 			}
+			
+			// Draw a box to select each date.
+			timeline.append('rect')
+				.attr('id', timelineDays[i].TimelineDate.substring(5,10) + 'dateselectbox')
+				.attr('class', 'dateselectbox')
+				.attr("x", tlXScale(i) - dateSelectBoxSize / 2)
+				.attr("y", 18 * TL_ROWHEIGHT + dateSelectBoxSize / 2)
+				.attr("width", dateSelectBoxSize)
+				.attr("height", dateSelectBoxSize)
+				.attr("fill", "gray")
+				.attr("stroke", "black")
+				;
+			
 		}
 		
 		// Draw the month bars.
