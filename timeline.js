@@ -1,7 +1,15 @@
 
 // TODO: Draw different-shaped points for the line data.
+	// d3.symbolCircle
+	// d3.symbolCross
+	// d3.symbolTriangle
+	// d3.symbolSquare
+	// d3.symbolStar
 
 // TODO: Draw the point shapes on the key lines.
+
+// TODO: Draw a dotted line where there are missing data points.
+	// https://bocoup.com/blog/showing-missing-data-in-line-charts
 
 // TODO: Select easily distinguishable line colors, without regard to colorblindness. (That's what the shapes are for.)
 
@@ -24,6 +32,7 @@
 const TL_PRIMARYREASONCOLOR = "red"; // "#3f2199";
 const TL_OUTSIDETIMECOLOR = "blue"; // "#667f42";
 const TL_RECOMMENDCOLOR = "green"; // "#395f97";
+const TL_SYMBOLSIZE = 40;
 
 // Declare global variables for this module.
 let timeline; // The SVG area for the timeline graph.
@@ -382,30 +391,18 @@ function drawTimelineGraphs() {
 		.attr('stroke', TL_PRIMARYREASONCOLOR)
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
 		
-/*
-	// Draw dots for SLE_primary_reason_percent.
-	timeline.selectAll(".tldot")
-		.data(timelineDays)
-		.enter()
-		.append("circle")
-		.attr("class", "tldot graphelement")
-		.attr("r", 3)
-		.attr("cx", function(d) { return tlXScale(d.Index); })
-		.attr("cy", function(d) { return tlYScale(d.SLE_primary_reason_percent); })
-		.style("fill", TL_PRIMARYREASONCOLOR)
-		;
- */
 	// Draw dots for SLE_primary_reason_percent using D3 symbols.
-	timeline.selectAll(".tldot")
+	timeline.selectAll(".sleprimarydot")
 		.data(timelineDays)
 		.enter()
 		.append("path")
-		.attr("class", "tldot graphelement")
+		.filter(function(d) { return !isNaN(d.SLE_primary_reason_percent); })
+		.attr("class", "sleprimarydot graphelement")
 		.attr("transform", function(d) {
 			return "translate(" + tlXScale(d.Index) + "," +
 				tlYScale(d.SLE_primary_reason_percent) + ")";
 		})
-		.attr('d', d3.symbol().type(d3.symbolCircle).size(80))
+		.attr('d', d3.symbol().type(d3.symbolCircle).size(TL_SYMBOLSIZE))
 		.style("fill", TL_PRIMARYREASONCOLOR)
 		;
 	
