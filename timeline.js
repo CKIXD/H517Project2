@@ -402,6 +402,14 @@ function drawTimelineGraphs() {
 		.attr('class', 'graphline graphelement')
 		.attr('stroke', TL_PRIMARYREASONCOLOR)
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
+	timeline.append('path')
+		.attr('id', 'timelineSLEprimaryreasongap')
+		.attr('class', 'graphline graphelement')
+		.attr('stroke', TL_PRIMARYREASONCOLOR)
+		.attr("stroke-dasharray", "2 4")
+		.attr('d', SLEPrimaryReasonPathGenerator(
+			timelineDays.filter(SLEPrimaryReasonPathGenerator.defined())
+		));
 		
 	// Draw dots for SLE_primary_reason_percent using D3 symbols.
 	timeline.selectAll(".sleprimarydot")
