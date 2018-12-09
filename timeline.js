@@ -201,8 +201,10 @@ function drawTimelineStaticParts() {
 			}
 			
 			// Draw a box to select each date.
+			timelineDays[i].Checked = true;
+			let boxid = 'dateselectbox' + timelineDays[i].TimelineDate.substring(0,10);
 			timeline.append('rect')
-				.attr('id', timelineDays[i].TimelineDate.substring(5,10) + 'dateselectbox')
+				.attr('id', boxid)
 				.attr('class', 'dateselectbox')
 				.attr("x", tlXScale(i) - dateSelectBoxSize / 2)
 				.attr("y", 18 * TL_ROWHEIGHT + dateSelectBoxSize / 2)
@@ -210,6 +212,11 @@ function drawTimelineStaticParts() {
 				.attr("height", dateSelectBoxSize)
 				.attr("fill", "gray")
 				.attr("stroke", "black")
+				.on("click", function(d) {
+					timelineDays[i].Checked = !timelineDays[i].Checked;
+					d3.select("#" + boxid).attr("fill", 
+						timelineDays[i].Checked? "gray" : "white");
+				})
 				;
 			
 		}
