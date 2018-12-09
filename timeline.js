@@ -1,8 +1,6 @@
 
 // TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
 	
-// TODO: Group the columns together by month, like in the mockup.
-				
 // TODO: Create a selection checkbox for each date.
 			
 // TODO: See if I can make the y-axis labels show %
@@ -136,6 +134,10 @@ function drawTimelineStaticParts() {
 			.attr('class', 'axis')
 			.attr('transform', 'translate(' + (TL_LEFTMARGIN - 0.5 * colWidth) + ',0)')
 			.call(yAxis);
+			
+		let mayDays = 0;
+		let juneDays = 0;
+		let julyDays = 0;
 		
 		// For each date of the survey:
 		for (let i=0; i < timelineDays.length; i++) {
@@ -182,14 +184,78 @@ function drawTimelineStaticParts() {
 				.attr('text-anchor','middle')
 				;
 				
-			// Show the Month
-			timeline.append("text")
-				.text(timelineDays[i].TimelineDate.substring(5,7))
-				.attr("x", tlXScale(i))
-				.attr("y", 18 * TL_ROWHEIGHT)
-				.attr('text-anchor','middle')
-				;
+			switch (timelineDays[i].TimelineDate.substring(5,7)) {
+				case "05":
+					mayDays++;
+					break;
+				case "06":
+					juneDays++;
+					break;
+				case "07":
+					julyDays++;
+					break;
+				default:
+			}
 		}
+		
+		// Draw the month bars.
+		timeline.append('rect')
+			.attr('id', 'maymonthbar')
+			.attr('class', 'monthbar')
+			.attr("x", TL_LEFTMARGIN)
+			.attr("y", 17 * TL_ROWHEIGHT + 7)
+			.attr("width", colWidth * mayDays)
+			.attr("height", TL_ROWHEIGHT)
+			.attr("fill", "lightblue")
+			;
+		timeline.append('text')
+			.attr('id', 'maymonthbarlabel')
+			.attr('class', 'monthbarlabel')
+			.text('May')
+			.attr('x', TL_LEFTMARGIN + colWidth * mayDays / 2)
+			.attr("y", 18 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			.attr('fill', 'black')
+			;
+
+		timeline.append('rect')
+			.attr('id', 'junemonthbar')
+			.attr('class', 'monthbar')
+			.attr("x", TL_LEFTMARGIN + colWidth * mayDays)
+			.attr("y", 17 * TL_ROWHEIGHT + 7)
+			.attr("width", colWidth * juneDays)
+			.attr("height", TL_ROWHEIGHT)
+			.attr("fill", "lightgreen")
+			;
+		timeline.append('text')
+			.attr('id', 'junemonthbarlabel')
+			.attr('class', 'monthbarlabel')
+			.text('June')
+			.attr('x', TL_LEFTMARGIN + colWidth * mayDays + colWidth * juneDays / 2)
+			.attr("y", 18 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			.attr('fill', 'black')
+			;
+
+		timeline.append('rect')
+			.attr('id', 'julymonthbar')
+			.attr('class', 'monthbar')
+			.attr("x", TL_LEFTMARGIN + colWidth * mayDays + colWidth * juneDays)
+			.attr("y", 17 * TL_ROWHEIGHT + 7)
+			.attr("width", colWidth * julyDays)
+			.attr("height", TL_ROWHEIGHT)
+			.attr("fill", "yellow")
+			;
+		timeline.append('text')
+			.attr('id', 'julymonthbarlabel')
+			.attr('class', 'monthbarlabel')
+			.text('July')
+			.attr('x', TL_LEFTMARGIN + colWidth * mayDays +
+				colWidth * juneDays + colWidth * julyDays / 2)
+			.attr("y", 18 * TL_ROWHEIGHT)
+			.attr('text-anchor','middle')
+			.attr('fill', 'black')
+			;
 
 	});
 	
@@ -462,7 +528,6 @@ function drawTimelineGraphs() {
 				member_interest_responded++;
 				if ((memberVal.substring(0,6) == "I am c") ||
 					(memberVal.substring(0,6) == "I will")) {
-					console.log(memberVal.substring(0,6));
 					member_interest_yes++;
 				}
 			}
