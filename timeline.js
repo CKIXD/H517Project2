@@ -20,6 +20,7 @@
 const TL_PRIMARYREASONCOLOR = "red"; // "#3f2199";
 const TL_OUTSIDETIMECOLOR = "blue"; // "#667f42";
 const TL_RECOMMENDCOLOR = "green"; // "#395f97";
+const TL_RETURNCOLOR = "orange";
 const TL_SYMBOLSIZE = 40;
 
 // Declare global variables for this module.
@@ -34,6 +35,7 @@ let tlSurveyDates = {};
 let primaryReasonOpacity = 1;
 let outsideOpacity = 1;
 let recommendOpacity = 1;
+let returnOpacity = 1;
 
 function dimLine(classSelector, opacity) {
 	d3.selectAll(classSelector).attr('fill-opacity', opacity);
@@ -281,7 +283,7 @@ function drawTimelineStaticParts() {
 		.style('pointer-events','none');
 		;
 	timelineKeys.append("text")
-		.text("% of respondents who would recommend the exhibit to other families.")
+		.text("% of respondents who would recommend the exhibit.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 3 * TL_ROWHEIGHT)
 		.attr("fill", TL_RECOMMENDCOLOR)
@@ -289,6 +291,38 @@ function drawTimelineStaticParts() {
 		.on("click", function(d) {
 			recommendOpacity = (recommendOpacity == 1 ? .2 : 1);
 			dimLine(".recommend", recommendOpacity);
+		})
+		;
+	
+	timelineKeys.append("line")
+		.attr("x1", 10)
+		.attr("y1", 3.75 * TL_ROWHEIGHT)
+		.attr("x2", TL_LEFTMARGIN - 10)
+		.attr("y2", 3.75 * TL_ROWHEIGHT)
+		.attr("stroke", TL_RETURNCOLOR)
+		.attr('class', 'graphline return')
+		.on("click", function(d) {
+			returnOpacity = (returnOpacity == 1 ? .2 : 1);
+			dimLine(".return", returnOpacity);
+		})
+		;
+	timelineKeys.append("path")
+		.attr("transform", "translate(" + TL_LEFTMARGIN / 2 + "," +
+				3.75 * TL_ROWHEIGHT + ")")
+		.attr('d', d3.symbol().type(d3.symbolSquare).size(TL_SYMBOLSIZE))
+		.style("fill", TL_RETURNCOLOR)
+		.attr('class', 'return')
+		.style('pointer-events','none');
+		;
+	timelineKeys.append("text")
+		.text("% of respondents who are likely to return.")
+		.attr("x", TL_LEFTMARGIN)
+		.attr("y", 4 * TL_ROWHEIGHT)
+		.attr("fill", TL_RETURNCOLOR)
+		.attr('class', 'return')
+		.on("click", function(d) {
+			returnOpacity = (returnOpacity == 1 ? .2 : 1);
+			dimLine(".return", returnOpacity);
 		})
 		;
 	
