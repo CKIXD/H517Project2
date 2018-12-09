@@ -264,8 +264,60 @@ filterSvg.append('rect')
 filterSvg.append('text')
 	.attr('id', 'filterbuttoncamefromotherinlabel')
 	.attr('class', 'filterbuttonlabel')
-	.text('Adjacent County')
+	.text('Other Indiana')
 	.attr('x', FILTER_LEFTMARGIN + buttonWidth * 2.5 + BUTTON_PADDING * 2)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING) + BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','middle')
+	.attr('fill', 'white')
+	.style('pointer-events','none')
+	;
+
+filterSvg.append('rect')
+	.attr('id', 'filterbuttoncamefromoutsidein')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + (buttonWidth + BUTTON_PADDING) * 3)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING))
+	.attr("width", buttonWidth)
+	.attr("height", BUTTON_HEIGHT)
+	.attr("fill", "black")
+	.on("click", function(d) {
+		filter_cf_outsidein = !filter_cf_outsidein;
+		d3.select("#filterbuttoncamefromoutsidein")
+			.attr("fill-opacity", (filter_cf_outsidein ? 1 : .2));
+		refreshSurveyData();
+	})
+	;
+filterSvg.append('text')
+	.attr('id', 'filterbuttoncamefromoutsideinlabel')
+	.attr('class', 'filterbuttonlabel')
+	.text('Outside Indiana')
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth * 3.5 + BUTTON_PADDING * 3)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING) + BUTTON_LABEL_Y_ADJUST)
+	.attr('text-anchor','middle')
+	.attr('fill', 'white')
+	.style('pointer-events','none')
+	;
+
+filterSvg.append('rect')
+	.attr('id', 'filterbuttoncamefromunknown')
+	.attr('class', 'filterbutton')
+	.attr("x", FILTER_LEFTMARGIN + (buttonWidth + BUTTON_PADDING) * 4)
+	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING))
+	.attr("width", buttonWidth)
+	.attr("height", BUTTON_HEIGHT)
+	.attr("fill", "black")
+	.on("click", function(d) {
+		filter_cf_unknown = !filter_cf_unknown;
+		d3.select("#filterbuttoncamefromunknown")
+			.attr("fill-opacity", (filter_cf_unknown ? 1 : .2));
+		refreshSurveyData();
+	})
+	;
+filterSvg.append('text')
+	.attr('id', 'filterbuttoncamefromunknownlabel')
+	.attr('class', 'filterbuttonlabel')
+	.text('Unknown')
+	.attr('x', FILTER_LEFTMARGIN + buttonWidth * 4.5 + BUTTON_PADDING * 4)
 	.attr("y", 2 * (BUTTON_HEIGHT + BUTTON_PADDING) + BUTTON_LABEL_Y_ADJUST)
 	.attr('text-anchor','middle')
 	.attr('fill', 'white')
@@ -320,6 +372,17 @@ function filterCheck(record) {
 	}
 	if (!filter_cf_otherin) {
 		if (record.live_IN_county.substring(0,1) == "I") {
+			retval = false;
+		}
+	}
+	if (!filter_cf_outsidein) {
+		if (record.live_IN_county.substring(0,2) == "An") {
+			retval = false;
+		}
+	}
+	if (!filter_cf_unknown) {
+		if (record.live_IN_county == "0" ||
+			record.live_IN_county == "N/A") {
 			retval = false;
 		}
 	}
