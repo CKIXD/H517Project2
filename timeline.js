@@ -436,6 +436,14 @@ function drawTimelineGraphs() {
 		.attr('class', 'graphline graphelement')
 		.attr('stroke', TL_OUTSIDETIMECOLOR)
 		.attr('d', outsideTimePathGenerator(timelineDays));
+	timeline.append('path')
+		.attr('id', 'timelineOutsideTimegap')
+		.attr('class', 'graphline graphelement')
+		.attr('stroke', TL_OUTSIDETIMECOLOR)
+		.attr("stroke-dasharray", "2 4")
+		.attr('d', outsideTimePathGenerator(
+			timelineDays.filter(outsideTimePathGenerator.defined())
+		));
 	
 	// Draw dots for outsideX using D3 symbols.
 	timeline.selectAll(".outsidedot")
@@ -462,6 +470,14 @@ function drawTimelineGraphs() {
 		.attr('class', 'graphline graphelement')
 		.attr('stroke', TL_RECOMMENDCOLOR)
 		.attr('d', recommendPathGenerator(timelineDays));
+	timeline.append('path')
+		.attr('id', 'timelineRecommendgap')
+		.attr('class', 'graphline graphelement')
+		.attr('stroke', TL_RECOMMENDCOLOR)
+		.attr("stroke-dasharray", "2 4")
+		.attr('d', recommendPathGenerator(
+			timelineDays.filter(recommendPathGenerator.defined())
+		));
 		
 	// Draw dots for recommendPercent using D3 symbols.
 	timeline.selectAll(".recommenddot")
