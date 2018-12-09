@@ -1,11 +1,4 @@
 
-// TODO: Draw different-shaped points for the line data.
-	// d3.symbolCircle
-	// d3.symbolCross
-	// d3.symbolTriangle
-	// d3.symbolSquare
-	// d3.symbolStar
-
 // TODO: Draw the point shapes on the key lines.
 
 // TODO: Draw a dotted line where there are missing data points.
@@ -26,6 +19,8 @@
 // TODO: Create a selection checkbox.
 			
 // MAYBE: Create column highlight hoverbars?
+
+// MAYBE: Let people click on a line legend to dim that line.
 			
 	
 
@@ -417,6 +412,21 @@ function drawTimelineGraphs() {
 		.attr('stroke', TL_OUTSIDETIMECOLOR)
 		.attr('d', outsideTimePathGenerator(timelineDays));
 	
+	// Draw dots for outsideX using D3 symbols.
+	timeline.selectAll(".outsidedot")
+		.data(timelineDays)
+		.enter()
+		.append("path")
+		.filter(function(d) { return !isNaN(d.outside90); })
+		.attr("class", "outsidedot graphelement")
+		.attr("transform", function(d) {
+			return "translate(" + tlXScale(d.Index) + "," +
+				tlYScale(d.outside90) + ")";
+		})
+		.attr('d', d3.symbol().type(d3.symbolCross).size(TL_SYMBOLSIZE))
+		.style("fill", TL_OUTSIDETIMECOLOR)
+		;
+	
 	// Draw recommendPercent as a line.
 	let recommendPathGenerator = d3.line()
 		.defined(function(d) { return !isNaN(d.recommendPercent); })
@@ -427,4 +437,20 @@ function drawTimelineGraphs() {
 		.attr('class', 'graphline graphelement')
 		.attr('stroke', TL_RECOMMENDCOLOR)
 		.attr('d', recommendPathGenerator(timelineDays));
+		
+	// Draw dots for recommendPercent using D3 symbols.
+	timeline.selectAll(".recommenddot")
+		.data(timelineDays)
+		.enter()
+		.append("path")
+		.filter(function(d) { return !isNaN(d.recommendPercent); })
+		.attr("class", "recommenddot graphelement")
+		.attr("transform", function(d) {
+			return "translate(" + tlXScale(d.Index) + "," +
+				tlYScale(d.recommendPercent) + ")";
+		})
+		.attr('d', d3.symbol().type(d3.symbolTriangle).size(TL_SYMBOLSIZE))
+		.style("fill", TL_RECOMMENDCOLOR)
+		;
+			
 }
