@@ -1,10 +1,29 @@
 
-// TODO: Select easily distinguishable colors, and use different shaped points
-// 		 for each for colorblindness assistance and to ensure we don't miss a
-//	     value between NaN values. Display the shape on the key.
-const TL_PRIMARYREASONCOLOR = "#3f2199";
-const TL_OUTSIDETIMECOLOR = "#667f42";
-const TL_RECOMMENDCOLOR = "#395f97";
+// TODO: Draw different-shaped points for the line data.
+
+// TODO: Draw the point shapes on the key lines.
+
+// TODO: Select easily distinguishable line colors, without regard to colorblindness. (That's what the shapes are for.)
+
+// TODO: Draw the line for % plan to return to visit the SLE
+
+// TODO: Draw the line for % considering / becoming members
+
+// TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
+	
+// TODO: See if I can make the y-axis labels show %
+
+// TODO: Group the columns together by month, like in the mockup.
+				
+// TODO: Create a selection checkbox.
+			
+// MAYBE: Create column highlight hoverbars?
+			
+	
+
+const TL_PRIMARYREASONCOLOR = "red"; // "#3f2199";
+const TL_OUTSIDETIMECOLOR = "blue"; // "#667f42";
+const TL_RECOMMENDCOLOR = "green"; // "#395f97";
 
 // Declare global variables for this module.
 let timeline; // The SVG area for the timeline graph.
@@ -110,7 +129,6 @@ function drawTimelineStaticParts() {
 			.attr('class', 'axis')
 			.attr('transform', 'translate(' + (TL_LEFTMARGIN - 0.5 * colWidth) + ',0)')
 			.call(yAxis);
-		// TODO: Can I make the tick labels show "%"?
 		
 		// For each date of the survey:
 		for (let i=0; i < timelineDays.length; i++) {
@@ -159,17 +177,12 @@ function drawTimelineStaticParts() {
 				;
 				
 			// Show the Month
-			// TODO: Group the columns together by month, like in the mockup.
 			timeline.append("text")
 				.text(timelineDays[i].TimelineDate.substring(5,7))
 				.attr("x", tlXScale(i))
 				.attr("y", 18 * TL_ROWHEIGHT)
 				.attr('text-anchor','middle')
 				;
-				
-			// TODO: Create a selection checkbox.
-			
-			// MAYBE: Create column highlight hoverbars?
 		}
 
 	});
@@ -200,7 +213,7 @@ function drawTimelineStaticParts() {
 		.attr('class', 'graphline')
 		;
 	timelineKeys.append("text")
-		.text("% of respondents who stayed in the outside exhibit longer than TODO minutes.")
+		.text("% of respondents who stayed in the outside exhibit longer than XXX minutes.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 2 * TL_ROWHEIGHT)
 		.attr("fill", TL_OUTSIDETIMECOLOR)
@@ -245,7 +258,7 @@ function drawTimelineGraphs() {
 	
 	for (let i=0; i < timelineDays.length; i++) {
 	//for (let i=0; i < 1; i++) {
-		// TODO: Filter the data by selected demographics.
+		// Filter the data by selected demographics.
 		let unfilteredDayRecs = tlSurveyDates[timelineDays[i].IntDate];
 		let dayRecs = [];
 		for (let j=0; j < unfilteredDayRecs.length; j++) {
@@ -370,7 +383,6 @@ function drawTimelineGraphs() {
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
 	
 	// Draw the line for outsideX
-	// TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
 	let outsideTimePathGenerator = d3.line()
 		.defined(function(d) { return !isNaN(d.outside90); })
 		.x(function(d) { return tlXScale(d.Index); })
@@ -391,8 +403,4 @@ function drawTimelineGraphs() {
 		.attr('class', 'graphline graphelement')
 		.attr('stroke', TL_RECOMMENDCOLOR)
 		.attr('d', recommendPathGenerator(timelineDays));
-	
-	// TODO: Draw the line for % plan to return to visit the SLE
-	
-	// TODO: Draw the line for % considering / becoming members
 }
