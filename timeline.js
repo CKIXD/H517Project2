@@ -34,6 +34,14 @@ let tlYScale = d3.scaleLinear();
 let tlSurveyDates = {};
 
 let primaryReasonOpacity = 1;
+let outsideOpacity = 1;
+let recommendOpacity = 1;
+
+function dimLine(classSelector, opacity) {
+	d3.selectAll(classSelector).attr('fill-opacity', opacity);
+	d3.selectAll(classSelector).attr('stroke-opacity', opacity);
+}
+
 
 // Draws the static parts of the timeline graph based on the loaded timeline weather data.
 function drawTimelineStaticParts() {
@@ -199,8 +207,7 @@ function drawTimelineStaticParts() {
 		.attr('class', 'graphline primaryreason')
 		.on("click", function(d) {
 			primaryReasonOpacity = (primaryReasonOpacity == 1 ? .2 : 1);
-			d3.selectAll('.primaryreason').attr('fill-opacity', primaryReasonOpacity);
-			d3.selectAll('.primaryreason').attr('stroke-opacity', primaryReasonOpacity);
+			dimLine(".primaryreason", primaryReasonOpacity);
 		})
 		;
 	timelineKeys.append("path")
@@ -217,6 +224,10 @@ function drawTimelineStaticParts() {
 		.attr("y", 1 * TL_ROWHEIGHT)
 		.attr("fill", TL_PRIMARYREASONCOLOR)
 		.attr('class', 'primaryreason')
+		.on("click", function(d) {
+			primaryReasonOpacity = (primaryReasonOpacity == 1 ? .2 : 1);
+			dimLine(".primaryreason", primaryReasonOpacity);
+		})
 		;
 		
 	timelineKeys.append("line")
@@ -225,19 +236,30 @@ function drawTimelineStaticParts() {
 		.attr("x2", TL_LEFTMARGIN - 10)
 		.attr("y2", 1.75 * TL_ROWHEIGHT)
 		.attr("stroke", TL_OUTSIDETIMECOLOR)
-		.attr('class', 'graphline')
+		.attr('class', 'graphline outside')
+		.on("click", function(d) {
+			outsideOpacity = (outsideOpacity == 1 ? .2 : 1);
+			dimLine(".outside", outsideOpacity);
+		})
 		;
 	timelineKeys.append("path")
 		.attr("transform", "translate(" + TL_LEFTMARGIN / 2 + "," +
 				1.75 * TL_ROWHEIGHT + ")")
 		.attr('d', d3.symbol().type(d3.symbolCross).size(TL_SYMBOLSIZE))
 		.style("fill", TL_OUTSIDETIMECOLOR)
+		.attr('class', 'outside')
+		.style('pointer-events','none');
 		;
 	timelineKeys.append("text")
 		.text("% of respondents who stayed in the outside exhibit longer than XXX minutes.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 2 * TL_ROWHEIGHT)
 		.attr("fill", TL_OUTSIDETIMECOLOR)
+		.attr('class', 'outside')
+		.on("click", function(d) {
+			outsideOpacity = (outsideOpacity == 1 ? .2 : 1);
+			dimLine(".outside", outsideOpacity);
+		})
 		;
 		
 	timelineKeys.append("line")
@@ -408,11 +430,13 @@ function drawTimelineGraphs() {
 		.attr('id', 'timelineSLEprimaryreason')
 		.attr('class', 'graphline graphelement primaryreason')
 		.attr('stroke', TL_PRIMARYREASONCOLOR)
+		.attr('stroke-opacity', primaryReasonOpacity)
 		.attr('d', SLEPrimaryReasonPathGenerator(timelineDays));
 	timeline.append('path')
 		.attr('id', 'timelineSLEprimaryreasongap')
 		.attr('class', 'graphline graphelement primaryreason')
 		.attr('stroke', TL_PRIMARYREASONCOLOR)
+		.attr('stroke-opacity', primaryReasonOpacity)
 		.attr("stroke-dasharray", "2 4")
 		.attr('d', SLEPrimaryReasonPathGenerator(
 			timelineDays.filter(SLEPrimaryReasonPathGenerator.defined())
@@ -431,6 +455,7 @@ function drawTimelineGraphs() {
 		})
 		.attr('d', d3.symbol().type(d3.symbolCircle).size(TL_SYMBOLSIZE))
 		.style("fill", TL_PRIMARYREASONCOLOR)
+		.attr('fill-opacity', primaryReasonOpacity)
 		;
 	
 	// Draw the line for outsideX
@@ -440,13 +465,15 @@ function drawTimelineGraphs() {
 		.y(function(d) { return tlYScale(d.outside90); });
 	timeline.append('path')
 		.attr('id', 'timelineOutsideTime')
-		.attr('class', 'graphline graphelement')
+		.attr('class', 'graphline graphelement outside')
 		.attr('stroke', TL_OUTSIDETIMECOLOR)
+		.attr('stroke-opacity', outsideOpacity)
 		.attr('d', outsideTimePathGenerator(timelineDays));
 	timeline.append('path')
 		.attr('id', 'timelineOutsideTimegap')
-		.attr('class', 'graphline graphelement')
+		.attr('class', 'graphline graphelement outside')
 		.attr('stroke', TL_OUTSIDETIMECOLOR)
+		.attr('stroke-opacity', outsideOpacity)
 		.attr("stroke-dasharray", "2 4")
 		.attr('d', outsideTimePathGenerator(
 			timelineDays.filter(outsideTimePathGenerator.defined())
@@ -458,13 +485,14 @@ function drawTimelineGraphs() {
 		.enter()
 		.append("path")
 		.filter(function(d) { return !isNaN(d.outside90); })
-		.attr("class", "outsidedot graphelement")
+		.attr("class", "outsidedot graphelement outside")
 		.attr("transform", function(d) {
 			return "translate(" + tlXScale(d.Index) + "," +
 				tlYScale(d.outside90) + ")";
 		})
 		.attr('d', d3.symbol().type(d3.symbolCross).size(TL_SYMBOLSIZE))
 		.style("fill", TL_OUTSIDETIMECOLOR)
+		.attr('fill-opacity', outsideOpacity)
 		;
 	
 	// Draw recommendPercent as a line.
