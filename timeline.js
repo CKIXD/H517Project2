@@ -1,6 +1,4 @@
 
-// MAYBE: Let people click on a line legend to dim that line.
-			
 // TODO: Draw the line for % plan to return to visit the SLE
 
 // TODO: Draw the line for % considering / becoming members
@@ -268,19 +266,30 @@ function drawTimelineStaticParts() {
 		.attr("x2", TL_LEFTMARGIN - 10)
 		.attr("y2", 2.75 * TL_ROWHEIGHT)
 		.attr("stroke", TL_RECOMMENDCOLOR)
-		.attr('class', 'graphline')
+		.attr('class', 'graphline recommend')
+		.on("click", function(d) {
+			recommendOpacity = (recommendOpacity == 1 ? .2 : 1);
+			dimLine(".recommend", recommendOpacity);
+		})
 		;
 	timelineKeys.append("path")
 		.attr("transform", "translate(" + TL_LEFTMARGIN / 2 + "," +
 				2.75 * TL_ROWHEIGHT + ")")
 		.attr('d', d3.symbol().type(d3.symbolTriangle).size(TL_SYMBOLSIZE))
 		.style("fill", TL_RECOMMENDCOLOR)
+		.attr('class', 'recommend')
+		.style('pointer-events','none');
 		;
 	timelineKeys.append("text")
 		.text("% of respondents who would recommend the exhibit to other families.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 3 * TL_ROWHEIGHT)
 		.attr("fill", TL_RECOMMENDCOLOR)
+		.attr('class', 'recommend')
+		.on("click", function(d) {
+			recommendOpacity = (recommendOpacity == 1 ? .2 : 1);
+			dimLine(".recommend", recommendOpacity);
+		})
 		;
 	
 
@@ -502,13 +511,15 @@ function drawTimelineGraphs() {
 		.y(function(d) { return tlYScale(d.recommendPercent); });
 	timeline.append('path')
 		.attr('id', 'timelineRecommend')
-		.attr('class', 'graphline graphelement')
+		.attr('class', 'graphline graphelement recommend')
 		.attr('stroke', TL_RECOMMENDCOLOR)
+		.attr('stroke-opacity', recommendOpacity)
 		.attr('d', recommendPathGenerator(timelineDays));
 	timeline.append('path')
 		.attr('id', 'timelineRecommendgap')
-		.attr('class', 'graphline graphelement')
+		.attr('class', 'graphline graphelement recommend')
 		.attr('stroke', TL_RECOMMENDCOLOR)
+		.attr('stroke-opacity', recommendOpacity)
 		.attr("stroke-dasharray", "2 4")
 		.attr('d', recommendPathGenerator(
 			timelineDays.filter(recommendPathGenerator.defined())
@@ -520,13 +531,14 @@ function drawTimelineGraphs() {
 		.enter()
 		.append("path")
 		.filter(function(d) { return !isNaN(d.recommendPercent); })
-		.attr("class", "recommenddot graphelement")
+		.attr("class", "recommenddot graphelement recommend")
 		.attr("transform", function(d) {
 			return "translate(" + tlXScale(d.Index) + "," +
 				tlYScale(d.recommendPercent) + ")";
 		})
 		.attr('d', d3.symbol().type(d3.symbolTriangle).size(TL_SYMBOLSIZE))
 		.style("fill", TL_RECOMMENDCOLOR)
+		.attr('fill-opacity', recommendOpacity)
 		;
 			
 }
