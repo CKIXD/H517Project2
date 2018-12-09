@@ -20,7 +20,7 @@
 const TL_PRIMARYREASONCOLOR = "red"; // "#3f2199";
 const TL_OUTSIDETIMECOLOR = "blue"; // "#667f42";
 const TL_RECOMMENDCOLOR = "green"; // "#395f97";
-const TL_RETURNCOLOR = "orange";
+const TL_PLANRETURNCOLOR = "orange";
 const TL_SYMBOLSIZE = 40;
 
 // Declare global variables for this module.
@@ -35,7 +35,7 @@ let tlSurveyDates = {};
 let primaryReasonOpacity = 1;
 let outsideOpacity = 1;
 let recommendOpacity = 1;
-let returnOpacity = 1;
+let planReturnOpacity = 1;
 
 function dimLine(classSelector, opacity) {
 	d3.selectAll(classSelector).attr('fill-opacity', opacity);
@@ -283,7 +283,7 @@ function drawTimelineStaticParts() {
 		.style('pointer-events','none');
 		;
 	timelineKeys.append("text")
-		.text("% of respondents who would recommend the exhibit.")
+		.text("% likelihood of respondents to recommend the exhibit.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 3 * TL_ROWHEIGHT)
 		.attr("fill", TL_RECOMMENDCOLOR)
@@ -299,30 +299,30 @@ function drawTimelineStaticParts() {
 		.attr("y1", 3.75 * TL_ROWHEIGHT)
 		.attr("x2", TL_LEFTMARGIN - 10)
 		.attr("y2", 3.75 * TL_ROWHEIGHT)
-		.attr("stroke", TL_RETURNCOLOR)
-		.attr('class', 'graphline return')
+		.attr("stroke", TL_PLANRETURNCOLOR)
+		.attr('class', 'graphline planreturn')
 		.on("click", function(d) {
-			returnOpacity = (returnOpacity == 1 ? .2 : 1);
-			dimLine(".return", returnOpacity);
+			planReturnOpacity = (planReturnOpacity == 1 ? .2 : 1);
+			dimLine(".planreturn", planReturnOpacity);
 		})
 		;
 	timelineKeys.append("path")
 		.attr("transform", "translate(" + TL_LEFTMARGIN / 2 + "," +
 				3.75 * TL_ROWHEIGHT + ")")
 		.attr('d', d3.symbol().type(d3.symbolSquare).size(TL_SYMBOLSIZE))
-		.style("fill", TL_RETURNCOLOR)
-		.attr('class', 'return')
+		.style("fill", TL_PLANRETURNCOLOR)
+		.attr('class', 'planreturn')
 		.style('pointer-events','none');
 		;
 	timelineKeys.append("text")
-		.text("% of respondents who are likely to return.")
+		.text("% likelihood of respondents to return.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 4 * TL_ROWHEIGHT)
-		.attr("fill", TL_RETURNCOLOR)
-		.attr('class', 'return')
+		.attr("fill", TL_PLANRETURNCOLOR)
+		.attr('class', 'planreturn')
 		.on("click", function(d) {
-			returnOpacity = (returnOpacity == 1 ? .2 : 1);
-			dimLine(".return", returnOpacity);
+			planReturnOpacity = (planReturnOpacity == 1 ? .2 : 1);
+			dimLine(".planreturn", planReturnOpacity);
 		})
 		;
 	
@@ -380,8 +380,11 @@ function drawTimelineGraphs() {
 		let recommendCount = 0;
 		let recommendSum = 0;
 		
+		let planReturnCount = 0;
+		let planReturnSum = 0;
+		
 		for (let j=0; j < dayRecs.length; j++) {
-			// Gather data for "% came for SLE" (based on SLE_primary_reason)
+			// Gather data for "% came for SLE"
 			if (dayRecs[j].SLE_primary_reason != "N/A") {
 				SLE_primary_reason_responded++;
 				if (dayRecs[j].SLE_primary_reason.substring(0,1) == "Y") {
@@ -389,7 +392,7 @@ function drawTimelineGraphs() {
 				}
 			}
 			
-			// Gather data for "% spent >X minutes outside" (based on outside_time)
+			// Gather data for "% spent >X minutes outside"
 			switch(dayRecs[j].outside_time.substring(0,1)) {
 				case "L":
 					outside_time_responded++;
@@ -408,10 +411,16 @@ function drawTimelineGraphs() {
 					break;
 			}
 			
-			// Gather data for "% recommend SLE to others" (based on SLE_primary_reason)
+			// Gather data for "% recommend SLE to others"
 			if (!isNaN(dayRecs[j].recommend) && dayRecs[j].recommend != "") {
 				recommendCount++;
 				recommendSum += Number(dayRecs[j].recommend);
+			}
+			
+			// Gather data for "% plan to return"
+			if (!isNaN(dayRecs[j].return) && dayRecs[j].return != "") {
+				planReturnCount++;
+				planReturnSum += Number(dayRecs[j].return);
 			}
 			
 		}
@@ -426,6 +435,8 @@ function drawTimelineGraphs() {
 			Math.round((outside_time_90) / outside_time_responded * 100);
 		timelineDays[i].recommendPercent =
 			Math.round((recommendSum / recommendCount) / 5 * 100);
+		timelineDays[i].planReturnPercent =
+			Math.round((planReturnSum / planReturnCount) / 5 * 100);
 
 		/* Drew these during development for comparison to the drawn line.
 		timeline.append("text")
@@ -573,6 +584,43 @@ function drawTimelineGraphs() {
 		.attr('d', d3.symbol().type(d3.symbolTriangle).size(TL_SYMBOLSIZE))
 		.style("fill", TL_RECOMMENDCOLOR)
 		.attr('fill-opacity', recommendOpacity)
+		;
+			
+	// Draw returnPercent as a line.
+	let planReturnPathGenerator = d3.line()
+		.defined(function(d) { return !isNaN(d.planReturnPercent); })
+		.x(function(d) { return tlXScale(d.Index); })
+		.y(function(d) { return tlYScale(d.planReturnPercent); });
+	timeline.append('path')
+		.attr('id', 'timelinePlanReturn')
+		.attr('class', 'graphline graphelement planreturn')
+		.attr('stroke', TL_PLANRETURNCOLOR)
+		.attr('stroke-opacity', planReturnOpacity)
+		.attr('d', planReturnPathGenerator(timelineDays));
+	timeline.append('path')
+		.attr('id', 'timelinePlanReturnGap')
+		.attr('class', 'graphline graphelement planreturn')
+		.attr('stroke', TL_PLANRETURNCOLOR)
+		.attr('stroke-opacity', planReturnOpacity)
+		.attr("stroke-dasharray", "2 4")
+		.attr('d', planReturnPathGenerator(
+			timelineDays.filter(planReturnPathGenerator.defined())
+		));
+		
+	// Draw dots for planReturnPercent using D3 symbols.
+	timeline.selectAll(".planreturndot")
+		.data(timelineDays)
+		.enter()
+		.append("path")
+		.filter(function(d) { return !isNaN(d.planReturnPercent); })
+		.attr("class", "planreturndot graphelement planreturn")
+		.attr("transform", function(d) {
+			return "translate(" + tlXScale(d.Index) + "," +
+				tlYScale(d.planReturnPercent) + ")";
+		})
+		.attr('d', d3.symbol().type(d3.symbolSquare).size(TL_SYMBOLSIZE))
+		.style("fill", TL_PLANRETURNCOLOR)
+		.attr('fill-opacity', planReturnOpacity)
 		;
 			
 }
