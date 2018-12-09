@@ -1,8 +1,4 @@
 
-// TODO: Draw the line for % plan to return to visit the SLE
-
-// TODO: Draw the line for % considering / becoming members
-
 // TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
 	
 // TODO: Group the columns together by month, like in the mockup.
@@ -17,10 +13,11 @@
 
 	
 
-const TL_PRIMARYREASONCOLOR = "red"; // "#3f2199";
+const TL_PRIMARYREASONCOLOR = "indigo"; // "#3f2199";
 const TL_OUTSIDETIMECOLOR = "blue"; // "#667f42";
 const TL_RECOMMENDCOLOR = "green"; // "#395f97";
 const TL_PLANRETURNCOLOR = "orange";
+const TL_MEMBERINTERESTCOLOR = "red";
 const TL_SYMBOLSIZE = 40;
 
 // Declare global variables for this module.
@@ -36,6 +33,7 @@ let primaryReasonOpacity = 1;
 let outsideOpacity = 1;
 let recommendOpacity = 1;
 let planReturnOpacity = 1;
+let memberInterestOpacity = 1;
 
 function dimLine(classSelector, opacity) {
 	d3.selectAll(classSelector).attr('fill-opacity', opacity);
@@ -326,6 +324,38 @@ function drawTimelineStaticParts() {
 		})
 		;
 	
+	timelineKeys.append("line")
+		.attr("x1", 10)
+		.attr("y1", 4.75 * TL_ROWHEIGHT)
+		.attr("x2", TL_LEFTMARGIN - 10)
+		.attr("y2", 4.75 * TL_ROWHEIGHT)
+		.attr("stroke", TL_MEMBERINTERESTCOLOR)
+		.attr('class', 'graphline memberinterest')
+		.on("click", function(d) {
+			memberInterestOpacity = (memberInterestOpacity == 1 ? .2 : 1);
+			dimLine(".memberinterest", memberInterestOpacity);
+		})
+		;
+	timelineKeys.append("path")
+		.attr("transform", "translate(" + TL_LEFTMARGIN / 2 + "," +
+				4.75 * TL_ROWHEIGHT + ")")
+		.attr('d', d3.symbol().type(d3.symbolStar).size(TL_SYMBOLSIZE))
+		.style("fill", TL_MEMBERINTERESTCOLOR)
+		.attr('class', 'memberinterest')
+		.style('pointer-events','none');
+		;
+	timelineKeys.append("text")
+		.text("% of respondents interested in membership.")
+		.attr("x", TL_LEFTMARGIN)
+		.attr("y", 5 * TL_ROWHEIGHT)
+		.attr("fill", TL_MEMBERINTERESTCOLOR)
+		.attr('class', 'memberinterest')
+		.on("click", function(d) {
+			memberInterestOpacity = (memberInterestOpacity == 1 ? .2 : 1);
+			dimLine(".memberinterest", memberInterestOpacity);
+		})
+		;
+	
 
 }
 
@@ -383,6 +413,9 @@ function drawTimelineGraphs() {
 		let planReturnCount = 0;
 		let planReturnSum = 0;
 		
+		let member_interest_responded = 0;
+		let member_interest_yes = 0;
+		
 		for (let j=0; j < dayRecs.length; j++) {
 			// Gather data for "% came for SLE"
 			if (dayRecs[j].SLE_primary_reason != "N/A") {
@@ -423,6 +456,17 @@ function drawTimelineGraphs() {
 				planReturnSum += Number(dayRecs[j].return);
 			}
 			
+			// Gather data for "interested in membership"
+			let memberVal = dayRecs[j].member_for_SLE;
+			if (memberVal != "N/A" && memberVal != "") {
+				member_interest_responded++;
+				if ((memberVal.substring(0,6) == "I am c") ||
+					(memberVal.substring(0,6) == "I will")) {
+					console.log(memberVal.substring(0,6));
+					member_interest_yes++;
+				}
+			}
+			
 		}
 		
 		timelineDays[i].SLE_primary_reason_percent =
@@ -437,6 +481,8 @@ function drawTimelineGraphs() {
 			Math.round((recommendSum / recommendCount) / 5 * 100);
 		timelineDays[i].planReturnPercent =
 			Math.round((planReturnSum / planReturnCount) / 5 * 100);
+		timelineDays[i].member_interest_percent =
+			Math.round(member_interest_yes / member_interest_responded * 100);
 
 		/* Drew these during development for comparison to the drawn line.
 		timeline.append("text")
@@ -621,6 +667,43 @@ function drawTimelineGraphs() {
 		.attr('d', d3.symbol().type(d3.symbolSquare).size(TL_SYMBOLSIZE))
 		.style("fill", TL_PLANRETURNCOLOR)
 		.attr('fill-opacity', planReturnOpacity)
+		;
+			
+	// Draw member interest as a line.
+	let memberInterestPathGenerator = d3.line()
+		.defined(function(d) { return !isNaN(d.member_interest_percent); })
+		.x(function(d) { return tlXScale(d.Index); })
+		.y(function(d) { return tlYScale(d.member_interest_percent); });
+	timeline.append('path')
+		.attr('id', 'timelineMemberInterest')
+		.attr('class', 'graphline graphelement memberinterest')
+		.attr('stroke', TL_MEMBERINTERESTCOLOR)
+		.attr('stroke-opacity', memberInterestOpacity)
+		.attr('d', memberInterestPathGenerator(timelineDays));
+	timeline.append('path')
+		.attr('id', 'timelineMemberInterestGap')
+		.attr('class', 'graphline graphelement memberinterest')
+		.attr('stroke', TL_MEMBERINTERESTCOLOR)
+		.attr('stroke-opacity', memberInterestOpacity)
+		.attr("stroke-dasharray", "2 4")
+		.attr('d', memberInterestPathGenerator(
+			timelineDays.filter(memberInterestPathGenerator.defined())
+		));
+		
+	// Draw dots for planReturnPercent using D3 symbols.
+	timeline.selectAll(".memberinterestdot")
+		.data(timelineDays)
+		.enter()
+		.append("path")
+		.filter(function(d) { return !isNaN(d.member_interest_percent); })
+		.attr("class", "memberinterestdot graphelement memberinterest")
+		.attr("transform", function(d) {
+			return "translate(" + tlXScale(d.Index) + "," +
+				tlYScale(d.member_interest_percent) + ")";
+		})
+		.attr('d', d3.symbol().type(d3.symbolStar).size(TL_SYMBOLSIZE))
+		.style("fill", TL_MEMBERINTERESTCOLOR)
+		.attr('fill-opacity', memberInterestOpacity)
 		;
 			
 }
