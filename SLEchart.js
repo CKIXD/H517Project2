@@ -378,7 +378,7 @@ let trace2 = {
 let plotData = [trace1, trace2];
 
 let layout = {
-  title: 'How did you hear about sports legends experience?',
+  title: 'How did you hear about the outdoor exhibit experience?',
    
   yaxis:{ title: 'Percentage of respondents',
   range: [0,100]
