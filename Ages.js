@@ -37,6 +37,12 @@ function drawAgesGraph(data) {
 					hasAgeData(d.children_age_group4)) {
 						ageA[1]++;
 				}
+				
+				// Count the member groups that had 13-18 year olds.
+				if (hasAgeData(d.age_group4) ||
+					hasAgeData(d.children_age_group5)) {
+						ageA[2]++;
+				}
 			} else if (d.current_member == "No") {
 				recordCountB++;
 				
@@ -53,6 +59,12 @@ function drawAgesGraph(data) {
 					hasAgeData(d.children_age_group3) ||
 					hasAgeData(d.children_age_group4)) {
 						ageB[1]++;
+				}
+				
+				// Count the non-member groups that had 13-18 year olds.
+				if (hasAgeData(d.age_group4) ||
+					hasAgeData(d.children_age_group5)) {
+						ageB[2]++;
 				}
 			}
 		}
