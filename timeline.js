@@ -13,6 +13,7 @@ const TL_RECOMMENDCOLOR = "green"; // "#395f97";
 const TL_PLANRETURNCOLOR = "orange";
 const TL_MEMBERINTERESTCOLOR = "red";
 const TL_SYMBOLSIZE = 40;
+const TL_DIMOPACITY = 0.1;
 
 // Declare global variables for this module.
 let timeline; // The SVG area for the timeline graph.
@@ -295,7 +296,7 @@ function drawTimelineStaticParts() {
 		.attr("stroke", TL_PRIMARYREASONCOLOR)
 		.attr('class', 'graphline primaryreason')
 		.on("click", function(d) {
-			primaryReasonOpacity = (primaryReasonOpacity == 1 ? .2 : 1);
+			primaryReasonOpacity = (primaryReasonOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".primaryreason", primaryReasonOpacity);
 		})
 		;
@@ -314,7 +315,7 @@ function drawTimelineStaticParts() {
 		.attr("fill", TL_PRIMARYREASONCOLOR)
 		.attr('class', 'primaryreason')
 		.on("click", function(d) {
-			primaryReasonOpacity = (primaryReasonOpacity == 1 ? .2 : 1);
+			primaryReasonOpacity = (primaryReasonOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".primaryreason", primaryReasonOpacity);
 		})
 		;
@@ -327,7 +328,7 @@ function drawTimelineStaticParts() {
 		.attr("stroke", TL_OUTSIDETIMECOLOR)
 		.attr('class', 'graphline outside')
 		.on("click", function(d) {
-			outsideOpacity = (outsideOpacity == 1 ? .2 : 1);
+			outsideOpacity = (outsideOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".outside", outsideOpacity);
 		})
 		;
@@ -346,7 +347,7 @@ function drawTimelineStaticParts() {
 		.attr("fill", TL_OUTSIDETIMECOLOR)
 		.attr('class', 'outside')
 		.on("click", function(d) {
-			outsideOpacity = (outsideOpacity == 1 ? .2 : 1);
+			outsideOpacity = (outsideOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".outside", outsideOpacity);
 		})
 		;
@@ -359,7 +360,7 @@ function drawTimelineStaticParts() {
 		.attr("stroke", TL_RECOMMENDCOLOR)
 		.attr('class', 'graphline recommend')
 		.on("click", function(d) {
-			recommendOpacity = (recommendOpacity == 1 ? .2 : 1);
+			recommendOpacity = (recommendOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".recommend", recommendOpacity);
 		})
 		;
@@ -378,7 +379,7 @@ function drawTimelineStaticParts() {
 		.attr("fill", TL_RECOMMENDCOLOR)
 		.attr('class', 'recommend')
 		.on("click", function(d) {
-			recommendOpacity = (recommendOpacity == 1 ? .2 : 1);
+			recommendOpacity = (recommendOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".recommend", recommendOpacity);
 		})
 		;
@@ -391,7 +392,7 @@ function drawTimelineStaticParts() {
 		.attr("stroke", TL_PLANRETURNCOLOR)
 		.attr('class', 'graphline planreturn')
 		.on("click", function(d) {
-			planReturnOpacity = (planReturnOpacity == 1 ? .2 : 1);
+			planReturnOpacity = (planReturnOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".planreturn", planReturnOpacity);
 		})
 		;
@@ -410,7 +411,7 @@ function drawTimelineStaticParts() {
 		.attr("fill", TL_PLANRETURNCOLOR)
 		.attr('class', 'planreturn')
 		.on("click", function(d) {
-			planReturnOpacity = (planReturnOpacity == 1 ? .2 : 1);
+			planReturnOpacity = (planReturnOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".planreturn", planReturnOpacity);
 		})
 		;
@@ -423,7 +424,7 @@ function drawTimelineStaticParts() {
 		.attr("stroke", TL_MEMBERINTERESTCOLOR)
 		.attr('class', 'graphline memberinterest')
 		.on("click", function(d) {
-			memberInterestOpacity = (memberInterestOpacity == 1 ? .2 : 1);
+			memberInterestOpacity = (memberInterestOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".memberinterest", memberInterestOpacity);
 		})
 		;
@@ -442,7 +443,7 @@ function drawTimelineStaticParts() {
 		.attr("fill", TL_MEMBERINTERESTCOLOR)
 		.attr('class', 'memberinterest')
 		.on("click", function(d) {
-			memberInterestOpacity = (memberInterestOpacity == 1 ? .2 : 1);
+			memberInterestOpacity = (memberInterestOpacity == 1 ? TL_DIMOPACITY : 1);
 			dimLine(".memberinterest", memberInterestOpacity);
 		})
 		;

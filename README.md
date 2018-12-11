@@ -5,8 +5,6 @@ http://vis.ninja/teaching/2018/H517/project2/
 
 #### MUST BE DONE BEFORE SUBMISSION:
 
-Finish preparing the About page. Should be 3-4 pages if typed.
-		
 Get someone else's vis working with the filter buttons.
 
 A 2-4 minutes YouTube video showing the use of your visualization with narration.
