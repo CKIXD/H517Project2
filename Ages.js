@@ -23,20 +23,36 @@ function drawAgesGraph(data) {
 			if (d.current_member == "Yes") {
 				recordCountA++;
 				
-				// Count the groups that had 0-5 year olds.
+				// Count the member groups that had 0-5 year olds.
 				if (hasAgeData(d.age_group1) ||
 					hasAgeData(d.children_age_group1) ||
 					hasAgeData(d.children_age_group2)) {
 						ageA[0]++;
 				}
+				
+				// Count the member groups that had 6-12 year olds.
+				if (hasAgeData(d.age_group2) ||
+					hasAgeData(d.age_group3) ||
+					hasAgeData(d.children_age_group3) ||
+					hasAgeData(d.children_age_group4)) {
+						ageA[1]++;
+				}
 			} else if (d.current_member == "No") {
 				recordCountB++;
 				
-				// Count the groups that had 0-5 year olds.
+				// Count the non-member groups that had 0-5 year olds.
 				if (hasAgeData(d.age_group1) ||
 					hasAgeData(d.children_age_group1) ||
 					hasAgeData(d.children_age_group2)) {
 						ageB[0]++;
+				}
+				
+				// Count the non-member groups that had 6-12 year olds.
+				if (hasAgeData(d.age_group2) ||
+					hasAgeData(d.age_group3) ||
+					hasAgeData(d.children_age_group3) ||
+					hasAgeData(d.children_age_group4)) {
+						ageB[1]++;
 				}
 			}
 		}
