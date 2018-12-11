@@ -1,13 +1,87 @@
 let ageA = [];
 let ageB = [];
-let ageB1 = true;
-let ageB2 = true;
-let ageB3 = true;
-let ageB4 = true;
+
+function hasAgeData(x) {
+	if (x == "" || x == "N/A" ) {
+		return false;
+	} else {
+		return true;
+	}
+}
+
+function drawAgesGraph(data) {
+	
+	ageA = [0, 0, 0];
+	ageB = [0, 0, 0];
+	let recordCountA = 0;
+	let recordCountB = 0;
+	
+	// Count the number of records that include each age group.
+	data.forEach(function(d) {
+		
+		if (filterCheck(d)) {
+			if (d.current_member == "Yes") {
+				recordCountA++;
+				
+				// Count the member groups that had 0-5 year olds.
+				if (hasAgeData(d.age_group1) ||
+					hasAgeData(d.children_age_group1) ||
+					hasAgeData(d.children_age_group2)) {
+						ageA[0]++;
+				}
+				
+				// Count the member groups that had 6-12 year olds.
+				if (hasAgeData(d.age_group2) ||
+					hasAgeData(d.age_group3) ||
+					hasAgeData(d.children_age_group3) ||
+					hasAgeData(d.children_age_group4)) {
+						ageA[1]++;
+				}
+				
+				// Count the member groups that had 13-18 year olds.
+				if (hasAgeData(d.age_group4) ||
+					hasAgeData(d.children_age_group5)) {
+						ageA[2]++;
+				}
+			} else if (d.current_member == "No") {
+				recordCountB++;
+				
+				// Count the non-member groups that had 0-5 year olds.
+				if (hasAgeData(d.age_group1) ||
+					hasAgeData(d.children_age_group1) ||
+					hasAgeData(d.children_age_group2)) {
+						ageB[0]++;
+				}
+				
+				// Count the non-member groups that had 6-12 year olds.
+				if (hasAgeData(d.age_group2) ||
+					hasAgeData(d.age_group3) ||
+					hasAgeData(d.children_age_group3) ||
+					hasAgeData(d.children_age_group4)) {
+						ageB[1]++;
+				}
+				
+				// Count the non-member groups that had 13-18 year olds.
+				if (hasAgeData(d.age_group4) ||
+					hasAgeData(d.children_age_group5)) {
+						ageB[2]++;
+				}
+			}
+		}
+	});
+	
+	// Convert the record counts into percentages.
+	for (let i=0; i < 3; i++) {
+		if (recordCountA > 0) {
+			ageA[i] = Math.round(ageA[i] / recordCountA * 100);
+		}
+		if (recordCountB > 0) {
+			ageB[i] = Math.round(ageB[i] / recordCountB * 100);
+		}
+	}
 
 
-d3.csv('data/SurveyData.csv', function(data) {
-
+/*
 	  let sumArray = [];
 	  let id_Array = [];
 	  current_member_Array = [],
@@ -219,14 +293,13 @@ d3.csv('data/SurveyData.csv', function(data) {
 
 		return thisSum;
 	}
+*/
 
 
 
-
-//	console.log(ageA);
 	let trace1 = {
-		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
-
+//		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
+		x: ['0-5', '6-12', '13-18'],
 		y: ageA,
 		name: 'Members',
 		marker: {
@@ -236,7 +309,8 @@ d3.csv('data/SurveyData.csv', function(data) {
 	};
 
 	let trace2 = {
-		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
+//		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
+		x: ['0-5', '6-12', '13-18'],
 		y: ageB,
 		name: 'Non-members',
 		marker: {
@@ -256,7 +330,7 @@ d3.csv('data/SurveyData.csv', function(data) {
 			}
 		},
 		 yaxis:{ title: 'Percentage of respondents',
-		range: [0,45]
+		range: [0,100]
 		},
 
 		xaxis: {
@@ -283,7 +357,7 @@ d3.csv('data/SurveyData.csv', function(data) {
 
 	Plotly.newPlot('agebarchart', plotData, layout);
 
-})
+}
 
 
 /*  d3.csv("SurveyData.csv", function(error, csv_data) {
