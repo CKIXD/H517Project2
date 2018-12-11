@@ -2,6 +2,23 @@ background{
     background-image: url("https://i.pinimg.com/originals/82/5e/cd/825ecdb71b9e60890115229b25bceef8.jpg");
     background-repeat: repeat-x;
 }
+#map
+{
+width: 100%
+}
+#statemap
+{
+float: right;
+display: inline;
+margin-top: 20px;
+
+}
+#INmap{
+float: left;
+display: inline;
+margin-top: 20px;
+
+}
 /* 
  path:hover {
         fill: orange;
@@ -78,9 +95,16 @@ fill: white
   stroke-linejoin: round;
   stroke-linecap: round;
 }
+.states_blur{
+fill:#eff3ff;
 
+}
 .counties.adjacentCounties{
-fill:  #0d2d48; /** 35% **/
+/* 
+fill:  #0d2d48; /** 35% 
+ */
+ fill: #6baed6;
+
   stroke: #fff;
   stroke-width: 0.5px;
   stroke-linejoin: round;
@@ -88,7 +112,7 @@ fill:  #0d2d48; /** 35% **/
 }
 
 .counties.adjacentCounties :hover {
-  fill: #82E0AA;
+  stroke: #82E0AA;
 }
 .mesh {
   fill: none;
@@ -98,8 +122,10 @@ fill:  #0d2d48; /** 35% **/
 }
 .counties.non_metro_indy{
 	/** fill: #13436c;  50% **/
+/* 
 	fill: #195589;
-
+ */
+fill: #bdd7e7;
   stroke: #fff;
   stroke-width: 0.5px;
   stroke-linejoin: round;
@@ -107,16 +133,21 @@ fill:  #0d2d48; /** 35% **/
 }
 .counties.marion{
 /**fill:  #061624;  15% **/
-fill: red;
+fill: #2171b5;
   stroke: #fff;
   stroke-width: 0.5px;
   stroke-linejoin: round;
   stroke-linecap: round;
 }
-.IN :hover {
+.counties.marion :hover {
+  stroke: #82E0AA;
+  stroke-width: 1.5px;
+}
+.IN_state :hover {
   stroke: #82E0AA;
    stroke-width: 2.5px;
 }
+
 
 
 .MI
@@ -157,7 +188,11 @@ fill:  #79a9d2;  /** 65% **/
    stroke-width: 2.5px;
 }
 .OH{
+fill:#2171b5;
+
+/* 
 fill:  #4292c6;
+ */
   stroke: #fff;
   stroke-width: 0.5px;
   stroke-linejoin: round;
