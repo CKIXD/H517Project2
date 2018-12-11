@@ -1,6 +1,4 @@
 
-// TODO: Allow the user to select the outside time cutoff (30 / 60 / 90).
-	
 // MAYBE: Create column highlight hoverbars?
 
 // MAYBE: Color columns by weather condition? n?
@@ -342,7 +340,7 @@ function drawTimelineStaticParts() {
 		.style('pointer-events','none');
 		;
 	timelineKeys.append("text")
-		.text("% of respondents who stayed in the outside exhibit longer than XXX minutes.")
+		.text("% of respondents who stayed in the outside exhibit longer than 60 minutes.")
 		.attr("x", TL_LEFTMARGIN)
 		.attr("y", 2 * TL_ROWHEIGHT)
 		.attr("fill", TL_OUTSIDETIMECOLOR)
@@ -652,9 +650,9 @@ function drawTimelineGraphs() {
 	
 	// Draw the line for outsideX
 	let outsideTimePathGenerator = d3.line()
-		.defined(function(d) { return !isNaN(d.outside90); })
+		.defined(function(d) { return !isNaN(d.outside60); })
 		.x(function(d) { return tlXScale(d.Index); })
-		.y(function(d) { return tlYScale(d.outside90); });
+		.y(function(d) { return tlYScale(d.outside60); });
 	timeline.append('path')
 		.attr('id', 'timelineOutsideTime')
 		.attr('class', 'graphline graphelement outside')
@@ -676,11 +674,11 @@ function drawTimelineGraphs() {
 		.data(timelineDays)
 		.enter()
 		.append("path")
-		.filter(function(d) { return !isNaN(d.outside90); })
+		.filter(function(d) { return !isNaN(d.outside60); })
 		.attr("class", "outsidedot graphelement outside")
 		.attr("transform", function(d) {
 			return "translate(" + tlXScale(d.Index) + "," +
-				tlYScale(d.outside90) + ")";
+				tlYScale(d.outside60) + ")";
 		})
 		.attr('d', d3.symbol().type(d3.symbolCross).size(TL_SYMBOLSIZE))
 		.style("fill", TL_OUTSIDETIMECOLOR)

@@ -3,31 +3,34 @@ Final project for Dr. Khairi Reda, H517: Visualization Design, Analysis, & Evalu
 By Carl Klutzke, Sarah Nikkhah, and Hawra Rabaan  
 http://vis.ninja/teaching/2018/H517/project2/
 
+#### MUST BE DONE BEFORE SUBMISSION:
 
-#### BEFORE DEMO:
+Look over the rubric for more additions to this list.
 
-Draw filter buttons
+Finish filling out the About page.
 
-Make one filter work with the timeline
+Get someone else's vis working with the filter buttons.
 
-Add bar charts and map
+A 2-4 minutes YouTube video showing the use of your visualization with narration.
+
+Upload the application to a web host.
+
+Clean up this README file and make sure the description above is appropriate for public viewing.
 
 
-#### TODO:
-Use colorblind-safe colors for the timelines
+#### WANT DONE BEFORE SUBMISSION:
 
+Get all vis working with filter buttons.
+
+Can I cycle through the Outside Longer Than values?
+
+Can we make the filter buttons more consistent, so they all have the same default setting?
+
+
+#### TODO SOMEDAY:
 Consider a column to the far right of the timeline with overall stats for the time period.
 
 Create column highlight hoverbars.
 
 Find more appropriate fonts.
 
-Finish filling out the About page.
-
-A 2-4 minutes YouTube video showing the use of your visualization with narration.
-
-Upload the application to my website.
-
-Submit the URL to Canvas as our deliverable by Tuesday, Dec 11 at 11:59pm.
-
-Clean up this README file and make sure the description above is appropriate for public viewing.
