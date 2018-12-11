@@ -78,7 +78,7 @@ function drawTimelineStaticParts() {
 			.attr('text-anchor','end')
 			;
 		timeline.append("text")
-			.text("Temp")
+			.text("Temp (°F)")
 			.attr("x", TL_LEFTMARGIN - 0.5 * colWidth)
 			.attr("y", 2 * TL_ROWHEIGHT)
 			.attr('text-anchor','end')
