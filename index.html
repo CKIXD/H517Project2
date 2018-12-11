@@ -77,10 +77,28 @@
 		</div>
 	</div>
 	
+	<button class="pagebutton" onclick="myFunction()">Expand Map</button>
+
 	<div id="map">
-		<script type="text/javascript" src="map.js"></script>
-	</div>
-	
+		<div id="statemap"></div>
+		<div id="INmap"></div>
+		<script src="maps.js"></script>
+
+		<script>			
+				     
+		// map toggle button function
+		function myFunction() {
+  			
+  			var x = document.getElementById("INmap");
+  			if (x.style.display === "none") {
+			    x.style.display = "block";
+			  } 
+			  else {
+   				x.style.display = "none";
+  			}
+		  }
+		  </script>
+	</div>	
 </div>	
 </body>
 </html>
