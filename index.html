@@ -53,14 +53,12 @@
 			
 			// Display the survey data.
 			function refreshSurveyData() {
-				console.log("refreshing the survey data!")
 				drawTimelineGraphs();
 				drawAgesGraph(SLE_data);
 			}
 			
 			// Load the survey data
 			d3.csv("data/SurveyData.csv",function(error,d) {
-				console.log("data loaded!");
 				if (error) { //If error is not null, something went wrong.
 					console.log(error); //Log the error.
 				} else { //If no error, the file loaded correctly. Yay!

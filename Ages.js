@@ -1,9 +1,5 @@
 let ageA = [];
 let ageB = [];
-// let ageB1 = true;
-// let ageB2 = true;
-// let ageB3 = true;
-// let ageB4 = true;
 
 function hasAgeData(x) {
 	if (x == "" || x == "N/A" ) {
@@ -13,8 +9,6 @@ function hasAgeData(x) {
 	}
 }
 
-//d3.csv('data/SurveyData.csv', function(data) {
-	
 function drawAgesGraph(data) {
 	
 	ageA = [0, 0, 0];
@@ -25,34 +19,27 @@ function drawAgesGraph(data) {
 	// Count the number of records that include each age group.
 	data.forEach(function(d) {
 		
-		if (d.current_member == "Yes") {
-			recordCountA++;
-			
-			// Count the groups that had 0-5 year olds.
-			if (hasAgeData(d.age_group1)) {
-					ageA[0]++;
-			}
-			if (hasAgeData(d.children_age_group1)) {
-					ageA[0]++;
-			}
-			if (hasAgeData(d.children_age_group2)) {
-					ageA[0]++;
-			}
-		} else if (d.current_member == "No") {
-			recordCountB++;
-			
-			// Count the groups that had 0-5 year olds.
-			if (hasAgeData(d.age_group1)) {
-					ageB[0]++;
-			}
-			if (hasAgeData(d.children_age_group1)) {
-					ageB[0]++;
-			}
-			if (hasAgeData(d.children_age_group2)) {
-					ageB[0]++;
+		if (filterCheck(d)) {
+			if (d.current_member == "Yes") {
+				recordCountA++;
+				
+				// Count the groups that had 0-5 year olds.
+				if (hasAgeData(d.age_group1) ||
+					hasAgeData(d.children_age_group1) ||
+					hasAgeData(d.children_age_group2)) {
+						ageA[0]++;
+				}
+			} else if (d.current_member == "No") {
+				recordCountB++;
+				
+				// Count the groups that had 0-5 year olds.
+				if (hasAgeData(d.age_group1) ||
+					hasAgeData(d.children_age_group1) ||
+					hasAgeData(d.children_age_group2)) {
+						ageB[0]++;
+				}
 			}
 		}
-		
 	});
 	
 	// Convert the record counts into percentages.
