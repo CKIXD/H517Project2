@@ -1,12 +1,140 @@
-    var sleA = [];
-    var sleB = [];
-    var sleB1 = true;
+       let sleA = [];
+    let sleB = [];
+   /* var sleB1 = true;
     var sleB2 = true;
     var sleB3 = true;
     var sleB4 = true;
     
+*/
+function hasSLEData(x) {
+	if (x == "" || x == "N/A" || x=="No"|| x=="null") {
+		return false;
+	} else {
+		return true;
+	}
+}
 
 
+function drawSLEGraph(data) {
+	
+	sleA = [0, 0, 0,0, 0, 0,0, 0, 0];
+	sleB = [0, 0, 0,0, 0, 0,0, 0, 0];
+	let recordCountA = 0;
+	let recordCountB = 0;
+	
+	// Count the number of records that include each age group.
+	data.forEach(function(d) {
+		
+		if (filterCheck(d)) {
+			if (d.current_member == "Yes") {
+				recordCountA++;
+				
+				// Count the member groups that heard from family and friendss.
+				if (hasSLEData(d.heard_of_SLE)) {
+						sleA[0]++;
+				}
+				
+				// Count the member groups that heard from Social media.
+				if (hasAgeData(d.heard_of_SLE_SM)) {
+						sleA[1]++;
+				}
+				
+				// Count the member groups that heard from museum ad
+				if (hasAgeData(d.heard_of_SLE_museum_ad)) {
+						sleA[2]++;
+				}
+				// Count the member groups that heard from family and friendss.
+				if (hasSLEData(d.heard_of_SLE_website)) {
+						sleA[3]++;
+				}
+				
+				// Count the member groups that heard from Social media.
+				if (hasAgeData(d.heard_of_SLE_story)) {
+						sleA[4]++;
+				}
+				
+				// Count the member groups that heard from museum ad
+				if (hasAgeData(d.heard_of_SLE_tv)) {
+						sleA[5]++;
+				}
+				
+				// Count the member groups that heard from Social media.
+				if (hasAgeData(d.heard_of_SLE_BB)) {
+						sleA[6]++;
+				}
+				
+				// Count the member groups that heard from museum ad
+				if (hasAgeData(d.heard_of_SLE_online_ad)) {
+						sleA[7]++;
+				}
+				// Count the member groups that heard from family and friendss.
+				if (hasSLEData(d.heard_of_SLE_online_ad_other)) {
+						sleA[8]++;
+				}
+								
+			} else if (d.current_member == "No") {
+				recordCountB++;
+				
+				// Count the member groups that heard from family and friendss.
+				if (hasSLEData(d.heard_of_SLE)) {
+						sleB[0]++;
+				}
+				
+				// Count the member groups that heard from Social media.
+				if (hasAgeData(d.heard_of_SLE_SM)) {
+						sleB[1]++;
+				}
+				
+				// Count the member groups that heard from museum ad
+				if (hasAgeData(d.heard_of_SLE_museum_ad)) {
+						sleB[2]++;
+				}
+				// Count the member groups that heard from family and friendss.
+				if (hasSLEData(d.heard_of_SLE_website)) {
+						sleB[3]++;
+				}
+				
+				// Count the member groups that heard from Social media.
+				if (hasAgeData(d.heard_of_SLE_story)) {
+						sleB[4]++;
+				}
+				
+				// Count the member groups that heard from museum ad
+				if (hasAgeData(d.heard_of_SLE_tv)) {
+						sleB[5]++;
+				}
+				
+				// Count the member groups that heard from Social media.
+				if (hasAgeData(d.heard_of_SLE_BB)) {
+						sleB[6]++;
+				}
+				
+				// Count the member groups that heard from museum ad
+				if (hasAgeData(d.heard_of_SLE_online_ad)) {
+						sleB[7]++;
+				}
+				// Count the member groups that heard from family and friendss.
+				if (hasSLEData(d.heard_of_SLE_online_ad_other)) {
+						sleB[8]++;
+				}
+			}
+		}
+	});
+
+
+// Convert the record counts into percentages.
+	for (let i=0; i < 9; i++) {
+		if (recordCountA > 0) {
+			sleA[i] = Math.round(sleA[i] / recordCountA * 100);
+		}
+		if (recordCountB > 0) {
+			sleB[i] = Math.round(sleB[i] / recordCountB * 100);
+		}
+	}
+				
+
+
+/*
     d3.csv('data/SurveyData.csv', function(data) {
 
           let sumArray = [];
@@ -65,8 +193,8 @@
 
 
 
-//sumArray.push(children_age_group1_Array_Sum ,children_age_group2_Array_Sum ,children_age_group3_Array_Sum, children_age_group4_Array_Sum, no_childeren_Array_Sum   );
-
+*///sumArray.push(children_age_group1_Array_Sum ,children_age_group2_Array_Sum ,children_age_group3_Array_Sum, children_age_group4_Array_Sum, no_childeren_Array_Sum   );
+/*
 sleA= [heard_of_SLE_Array_Sum[0], heard_of_SLE_SM_Array_Sum[0],heard_of_SLE_museum_ad_Array_Sum[0],heard_of_SLE_website_Array_Sum[0],heard_of_SLE_story_Array_Sum[0], heard_of_SLE_tv_Array_Sum[0],heard_of_SLE_BB_Array_Sum[0],heard_of_SLE_online_ad_Array_Sum[0], heard_of_SLE_other_Array_Sum[0]];
 //let newListA = [ a/766 for a in A];
 //console.log(A);
@@ -224,7 +352,7 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
         }
 
 
-
+*/
 
   //A=[70, 23, 29, 27, 42, 93,32,25,12];
   //B=[73, 25, 29, 30, 49, 81,32,25,12];
@@ -253,7 +381,7 @@ let layout = {
   title: 'How did you hear about sports legends experience?',
    
   yaxis:{ title: 'Percentage of respondents',
-  range: [0,30]
+  range: [0,100]
   },
 
   xaxis: {
@@ -280,7 +408,7 @@ let layout = {
 
 Plotly.newPlot('slebarchart', plotData, layout);
 
-})
+}
 
 
 /*  d3.csv("SurveyData.csv", function(error, csv_data) {
