@@ -68,7 +68,7 @@ function drawSLEGraph(data) {
 						sleA[7]++;
 				}
 				// Count the member groups that heard from family and friendss.
-				if (hasSLEData(d.heard_of_SLE_online_ad_other)) {
+				if (hasSLEData(d.heard_of_SLE_other)) {
 						sleA[8]++;
 				}
 								
@@ -114,7 +114,7 @@ function drawSLEGraph(data) {
 						sleB[7]++;
 				}
 				// Count the member groups that heard from family and friendss.
-				if (hasSLEData(d.heard_of_SLE_online_ad_other)) {
+				if (hasSLEData(d.heard_of_SLE_other)) {
 						sleB[8]++;
 				}
 			}
