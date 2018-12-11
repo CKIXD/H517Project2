@@ -225,10 +225,10 @@ d3.csv('data/SurveyData.csv', function(data) {
 
 //	console.log(ageA);
 	let trace1 = {
-		x: ['0-10', '11-20', '21-40', '41-60', '61-80', '>80'],
+		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
 
 		y: ageA,
-		name: '% of Members',
+		name: 'Members',
 		marker: {
 			color: '#2c7fb8'
 		},
@@ -236,9 +236,9 @@ d3.csv('data/SurveyData.csv', function(data) {
 	};
 
 	let trace2 = {
-		x: ['0-10', '11-20', '21-40', '41-60', '61-80', '>80'],
+		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
 		y: ageB,
-		name: '% of Non-members',
+		name: 'Non-members',
 		marker: {
 			color: '#e34a33'
 		},
@@ -255,7 +255,7 @@ d3.csv('data/SurveyData.csv', function(data) {
 				color: '#636363'
 			}
 		},
-		 yaxis:{ title: 'Percentage of visitors',
+		 yaxis:{ title: 'Percentage of respondents',
 		range: [0,45]
 		},
 

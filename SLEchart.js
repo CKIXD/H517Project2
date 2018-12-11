@@ -234,7 +234,7 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
   x: ['Family/Friends', 'Social Media', 'Ads at Museum', 'Our Website', 'A story in the Media', 'TV commercials', 'Billboards', 'Online Ads', 'Others'],
  
   y:sleA ,
-  name: '% of Members',
+  name: 'Members',
   marker: {color: '#2c7fb8'},
   type: 'bar'
 };
@@ -242,7 +242,7 @@ function getSumOfArray(array1, array2, array3, Marion, Adjacent, Elsewhere, Out)
 let trace2 = {
   x: ['Family/Friends', 'Social Media', 'Ads at Museum', 'Our Website', 'A story in the Media', 'TV commercials', 'Billboards', 'Online Ads', 'Others'],
   y: sleB,
-  name: '% of Non-members',
+  name: 'Non-members',
   marker: {color: '#e34a33'},
   type: 'bar'
 };
@@ -252,7 +252,7 @@ let plotData = [trace1, trace2];
 let layout = {
   title: 'How did you hear about sports legends experience?',
    
-  yaxis:{ title: 'Percentage of visitors',
+  yaxis:{ title: 'Percentage of respondents',
   range: [0,30]
   },
 
