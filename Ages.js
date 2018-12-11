@@ -13,7 +13,9 @@ function hasAgeData(x) {
 	}
 }
 
-d3.csv('data/SurveyData.csv', function(data) {
+//d3.csv('data/SurveyData.csv', function(data) {
+	
+function drawAgesGraph(data) {
 	
 	ageA = [0, 0, 0];
 	ageB = [0, 0, 0];
@@ -280,7 +282,6 @@ d3.csv('data/SurveyData.csv', function(data) {
 
 
 
-	console.log(ageA);
 	let trace1 = {
 //		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
 		x: ['0-5', '6-12', '13-18'],
@@ -341,7 +342,7 @@ d3.csv('data/SurveyData.csv', function(data) {
 
 	Plotly.newPlot('agebarchart', plotData, layout);
 
-})
+}
 
 
 /*  d3.csv("SurveyData.csv", function(error, csv_data) {

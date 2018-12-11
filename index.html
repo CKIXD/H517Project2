@@ -10,6 +10,7 @@
 	<script type="text/javascript" src="https://d3js.org/d3.v4.min.js"></script>
 	<script type="text/javascript" src="https://d3js.org/topojson.v2.min.js"></script>
 	<script type="text/javascript" src="lib/plotly-latest.min.js"></script>
+	<script type="text/javascript" src="Ages.js"></script>
 </head>
 <body>
 
@@ -52,11 +53,14 @@
 			
 			// Display the survey data.
 			function refreshSurveyData() {
+				console.log("refreshing the survey data!")
 				drawTimelineGraphs();
+				drawAgesGraph(SLE_data);
 			}
 			
 			// Load the survey data
 			d3.csv("data/SurveyData.csv",function(error,d) {
+				console.log("data loaded!");
 				if (error) { //If error is not null, something went wrong.
 					console.log(error); //Log the error.
 				} else { //If no error, the file loaded correctly. Yay!
@@ -70,7 +74,6 @@
 	
 	<div id="bargraphs">
 		<div id="agebarchart" style="width: 50%; height: 500px; float: left;">
-			<script type="text/javascript" src="Ages.js"></script>
 		</div>
 		<div id="slebarchart" style="width: 50%; height: 500px; float: right;">
 			<script type="text/javascript" src="SLEchart.js"></script>
