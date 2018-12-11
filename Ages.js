@@ -1,13 +1,70 @@
 let ageA = [];
 let ageB = [];
-let ageB1 = true;
-let ageB2 = true;
-let ageB3 = true;
-let ageB4 = true;
+// let ageB1 = true;
+// let ageB2 = true;
+// let ageB3 = true;
+// let ageB4 = true;
 
+function hasAgeData(x) {
+	if (x == "" || x == "N/A" ) {
+		return false;
+	} else {
+		return true;
+	}
+}
 
 d3.csv('data/SurveyData.csv', function(data) {
+	
+	ageA = [0, 0, 0];
+	ageB = [0, 0, 0];
+	let recordCountA = 0;
+	let recordCountB = 0;
+	
+	// Count the number of records that include each age group.
+	data.forEach(function(d) {
+		
+		if (d.current_member == "Yes") {
+			recordCountA++;
+			
+			// Count the groups that had 0-5 year olds.
+			if (hasAgeData(d.age_group1)) {
+					ageA[0]++;
+			}
+			if (hasAgeData(d.children_age_group1)) {
+					ageA[0]++;
+			}
+			if (hasAgeData(d.children_age_group2)) {
+					ageA[0]++;
+			}
+		} else if (d.current_member == "No") {
+			recordCountB++;
+			
+			// Count the groups that had 0-5 year olds.
+			if (hasAgeData(d.age_group1)) {
+					ageB[0]++;
+			}
+			if (hasAgeData(d.children_age_group1)) {
+					ageB[0]++;
+			}
+			if (hasAgeData(d.children_age_group2)) {
+					ageB[0]++;
+			}
+		}
+		
+	});
+	
+	// Convert the record counts into percentages.
+	for (let i=0; i < 3; i++) {
+		if (recordCountA > 0) {
+			ageA[i] = Math.round(ageA[i] / recordCountA * 100);
+		}
+		if (recordCountB > 0) {
+			ageB[i] = Math.round(ageB[i] / recordCountB * 100);
+		}
+	}
 
+
+/*
 	  let sumArray = [];
 	  let id_Array = [];
 	  current_member_Array = [],
@@ -219,14 +276,14 @@ d3.csv('data/SurveyData.csv', function(data) {
 
 		return thisSum;
 	}
+*/
 
 
 
-
-//	console.log(ageA);
+	console.log(ageA);
 	let trace1 = {
-		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
-
+//		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
+		x: ['0-5', '6-12', '13-18'],
 		y: ageA,
 		name: 'Members',
 		marker: {
@@ -236,7 +293,8 @@ d3.csv('data/SurveyData.csv', function(data) {
 	};
 
 	let trace2 = {
-		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
+//		x: ['0-2', '3-5', '6-8', '9-12', '13-18', 'No Children'],
+		x: ['0-5', '6-12', '13-18'],
 		y: ageB,
 		name: 'Non-members',
 		marker: {
@@ -256,7 +314,7 @@ d3.csv('data/SurveyData.csv', function(data) {
 			}
 		},
 		 yaxis:{ title: 'Percentage of respondents',
-		range: [0,45]
+		range: [0,100]
 		},
 
 		xaxis: {
